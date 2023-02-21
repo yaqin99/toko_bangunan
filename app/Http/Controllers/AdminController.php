@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Stok;
+use App\Models\Supply;
 class AdminController extends Controller
 {
    public function index(){
@@ -31,7 +32,7 @@ class AdminController extends Controller
    public function dataSupply(){
         return view(
             'component.dataSupply' , 
-            [
+            [   "supplys" => Supply::orderBy('id' , 'desc')->latest()->SearchSupply()->paginate(10)->withQueryString(),
                 "title" => 'Data Supply'
             ]
         );
@@ -54,6 +55,15 @@ class AdminController extends Controller
             ["title" => 'Tambah Stok']
         );
    }
+   public function addSupply(){
+    
+    return view(
+        'component.addData.tambahDataSupply' , 
+        ["stoks" => Stok::all() , 
+        "title" => "Tambah Catatan"
+        ]
+    );
+}
 
    public function editStokLayout($id){
     $data = Stok::find($id);
@@ -69,4 +79,5 @@ class AdminController extends Controller
             'component.addData.tambahDataHutang'
         );
    }
+   
 }
