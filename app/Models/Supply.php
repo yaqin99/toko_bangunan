@@ -18,4 +18,10 @@ class Supply extends Model
         // ->orWhere('nama_kategori','like','%'.request('search').'%');
     } 
     }
+
+    public function stok(){
+
+        return $this->belongsTo(Stok::class);
+       
+      }
 }

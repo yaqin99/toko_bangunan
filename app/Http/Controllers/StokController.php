@@ -41,7 +41,9 @@ class StokController extends Controller
            
              
          ]);
-       
+         
+        
+
         $query = DB::table('stoks')->insert([
              'nama_barang' =>$request->input('nama_barang'), 
              'supplier'  =>$request->input('nama_supplier'),
@@ -49,7 +51,7 @@ class StokController extends Controller
              'tanggal' => $request->input('tanggal'),
            
          ]);
- 
+
          if($query){
              return redirect('/stokBarang')->with('success' , 'Data Berhasil di Tambahkan');
          } 
@@ -68,17 +70,22 @@ class StokController extends Controller
         $data =  request()->validate([
             'nama_barang' =>'required' ,
             'nama_supplier'  =>'required',
-            'jumlah_stok' =>'required',
+            // 'jumlah_stok' =>'required',
             'tanggal' => 'required' , 
         ]);
         
         $validatedData = [
             'nama_barang' => $data['nama_barang'] , 
             'supplier' => $data['nama_supplier'] , 
-            'jumlah_stok' => $data['jumlah_stok'] , 
+            // 'jumlah_stok' => $data['jumlah_stok'] , 
             'tanggal' => $data['tanggal'],
         ];
         
+        if (request()->input('nama_barang') === null || request()->input('nama_supplier') === null 
+        ||  request()->input('tanggal') === null
+        ) {
+            return back()->with('lengkapi' , 'Silahkan Lengkapi Semua Data !');
+        }
         
 
         $cek = DB::table('stoks')->where('id' , $id)->update($validatedData);

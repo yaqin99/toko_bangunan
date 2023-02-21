@@ -51,7 +51,7 @@
     <div class="row">
       <div class="col-12">
         <div class="card mb-4">
-         
+          
 
             <div class="card-header pb-0">
               <h6 class="text-center">Tambah Stok</h6>
@@ -67,19 +67,19 @@
                  
                   <div class="mb-3">
                     <label  class="form-label">Nama Barang</label>
-                    <input autocomplete="off" type="text" class="form-control" name="nama_barang"  value="{{ old('nama_barang') }}">
+                    <input autocomplete="off" type="text" class="form-control" required name="nama_barang"  value="{{ old('nama_barang') }}">
                   </div>
                   <div class="mb-3">
                     <label  class="form-label">Jumlah Stok</label>
-                    <input autocomplete="off" type="text" class="form-control" name="jumlah_stok"  value="{{ old('jumlah_stok') }}">
+                    <input autocomplete="off" type="number" class="form-control" required name="jumlah_stok"  value="{{ old('jumlah_stok') }}">
                   </div>
                   <div class="mb-3">
                     <label  class="form-label">Nama Supplier</label>
-                    <input autocomplete="off" type="text" class="form-control" name="nama_supplier"  value="{{ old('nama_supplier') }}">
+                    <input autocomplete="off" type="text" class="form-control" required name="nama_supplier"  value="{{ old('nama_supplier') }}">
                   </div>
                   <div class="mb-3">
                     <label  class="form-label">Tanggal</label>
-                    <input autocomplete="off" type="date" class="form-control" name="tanggal"  value="{{ old('tanggal') }}">
+                    <input autocomplete="off" type="date" class="form-control" required name="tanggal"  value="{{ old('tanggal') }}">
                   </div>
                                    
                  

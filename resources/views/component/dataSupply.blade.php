@@ -19,7 +19,7 @@
         <div class="ms-md-auto pe-md-3 d-flex align-items-center">
           
             <form action="/dataSupply" method="GET">
-            <input type="text" class="form-control" name="searchSupply"  placeholder="Type here..." value="{{ request('searchSupply') }}">
+            <input type="text" class="form-control" name="searchSupply"  placeholder="Cari .." value="{{ request('searchSupply') }}">
         </form>
         </div>
         <ul class="navbar-nav  justify-content-end">
@@ -76,11 +76,21 @@
               </div>
             </div>
           @endif
+          @if(Session::get('berhasilHapusSupply'))
+            <div class="col-3">
+              <div class="alert alert-success">
+                <div class="text-light fw-bold">
+                  {{ Session::get('berhasilHapusSupply') }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              </div>
+            </div>
+          @endif
           
 
           <div class="card-header pb-0">
             <h6>Catatan Supply</h6>
-            <a class="btn btn-success" href="/addStok"><i class="bi bi-plus"></i>Stok Barang</a>
+            <a class="btn btn-success" href="/addDataSupply"><i class="bi bi-plus"></i> Catatan</a>
 
             
           </div>
@@ -94,7 +104,7 @@
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Total Biaya</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Edit</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Hapus</th>
+                    {{-- <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Hapus</th> --}}
                   </tr>
                 </thead>
                 <tbody>
@@ -126,9 +136,9 @@
                     <td class="align-middle text-center text-sm">
                       <span class="badge badge-sm "><a href="/editSupply/{{ $sup->id }}"><i class="fas fa-edit"></i></a></span>
                     </td>
-                    <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm "><a  onclick="return confirm('Yakin Menghapus Data?')" href="/deleteSupply/{{ $sup->id }}"><i class="fas fa-trash"></i></a></span>
-                    </td>
+                    {{-- <td class="align-middle text-center text-sm">
+                      <span class="badge badge-sm "><a  onclick="return confirm('Yakin Menghapus Data?')" href="/deleteSupply/{{ $sup->id }}/{{ $sup->nama_supplier }}"><i class="fas fa-trash"></i></a></span>
+                    </td> --}}
                   </tr>
                   @endforeach
                 </tbody>

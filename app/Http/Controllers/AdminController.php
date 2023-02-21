@@ -55,10 +55,10 @@ class AdminController extends Controller
             ["title" => 'Tambah Stok']
         );
    }
-   public function addSupply(){
+   public function addDataSupply(){
     
     return view(
-        'component.addData.tambahDataSupply' , 
+        'component.addData.tambahSupply' , 
         ["stoks" => Stok::all() , 
         "title" => "Tambah Catatan"
         ]
@@ -70,6 +70,14 @@ class AdminController extends Controller
     return view('component.editData.editStok' , [
         'stoks' => $data->where('id' , $id)->get(),
         'title' => "Edit Stok"
+       
+    ]);
+   }
+   public function editSupplyLayout($id){
+    $data = Supply::find($id);
+    return view('component.editData.editSupply' , [
+        'supplys' => $data->where('id' , $id)->get(),
+        'title' => "Edit Supply"
        
     ]);
    }

@@ -50,30 +50,31 @@
   <div class="container-fluid py-4">
     <div class="row">
       <div class="col-12">
-        <div class="card mb-6">
-          @if(Session::get('nothing'))
+        <div class="card mb-4">
+            @if(Session::get('nothing'))
+            <div class="col-3">
+              <div class="alert alert-warning">
+                <div class="text-light fw-bold">
+                  {{ Session::get('nothing') }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              </div>
+            </div>
+          @endif
+
+          @if(Session::get('lengkapi'))
           <div class="col-3">
-            <div class="alert alert-warning">
+            <div class="alert alert-danger">
               <div class="text-light fw-bold">
-                {{ Session::get('nothing') }}
+                {{ Session::get('lengkapi') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
               </div>
             </div>
           </div>
         @endif
-        @if(Session::get('lengkapi'))
-        <div class="col-3">
-          <div class="alert alert-danger">
-            <div class="text-light fw-bold">
-              {{ Session::get('lengkapi') }}
-              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-          </div>
-        </div>
-      @endif
 
             <div class="card-header pb-0">
-              <h6 class="text-center">Edit Stok</h6>
+              <h6 class="text-center">Edit Supply</h6>
 
           </div>
          
@@ -81,37 +82,49 @@
           <div class="card-body pb-2">
            <div class="col-12">
             <div class="table-responsive p-0">
-                @foreach($stoks as $you)
-              <form  action="/editStok/{{ $you->id }}" method="POST" enctype="multipart/form-data">
-               
-                @method('put')
-
+              @foreach($supplys as $k)
+              <form  action="/editSupply/{{ $k->id }}" method="POST" enctype="multipart/form-data">
                   @csrf
+                 @method('put')
                     
-                
                   <div class="mb-3">
-                    <label  class="form-label">Nama Barang</label>
-                    <input autocomplete="off" type="text" class="form-control" required name="nama_barang"  value="{{ old('nama_barang' , $you->nama_barang) }}">
-                  </div>
-                  <div class="mb-3">
-                    <label  class="form-label">Jumlah Stok</label>
-                    <input autocomplete="off" type="number" class="form-control" disabled required name="jumlah_stok"  value="{{ old('jumlah_stok', $you->jumlah_stok) }}">
+                    <label for="exampleInputPassword1" class="form-label">Nama Barang</label>
+                    <select class="form-select" name="nama_barang"  aria-label="Default select example">
+                     
+                       
+                      <option selected>{{ $k->nama_barang }}</option>
+                      <option value="{{ $k->id }}">{{ $k->nama_barang }}</option>
+                      
+                      
+                      
+                    </select>
                   </div>
                   <div class="mb-3">
                     <label  class="form-label">Nama Supplier</label>
-                    <input autocomplete="off" type="text" class="form-control" required name="nama_supplier"  value="{{ old('nama_supplier' , $you->supplier) }}">
+                    <input autocomplete="off" type="text" class="form-control" name="nama_supplier"  value="{{ old('nama_supplier',$k->nama_supplier) }}">
                   </div>
                   <div class="mb-3">
+                    <label  class="form-label">Biaya</label>
+                    <input autocomplete="off" type="text" class="form-control" name="biaya"  value="{{ old('biaya' , $k->biaya) }}">
+                  </div>
+                  <div class="mb-3">
+                    <label  class="form-label">Jumlah Stok</label>
+                    <input autocomplete="off" type="text" class="form-control" disabled name="jumlah_stok"  value="{{ old('jumlah_stok' , $k->jumlah_stok) }}">
+                  </div>
+                 
+                  <div class="mb-3">
                     <label  class="form-label">Tanggal</label>
-                    <input autocomplete="off" type="date" class="form-control" required name="tanggal"  value="{{ old('tanggal' , $you->tanggal) }}">
+                    <input autocomplete="off" type="date" class="form-control" name="tanggal"  value="{{ old('tanggal',$k->tanggal) }}">
                   </div>
                                    
                  
                   <div class="mb-3">
                       <button type="submit" class="btn btn-primary" >Update</button>
                     </div>
-                </form>
-                @endforeach
+
+                    
+                  </form>
+                  @endforeach
               
               
             </div>

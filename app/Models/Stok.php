@@ -18,4 +18,8 @@ class Stok extends Model
         // ->orWhere('nama_kategori','like','%'.request('search').'%');
     } 
     }
+
+    public function supply(){
+        return $this->hasMany(Supply::class);
+    }
 }

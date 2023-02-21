@@ -62,21 +62,34 @@
           <div class="card-body pb-2">
            <div class="col-12">
             <div class="table-responsive p-0">
-              <form  action="/addStok" method="POST" enctype="multipart/form-data">
+              <form  action="/addSupply" method="POST" enctype="multipart/form-data">
                   @csrf
                  
                   <div class="mb-3">
-                    <label  class="form-label">Nama Barang</label>
-                    <input autocomplete="off" type="text" class="form-control" name="nama_barang"  value="{{ old('nama_barang') }}">
-                  </div>
-                  <div class="mb-3">
-                    <label  class="form-label">Jumlah Stok</label>
-                    <input autocomplete="off" type="text" class="form-control" name="jumlah_stok"  value="{{ old('jumlah_stok') }}">
+                    <label for="exampleInputPassword1" class="form-label">Nama Barang</label>
+                    <select class="form-select" name="nama_barang"  aria-label="Default select example">
+                     
+                      <option selected>Pilih -</option>
+                      @foreach($stoks as $k)
+                      <option value="{{ $k->id }}">{{ $k->nama_barang }}</option>
+                      @endforeach
+                      
+                      
+                    </select>
                   </div>
                   <div class="mb-3">
                     <label  class="form-label">Nama Supplier</label>
                     <input autocomplete="off" type="text" class="form-control" name="nama_supplier"  value="{{ old('nama_supplier') }}">
                   </div>
+                  <div class="mb-3">
+                    <label  class="form-label">Biaya</label>
+                    <input autocomplete="off" type="text" class="form-control" name="biaya"  value="{{ old('biaya') }}">
+                  </div>
+                  <div class="mb-3">
+                    <label  class="form-label">Jumlah Stok</label>
+                    <input autocomplete="off" type="text" class="form-control" name="jumlah_stok"  value="{{ old('jumlah_stok') }}">
+                  </div>
+                 
                   <div class="mb-3">
                     <label  class="form-label">Tanggal</label>
                     <input autocomplete="off" type="date" class="form-control" name="tanggal"  value="{{ old('tanggal') }}">
