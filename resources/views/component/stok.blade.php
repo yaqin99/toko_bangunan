@@ -19,7 +19,7 @@
         <div class="ms-md-auto pe-md-3 d-flex align-items-center">
           
             <form action="/stokBarang" method="GET">
-            <input type="text" class="form-control" name="search"  placeholder="Type here..." value="{{ request('search') }}">
+            <input type="text" class="form-control" name="search"  placeholder="Cari ..." value="{{ request('search') }}">
         </form>
         </div>
         <ul class="navbar-nav  justify-content-end">
@@ -80,8 +80,10 @@
        
           <div class="card-header pb-0">
             <h6>Stok Barang</h6>
+            <div class="d-flex justify-content-end">
+
             <a class="btn btn-success" href="/addStok"><i class="bi bi-plus"></i>Stok Barang</a>
-            
+            </div>
             
           </div>
           <div class="card-body px-0 pt-0 pb-2">
@@ -91,6 +93,7 @@
                   <tr>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama Barang</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Jumlah Stok</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Harga Satuan</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Edit</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Hapus</th>
@@ -114,14 +117,18 @@
                       <h5 class="text-xs font-weight-bold mb-0">{{ $stok->jumlah_stok }}</h5>
                       {{-- <p class="text-xs text-secondary mb-0">Organization</p> --}}
                     </td>
+                    <td>
+                      <h5 class="text-xs font-weight-bold mb-0">Rp. {{ @number_format($stok->harga_satuan,2,",",".") }}</h5>
+                      {{-- <p class="text-xs text-secondary mb-0">Organization</p> --}}
+                    </td>
                     <td class="align-middle text-center">
                       <span class="text-secondary text-xs font-weight-bold">{{\Carbon\Carbon::parse($stok->tanggal)->isoFormat(' dddd, D MMMM Y')}}</span>
                     </td>
                     <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm "><a href="/editStok/{{ $stok->id }}"><i class="fas fa-edit"></i></a></span>
+                      <span class="badge badge-sm "><a href="/editStok/{{ $stok->id }}"><i class="fas fa-edit fa-lg"></i></a></span>
                     </td>
                     <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm "><a  onclick="return confirm('Yakin Menghapus Data?')" href="/deleteStok/{{ $stok->id }}"><i class="fas fa-trash"></i></a></span>
+                      <span class="badge badge-sm "><a  onclick="return confirm('Yakin Menghapus Data?')" href="/deleteStok/{{ $stok->id }}"><i class="fas fa-trash fa-lg"></i></a></span>
                     </td>
                   </tr>
                   @endforeach

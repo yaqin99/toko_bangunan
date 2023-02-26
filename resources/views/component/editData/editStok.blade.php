@@ -98,6 +98,10 @@
                     <input autocomplete="off" type="number" class="form-control" disabled required name="jumlah_stok"  value="{{ old('jumlah_stok', $you->jumlah_stok) }}">
                   </div>
                   <div class="mb-3">
+                    <label  class="form-label">Harga Satuan</label>
+                    <input autocomplete="off" type="number" class="form-control" required name="harga_satuan"  value="{{ old('harga_satuan', $you->harga_satuan) }}">
+                  </div>
+                  <div class="mb-3">
                     <label  class="form-label">Nama Supplier</label>
                     <input autocomplete="off" type="text" class="form-control" required name="nama_supplier"  value="{{ old('nama_supplier' , $you->supplier) }}">
                   </div>

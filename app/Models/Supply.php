@@ -12,8 +12,8 @@ class Supply extends Model
 
     public function scopeSearchSupply($query ){
       if (request('searchSupply')) {
-        $query->where('nama_barang','like','%'.request('search').'%')->orWhere(
-            'nama_supplier','like','%'.request('search').'%'
+        $query->where('nama_barang','like','%'.request('searchSupply').'%')->orWhere(
+            'nama_supplier','like','%'.request('searchSupply').'%'
         );
         // ->orWhere('nama_kategori','like','%'.request('search').'%');
     } 

@@ -51,10 +51,30 @@
     <div class="row">
       <div class="col-12">
         <div class="card mb-4">
-          
+            @if(Session::get('nothing'))
+            <div class="col-3">
+              <div class="alert alert-warning">
+                <div class="text-light fw-bold">
+                  {{ Session::get('nothing') }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              </div>
+            </div>
+          @endif
+
+          @if(Session::get('lengkapi'))
+          <div class="col-3">
+            <div class="alert alert-danger">
+              <div class="text-light fw-bold">
+                {{ Session::get('lengkapi') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            </div>
+          </div>
+        @endif
 
             <div class="card-header pb-0">
-              <h6 class="text-center">Tambah Stok</h6>
+              <h6 class="text-center">Edit Transaksi</h6>
 
           </div>
          
@@ -62,35 +82,39 @@
           <div class="card-body pb-2">
            <div class="col-12">
             <div class="table-responsive p-0">
-              <form  action="/addStok" method="POST" enctype="multipart/form-data">
+              <form  action="/editTransaksi/{{ $transaksis->id }}/{{ $stok->id }}" method="POST" enctype="multipart/form-data">
                   @csrf
-                 
+                 @method('put')
+                    
+                 <div class="mb-3">
+                  <label  class="form-label">Nama Barang</label>
+                  <input autocomplete="off" type="text" class="form-control" required name="nama_barang"  aria-describedby="emailHelp" value="{{ old('nama_barang' , $transaksis->nama_barang) }}">
+                  <span style="color:red"></span>
+                </div>
                   <div class="mb-3">
-                    <label  class="form-label">Nama Barang</label>
-                    <input autocomplete="off" type="text" class="form-control" required name="nama_barang"  value="{{ old('nama_barang') }}">
+                    <label  class="form-label">Jumlah Barang</label>
+                    <input autocomplete="off" type="number" class="form-control" required name="jumlah_barang"  aria-describedby="emailHelp" value="{{ old('jumlah_barang' , $transaksis->jumlah_barang) }}">
+                    <span style="color:red"></span>
                   </div>
-                  <div class="mb-3">
-                    <label  class="form-label">Jumlah Stok</label>
-                    <input autocomplete="off" type="number" class="form-control" required name="jumlah_stok"  value="{{ old('jumlah_stok') }}">
-                  </div>
-                  <div class="mb-3">
-                    <label  class="form-label">Harga Satuan</label>
-                    <input autocomplete="off" type="number" class="form-control" required name="harga_satuan"  value="{{ old('harga_satuan') }}">
-                  </div>
-                  <div class="mb-3">
-                    <label  class="form-label">Nama Supplier</label>
-                    <input autocomplete="off" type="text" class="form-control" required name="nama_supplier"  value="{{ old('nama_supplier') }}">
-                  </div>
+         
                   <div class="mb-3">
                     <label  class="form-label">Tanggal</label>
-                    <input autocomplete="off" type="date" class="form-control" required name="tanggal"  value="{{ old('tanggal') }}">
+                    <input autocomplete="off" type="date" class="form-control" required name="tanggal"  aria-describedby="emailHelp" value="{{ old('tanggal' , $transaksis->tanggal) }}">
+                    <span style="color:red"></span>
                   </div>
-                                   
+                  <div class="mb-3">
+                    <label  class="form-label">Bayar</label>
+                    <input autocomplete="off" type="number" class="form-control" required name="bayar"  aria-describedby="emailHelp" value="{{ old('bayar',$transaksis->bayar) }}">
+                    <span style="color:red"></span>
+                  </div>         
                  
                   <div class="mb-3">
-                      <button type="submit" class="btn btn-primary" >Tambah</button>
+                      <button type="submit" class="btn btn-primary" >Update</button>
                     </div>
-                </form>
+
+                    
+                  </form>
+                 
               
               
             </div>

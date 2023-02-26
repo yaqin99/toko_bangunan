@@ -16,8 +16,8 @@
       <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
         <div class="ms-md-auto pe-md-3 d-flex align-items-center">
           
-            <form action="/stokBarang" method="GET">
-            <input type="text" class="form-control" name="search"  placeholder="Type here..." value="{{ request('search') }}">
+            <form action="/dataPenjualan" method="GET">
+            <input type="text" class="form-control" name="searchTransaksi"  placeholder="Cari ..." value="{{ request('searchTransaksi') }}">
         </form>
         </div>
         <ul class="navbar-nav  justify-content-end">
@@ -50,12 +50,45 @@
   <div class="container-fluid py-4">
     <div class="row">
       <div class="col-12">
-        <div class="card mb-4">
-         
+        <div class="card mb-6">
+          @if(Session::get('suksesTambahTransaksi'))
+          <div class="col-3">
+            <div class="alert alert-success">
+              <div class="text-light fw-bold">
+                {{ Session::get('suksesTambahTransaksi') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            </div>
+          </div>
+        @endif
+        @if(Session::get('berhasilEditSupply'))
+          <div class="col-3">
+            <div class="alert alert-success">
+              <div class="text-light fw-bold">
+                {{ Session::get('berhasilEditSupply') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            </div>
+          </div>
+        @endif
+        @if(Session::get('berhasilHapusSupply'))
+          <div class="col-3">
+            <div class="alert alert-success">
+              <div class="text-light fw-bold">
+                {{ Session::get('berhasilHapusSupply') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            </div>
+          </div>
+        @endif
+        
 
             <div class="card-header pb-0">
               <h6>Data Penjualan</h6>
-              <a class="btn btn-success justify-content-end" href="/addTransaksi"><i class="bi bi-plus" ></i>Transaksi</a>
+              <div class="d-flex justify-content-end">
+
+                <a class="btn btn-success justify-content-end" href="/addTransaksi"><i class="bi bi-plus" ></i>Transaksi</a>
+              </div>
             
             
           </div>
@@ -68,7 +101,8 @@
                   <tr>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama Barang</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Jumlah Barang</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Biaya</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Harga Satuan</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Total Biaya</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Bayar</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kembalian</th>
@@ -77,270 +111,45 @@
                   </tr>
                 </thead>
                 <tbody>
+                  @foreach($transaksi as $a)
+                    
+                  
                   <tr>
                     <td>
                       <div class="d-flex px-2 py-1">
                         
                         <div class="d-flex flex-column justify-content-center">
-                          <h4 class="mb-0 text-sm">Semen Gresik 3 Roda</h4>
+                          <h4 class="mb-0 text-sm">{{ $a->nama_barang }}</h4>
                         </div>
                       </div>
                     </td>
                     <td>
-                      <h5 class="text-xs font-weight-bold mb-0">4</h5>
+                      <h5 class="text-xs font-weight-bold mb-0">{{ $a->jumlah_barang }}</h5>
                       {{-- <p class="text-xs text-secondary mb-0">Organization</p> --}}
                     </td>
                     <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold">Rp.450.000</span>
+                      <span class="text-secondary text-xs font-weight-bold">Rp. {{ @number_format($a->harga_satuan,2,",",".") }}</span>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold">23/04/18</span>
+                      <span class="text-secondary text-xs font-weight-bold">Rp. {{  @number_format($a->total_biaya,2,",",".") }}</span>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold">Rp.500.000</span>
+                      <span class="text-secondary text-xs font-weight-bold">{{ \Carbon\Carbon::parse($a->tanggal)->isoFormat(' dddd, D MMMM Y') }}</span>
+                    </td>
+                    <td class="align-middle text-center">
+                      <span class="text-secondary text-xs font-weight-bold">Rp. {{  @number_format($a->bayar,2,",",".") }}</span>
                     </td> <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold">Rp.50.000</span>
+                      <span class="text-secondary text-xs font-weight-bold">Rp. {{  @number_format($a->kembalian,2,",",".") }}</span>
                     </td>
                     <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm "><a href=""><i class="fas fa-edit"></i></a></span>
+                      <span class="badge badge-sm "><a href="/editTransaksi/{{ $a->id }}/{{ $a->nama_barang }}"><i class="fas fa-edit fa-lg"></i></a></span>
                     </td>
                     <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm "><a href=""><i class="fas fa-trash"></i></a></span>
+                      <span class="badge badge-sm "><a onclick="return confirm('Yakin Menghapus Data?')" href="/deleteTransaksi/{{ $a->id }}/{{ $a->nama_barang }}"><i class="fas fa-trash fa-lg"></i></a></span>
                     </td>
+                    @endforeach
                     
-                    
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="d-flex px-2 py-1">
-                        
-                        <div class="d-flex flex-column justify-content-center">
-                          <h4 class="mb-0 text-sm">Semen Gresik 3 Roda</h4>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <h5 class="text-xs font-weight-bold mb-0">4</h5>
-                      {{-- <p class="text-xs text-secondary mb-0">Organization</p> --}}
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold">Rp.450.000</span>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold">23/04/18</span>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold">Rp.500.000</span>
-                    </td> <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold">Rp.50.000</span>
-                    </td>
-                    <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm "><a href=""><i class="fas fa-edit"></i></a></span>
-                    </td>
-                    <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm "><a href=""><i class="fas fa-trash"></i></a></span>
-                    </td>
-                    
-                    
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="d-flex px-2 py-1">
-                        
-                        <div class="d-flex flex-column justify-content-center">
-                          <h4 class="mb-0 text-sm">Semen Gresik 3 Roda</h4>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <h5 class="text-xs font-weight-bold mb-0">4</h5>
-                      {{-- <p class="text-xs text-secondary mb-0">Organization</p> --}}
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold">Rp.450.000</span>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold">23/04/18</span>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold">Rp.500.000</span>
-                    </td> <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold">Rp.50.000</span>
-                    </td>
-                    <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm "><a href=""><i class="fas fa-edit"></i></a></span>
-                    </td>
-                    <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm "><a href=""><i class="fas fa-trash"></i></a></span>
-                    </td>
-                    
-                    
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="d-flex px-2 py-1">
-                        
-                        <div class="d-flex flex-column justify-content-center">
-                          <h4 class="mb-0 text-sm">Semen Gresik 3 Roda</h4>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <h5 class="text-xs font-weight-bold mb-0">4</h5>
-                      {{-- <p class="text-xs text-secondary mb-0">Organization</p> --}}
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold">Rp.450.000</span>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold">23/04/18</span>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold">Rp.500.000</span>
-                    </td> <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold">Rp.50.000</span>
-                    </td>
-                    <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm "><a href=""><i class="fas fa-edit"></i></a></span>
-                    </td>
-                    <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm "><a href=""><i class="fas fa-trash"></i></a></span>
-                    </td>
-                    
-                    
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="d-flex px-2 py-1">
-                        
-                        <div class="d-flex flex-column justify-content-center">
-                          <h4 class="mb-0 text-sm">Semen Gresik 3 Roda</h4>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <h5 class="text-xs font-weight-bold mb-0">4</h5>
-                      {{-- <p class="text-xs text-secondary mb-0">Organization</p> --}}
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold">Rp.450.000</span>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold">23/04/18</span>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold">Rp.500.000</span>
-                    </td> <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold">Rp.50.000</span>
-                    </td>
-                    <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm "><a href=""><i class="fas fa-edit"></i></a></span>
-                    </td>
-                    <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm "><a href=""><i class="fas fa-trash"></i></a></span>
-                    </td>
-                    
-                    
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="d-flex px-2 py-1">
-                        
-                        <div class="d-flex flex-column justify-content-center">
-                          <h4 class="mb-0 text-sm">Semen Gresik 3 Roda</h4>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <h5 class="text-xs font-weight-bold mb-0">4</h5>
-                      {{-- <p class="text-xs text-secondary mb-0">Organization</p> --}}
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold">Rp.450.000</span>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold">23/04/18</span>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold">Rp.500.000</span>
-                    </td> <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold">Rp.50.000</span>
-                    </td>
-                    <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm "><a href=""><i class="fas fa-edit"></i></a></span>
-                    </td>
-                    <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm "><a href=""><i class="fas fa-trash"></i></a></span>
-                    </td>
-                    
-                    
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="d-flex px-2 py-1">
-                        
-                        <div class="d-flex flex-column justify-content-center">
-                          <h4 class="mb-0 text-sm">Semen Gresik 3 Roda</h4>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <h5 class="text-xs font-weight-bold mb-0">4</h5>
-                      {{-- <p class="text-xs text-secondary mb-0">Organization</p> --}}
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold">Rp.450.000</span>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold">23/04/18</span>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold">Rp.500.000</span>
-                    </td> <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold">Rp.50.000</span>
-                    </td>
-                    <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm "><a href=""><i class="fas fa-edit"></i></a></span>
-                    </td>
-                    <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm "><a href=""><i class="fas fa-trash"></i></a></span>
-                    </td>
-                    
-                    
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="d-flex px-2 py-1">
-                        
-                        <div class="d-flex flex-column justify-content-center">
-                          <h4 class="mb-0 text-sm">Semen Gresik 3 Roda</h4>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <h5 class="text-xs font-weight-bold mb-0">4</h5>
-                      {{-- <p class="text-xs text-secondary mb-0">Organization</p> --}}
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold">Rp.450.000</span>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold">23/04/18</span>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold">Rp.500.000</span>
-                    </td> <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold">Rp.50.000</span>
-                    </td>
-                    <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm "><a href=""><i class="fas fa-edit"></i></a></span>
-                    </td>
-                    <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm "><a href=""><i class="fas fa-trash"></i></a></span>
-                    </td>
-                    
-                    
-                  </tr>
+               
 
                  
                 
@@ -351,6 +160,10 @@
           </div>
         </div>
       </div>
+    </div>
+    <div class="d-flex justify-content-start">
+
+      {{ $transaksi->links() }}
     </div>
     
     @include('component.footer')

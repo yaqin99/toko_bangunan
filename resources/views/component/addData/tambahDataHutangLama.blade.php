@@ -45,24 +45,24 @@
             <div class="card-body pb-2">
              <div class="col-12">
               <div class="table-responsive p-0">
-                <form  action="/addDataHutang" method="POST" enctype="multipart/form-data">
+                <form  action="/addDataHutangLama/{{ $cuz->kode }}/{{ $cuz->nama }}" method="POST" enctype="multipart/form-data">
                     @csrf
                    <div class="mb-3">
-                    <label  class="form-label">Nama Pelanggan</label>
-                    <input autocomplete="off" type="text" class="form-control" required name="nama" value="{{ old('nama') }}">
+                    <label  class="form-label">Nama Pelanggan Lama</label>
+                    <input autocomplete="off" type="text" class="form-control" disabled required name="nama" value="{{ old('nama' , $cuz->nama) }}">
                     
                   </div>
                    
                     <div class="mb-3">
                       <label  class="form-label">Total</label>
-                      <input autocomplete="off" type="number" class="form-control" required name="total" value="{{ old('total') }}">
+                      <input autocomplete="off" type="number" class="form-control" required name="total" value="{{ old('total' , $cuz->total) }}">
                       <span style="color:red"></span>
                     </div>
                     
                    
                     <div class="mb-3">
                       <label  class="form-label">Bayar</label>
-                      <input autocomplete="off" type="number" class="form-control" required name="bayar" value="{{ old('bayar') }}">
+                      <input autocomplete="off" type="number" class="form-control" required name="bayar" value="{{ old('bayar' , $cuz->bayar) }}">
                       <span style="color:red"></span>
                     </div>
                     <div class="mb-3">

@@ -28,8 +28,48 @@
 @include('component.sidebar')
   <main class="main-content position-relative border-radius-lg ">
     <!-- Navbar -->
-   @include('component.navbar')
-    <!-- End Navbar -->
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
+      <div class="container-fluid py-1 px-3">
+        {{-- <nav aria-label="breadcrumb">
+          <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+            <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Pages</a></li>
+            <li class="breadcrumb-item text-sm text-white active" aria-current="page">Dashboard</li>
+          </ol>
+          <h6 class="font-weight-bolder text-white mb-0">Dashboard</h6>
+        </nav> --}}
+        <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+          <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+            
+              {{-- <form action="/dataPenjualan" method="GET">
+              <input type="text" class="form-control" name="searchTransaksi"  placeholder="Cari ..." value="{{ request('searchTransaksi') }}">
+          </form> --}}
+          </div>
+          <ul class="navbar-nav  justify-content-end">
+            <li class="nav-item d-flex align-items-center">
+              <a href="javascript:;" class="nav-link text-white font-weight-bold px-0">
+                <i class="fa fa-user me-sm-1"></i>
+                <span class="d-sm-inline d-none">Sign In</span>
+              </a>
+            </li>
+            <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+              <a href="javascript:;" class="nav-link text-white p-0" id="iconNavbarSidenav">
+                <div class="sidenav-toggler-inner">
+                  <i class="sidenav-toggler-line bg-white"></i>
+                  <i class="sidenav-toggler-line bg-white"></i>
+                  <i class="sidenav-toggler-line bg-white"></i>
+                </div>
+              </a>
+            </li>
+            {{-- <li class="nav-item px-3 d-flex align-items-center">
+              <a href="javascript:;" class="nav-link text-white p-0">
+                <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
+              </a>
+            </li> --}}
+           
+          </ul>
+        </div>
+      </div>
+    </nav>    <!-- End Navbar -->
     <div class="container-fluid py-4">
       <div class="row">
         <div class="col-12">
@@ -45,47 +85,37 @@
             <div class="card-body pb-2">
              <div class="col-12">
               <div class="table-responsive p-0">
-                <form  action="/addBook" method="POST" enctype="multipart/form-data">
+                <form  action="/addTransaksi" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-3">
-                      <label  class="form-label">Nama Barang</label>
-                      <select class="form-select" name="nama_barang"  aria-label="Default select example">
-               
-                        <option selected>Pilih</option>
+                      <label for="exampleInputPassword1" class="form-label">Nama Barang</label>
+                      <select class="form-select" required name="nama_barang"  aria-label="Default select example">
+                       
+                        <option selected>Pilih -</option>
+                        @foreach($stoks as $k)
+                        <option value="{{ $k->id }}">{{ $k->nama_barang }}</option>
+                        @endforeach
                         
-                        <option value="">Semen Gresik</option>
-                        <option value="">Paralon</option>
-                        <option value="">Kusen Pintu</option>
-                        <option value="">Paku Payung</option>
-                        <option value="">Paku Beton</option>
-                        <option value="">Kalsibot</option>
+                        
                       </select>
                     </div>
                     <div class="mb-3">
                       <label  class="form-label">Jumlah Barang</label>
-                      <input autocomplete="off" type="text" class="form-control" name="jumlah_barang" " aria-describedby="emailHelp" value="{{ old('jumlah_barang') }}">
+                      <input autocomplete="off" type="number" class="form-control" required name="jumlah_barang"  aria-describedby="emailHelp" value="{{ old('jumlah_barang') }}">
                       <span style="color:red"></span>
                     </div>
-                    <div class="mb-3">
-                      <label  class="form-label">Biaya</label>
-                      <input autocomplete="off" type="text" class="form-control" name="nama_barang" " aria-describedby="emailHelp" value="{{ old('nama_barang') }}">
-                      <span style="color:red"></span>
-                    </div>
+           
                     <div class="mb-3">
                       <label  class="form-label">Tanggal</label>
-                      <input autocomplete="off" type="date" class="form-control" name="nama_barang" " aria-describedby="emailHelp" value="{{ old('nama_barang') }}">
+                      <input autocomplete="off" type="date" class="form-control" required name="tanggal"  aria-describedby="emailHelp" value="{{ old('tanggal') }}">
                       <span style="color:red"></span>
                     </div>
                     <div class="mb-3">
                       <label  class="form-label">Bayar</label>
-                      <input autocomplete="off" type="text" class="form-control" name="nama_barang" " aria-describedby="emailHelp" value="{{ old('nama_barang') }}">
+                      <input autocomplete="off" type="text" class="form-control" required name="bayar"  aria-describedby="emailHelp" value="{{ old('bayar') }}">
                       <span style="color:red"></span>
                     </div>
-                    <div class="mb-3">
-                      <label  class="form-label">Kembalian</label>
-                      <input autocomplete="off" type="text" class="form-control" name="nama_barang" " aria-describedby="emailHelp" value="{{ old('nama_barang') }}">
-                      <span style="color:red"></span>
-                    </div>
+                   
                   
                    
                     <div class="mb-3">

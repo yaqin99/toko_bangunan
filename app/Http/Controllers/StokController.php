@@ -37,6 +37,7 @@ class StokController extends Controller
              'nama_barang' => 'required' , 
              'jumlah_stok' => 'required' , 
              'nama_supplier' => 'required' , 
+             'harga_satuan' => 'required' , 
              'tanggal' => 'required' , 
            
              
@@ -48,6 +49,7 @@ class StokController extends Controller
              'nama_barang' =>$request->input('nama_barang'), 
              'supplier'  =>$request->input('nama_supplier'),
              'jumlah_stok' =>$request->input('jumlah_stok'),
+             'harga_satuan' =>$request->input('harga_satuan'),
              'tanggal' => $request->input('tanggal'),
            
          ]);
@@ -71,6 +73,7 @@ class StokController extends Controller
             'nama_barang' =>'required' ,
             'nama_supplier'  =>'required',
             // 'jumlah_stok' =>'required',
+            'harga_satuan' => 'required',
             'tanggal' => 'required' , 
         ]);
         
@@ -78,11 +81,12 @@ class StokController extends Controller
             'nama_barang' => $data['nama_barang'] , 
             'supplier' => $data['nama_supplier'] , 
             // 'jumlah_stok' => $data['jumlah_stok'] , 
+            'harga_satuan' => $data['harga_satuan'],
             'tanggal' => $data['tanggal'],
         ];
         
         if (request()->input('nama_barang') === null || request()->input('nama_supplier') === null 
-        ||  request()->input('tanggal') === null
+        ||  request()->input('tanggal') === null ||  request()->input('harga_satuan') === null
         ) {
             return back()->with('lengkapi' , 'Silahkan Lengkapi Semua Data !');
         }

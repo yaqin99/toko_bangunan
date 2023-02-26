@@ -10,43 +10,49 @@
     <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" href="/">
+          <a class="nav-link {{ ($title === 'Home') ? 'active' : '' }}" href="/">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-tv-2 text-primary text-sm opacity-10"></i>
+              {{-- <i class="ni ni-tv-2 "></i> --}}
+              <i class="bi bi-house-door-fill text-primary text-lg opacity-10"></i>
             </div>
             <span class="nav-link-text ms-1">Beranda</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="/dataPenjualan">
+          <a class="nav-link {{ ($title === 'Data Penjualan' || $title === 'Tambah Transaksi' || $title === 'Edit Penjualan') ? 'active' : '' }} " href="/dataPenjualan">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i>
+              <i class="bi bi-currency-dollar text-warning text-lg opacity-10"></i>
             </div>
             <span class="nav-link-text ms-1">Data Penjualan</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="/stokBarang">
+          <a class="nav-link {{ ($title === 'Stok Barang' || $title === 'Tambah Stok' || $title === 'Edit Stok') ? 'active' : '' }} " href="/stokBarang">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
+              {{-- <i class="ni ni-credit-card text-success text-sm opacity-10"></i> --}}
+              <i class="bi bi-card-checklist text-success text-lg opacity-10"></i>
             </div>
             <span class="nav-link-text ms-1">Stok Barang</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="/dataSupply">
+          <a class="nav-link {{ ($title === 'Data Supply' || $title === 'Tambah Catatan' || $title === 'Edit Supply') ? 'active' : '' }} " href="/dataSupply">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
+              <i class="bi bi-box text-warning text-lg opacity-10"></i>
             </div>
             <span class="nav-link-text ms-1">Data Supply</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="/dataHutang">
+          <a class="nav-link {{ ($title === 'Data Hutang' || $title === 'Tambah Hutang' || $title === 'Edit Hutang') ? 'active' : '' }}" href="/dataHutang">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-app text-info text-sm opacity-10"></i>
+              {{-- <i class="ni ni-app text-info text-sm opacity-10"></i> --}}
+              <i class="bi bi-person-vcard-fill text-info text-lg opacity-10"></i>
             </div>
-            <span class="nav-link-text ms-1">Data Hutang</span>
+            <div class="d-flex align-items-center">
+              
+              <span class="nav-link-text ms-1">Data Hutang</span>
+            </div>
           </a>
         </li>
         

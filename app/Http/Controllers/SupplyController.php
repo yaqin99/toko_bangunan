@@ -49,16 +49,16 @@ class SupplyController extends Controller
          
      }
 
-     public function editSupply( $id){
+     public function editSupply( $id , $idStok){
         
 
        
         
-        $data =  request()->validate([
-            'nama_barang' =>'required' ,
+        $dataUpdate =  request()->validate([
+            // 'nama_barang' =>'required' ,
             'nama_supplier'  =>'required',
             'biaya' => 'required',
-            // 'jumlah_stok' =>'required',
+            'jumlah_stok' =>'required',
             'tanggal' => 'required' , 
         ]);
         
@@ -68,10 +68,18 @@ class SupplyController extends Controller
         //     'jumlah_stok' => $data['jumlah_stok'] , 
         //     'tanggal' => $data['tanggal'],
         // ];
+
+        $stok = DB::table('stoks')->select('*')->where('id',$idStok)->first();
+        
+        $data = Supply::find($id)->jumlah_stok ;
+        $newStok =  $data - request()->input('jumlah_stok');;
+       
+        $totalStok = $stok->jumlah_stok - $newStok;
+        DB::table('stoks')->where('id' , $stok->id)->update(['jumlah_stok' => $totalStok ]);
         
         
 
-        $cek = DB::table('supplies')->where('id' , $id)->update($data);
+        $cek = DB::table('supplies')->where('id' , $id)->update($dataUpdate);
         if ($cek) {
             # code...
             return redirect('/dataSupply')->with('berhasilEditSupply' , 'Data Berhasil di Update');
@@ -86,15 +94,11 @@ class SupplyController extends Controller
 
 
      
-     public function deleteSupply($id,$nama_supplier){
+     public function deleteSupply($id,$nama_barang){
         $data = Supply::find($id);
-        // $nama = Stok::has($nama_supplier);
-        // if($nama){
-           
-        //     dd($nama);
-        // }
-        // // $nama->jumlah_stok = $nama->jumlah_stok - $data->jumlah_stok;
-        // $nama->save();
+        $stok = DB::table('stoks')->select('*')->where('nama_barang',$nama_barang)->first();
+        $newStok = $stok->jumlah_stok - $data->jumlah_stok ; 
+        DB::table('stoks')->where('id' , $stok->id)->update(['jumlah_stok' => $newStok ]);
         $delete =  $data->delete();
        if($delete){
         return back()->with('berhasilHapusSupply' , 'Data Berhasil di Hapus');

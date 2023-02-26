@@ -82,39 +82,32 @@
           <div class="card-body pb-2">
            <div class="col-12">
             <div class="table-responsive p-0">
-              @foreach($supplys as $k)
-              <form  action="/editSupply/{{ $k->id }}" method="POST" enctype="multipart/form-data">
+              
+              <form  action="/editSupply/{{ $supplys->id }}/{{ $stok->id }}" method="POST" enctype="multipart/form-data">
                   @csrf
                  @method('put')
                     
-                  <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Nama Barang</label>
-                    <select class="form-select" name="nama_barang"  aria-label="Default select example">
-                     
-                       
-                      <option selected>{{ $k->nama_barang }}</option>
-                      <option value="{{ $k->id }}">{{ $k->nama_barang }}</option>
-                      
-                      
-                      
-                    </select>
-                  </div>
+                 <div class="mb-3">
+                  <label  class="form-label">Nama Barang</label>
+                  <input autocomplete="off" type="text" class="form-control" required disabled name="nama_barang"  aria-describedby="emailHelp" value="{{ old('nama_barang' , $supplys->nama_barang) }}">
+                  <span style="color:red"></span>
+                </div>
                   <div class="mb-3">
                     <label  class="form-label">Nama Supplier</label>
-                    <input autocomplete="off" type="text" class="form-control" name="nama_supplier"  value="{{ old('nama_supplier',$k->nama_supplier) }}">
+                    <input autocomplete="off" type="text" class="form-control" name="nama_supplier"  value="{{ old('nama_supplier',$supplys->nama_supplier) }}">
                   </div>
                   <div class="mb-3">
                     <label  class="form-label">Biaya</label>
-                    <input autocomplete="off" type="text" class="form-control" name="biaya"  value="{{ old('biaya' , $k->biaya) }}">
+                    <input autocomplete="off" type="text" class="form-control" name="biaya"  value="{{ old('biaya' , $supplys->biaya) }}">
                   </div>
                   <div class="mb-3">
                     <label  class="form-label">Jumlah Stok</label>
-                    <input autocomplete="off" type="text" class="form-control" disabled name="jumlah_stok"  value="{{ old('jumlah_stok' , $k->jumlah_stok) }}">
+                    <input autocomplete="off" type="text" class="form-control" name="jumlah_stok"  value="{{ old('jumlah_stok' , $supplys->jumlah_stok) }}">
                   </div>
                  
                   <div class="mb-3">
                     <label  class="form-label">Tanggal</label>
-                    <input autocomplete="off" type="date" class="form-control" name="tanggal"  value="{{ old('tanggal',$k->tanggal) }}">
+                    <input autocomplete="off" type="date" class="form-control" name="tanggal"  value="{{ old('tanggal',$supplys->tanggal) }}">
                   </div>
                                    
                  
@@ -124,7 +117,7 @@
 
                     
                   </form>
-                  @endforeach
+                  
               
               
             </div>
