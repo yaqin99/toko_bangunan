@@ -67,6 +67,7 @@
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">Total Piutang</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">Bayar</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Sisa</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Edit</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Hapus</th>
                   </tr>
@@ -105,9 +106,12 @@
                     <td class="align-middle text-center">
                       <span class="text-secondary text-xs font-weight-bold">Rp. {{ @number_format($d->sisa,2,",",".") }}</span>
                     </td>
+                    <td class="align-middle text-center">
+                      <span class="text-secondary text-xs font-weight-bold">{{  \Carbon\Carbon::parse($d->tanggal)->isoFormat(' dddd, D MMMM Y') }}</span>
+                    </td>
                                        
                     <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm "><a href=""><i class="fas fa-edit fa-lg"></i></a></span>
+                      <span class="badge badge-sm "><a href="/editDetailHutang/{{ $d->id }}/{{ $d->nama }}/{{ $d->kode }}"><i class="fas fa-edit fa-lg"></i></a></span>
                     </td>
                     <td class="align-middle text-center text-sm">
                       <span class="badge badge-sm "><a onclick="return confirm('Yakin Menghapus Data?')" href=""><i class="fas fa-trash fa-lg"></i></a></span>

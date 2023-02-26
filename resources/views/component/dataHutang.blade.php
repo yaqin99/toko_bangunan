@@ -17,7 +17,7 @@
         <div class="ms-md-auto pe-md-3 d-flex align-items-center">
           
             <form action="/dataHutang" method="GET">
-            <input type="text" class="form-control" name="searcHutang"  placeholder="Cari ..." value="{{ request('searcHutang') }}">
+            <input type="text" class="form-control" name="searchHutang"  placeholder="Cari ..." value="{{ request('searchHutang') }}">
         </form>
         </div>
         <ul class="navbar-nav  justify-content-end">

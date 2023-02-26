@@ -26,6 +26,7 @@ Route::get('/addDataSupply',[AdminController::class , 'addDataSupply']);
 Route::get('/editStok/{id}',[AdminController::class , 'editStokLayout']);
 Route::get('/editSupply/{id}/{nama_barang}',[AdminController::class , 'editSupplyLayout']);
 Route::get('/editTransaksi/{id}/{nama_barang}',[AdminController::class , 'editTransaksiLayout']);
+Route::get('/editDetailHutang/{id}/{nama_barang}/{kode}',[AdminController::class , 'editDetailHutangLayout']);
 
 // POST METHOD
 Route::post('/addStok',[StokController::class , 'addStok']);
@@ -45,3 +46,4 @@ Route::get('/deleteTransaksi/{id}/{nama_barang}/' , [TransaksiController::class 
 Route::put('/editStok/{id}', [StokController::class , 'editStok']);
 Route::put('/editSupply/{id}/{idStok}',[SupplyController::class , 'editSupply']);
 Route::put('/editTransaksi/{id}/{idStok}',[TransaksiController::class , 'editTransaksi']);
+Route::put('/editDetailHutang/{id}/{kode}',[DetailHutangController::class , 'editDetailHutang']);

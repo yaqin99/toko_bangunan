@@ -98,6 +98,14 @@ class AdminController extends Controller
        
     ]);
    }
+   public function editDetailHutangLayout($id , $nama , $kode){
+    $data = DetailHutang::find($id);
+    return view('component.editData.editDetailHutang' , [
+        'details' => $data,
+        'title' => "Edit Stok"
+       
+    ]);
+   }
    public function editSupplyLayout($id , $nama_barang){
     $stok = DB::table('stoks')->select('*')->where('nama_barang',$nama_barang)->first();
 

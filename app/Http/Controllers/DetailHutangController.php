@@ -105,4 +105,40 @@ class DetailHutangController extends Controller
          
      }
 
+     public function editDetailHutang( $id , $kode){
+        
+
+       
+        
+        request()->validate([
+           
+            'total' => 'required' , 
+            'bayar' => 'required' , 
+            'sisa' => 'required' , 
+            'tanggal' => 'required' , 
+          
+            
+        ]);
+        
+       
+        
+
+        $cek = DB::table('detail_hutangs')->where('id' , $id)->update([
+            
+            'total' => request()->input('total') , 
+            'bayar' => request()->input('bayar') , 
+            'sisa' => request()->input('sisa') , 
+            'tanggal' => request()->input('tanggal') , 
+          
+        ]);
+        if ($cek) {
+            # code...
+            return redirect('/detailHutang'.'/'.$kode)->with('berhasilEdit' , 'Data Berhasil di Update');
+        } 
+
+        // return redirect('/editStok'.'/'.$id)->with('nothing' , 'Tidak Ada Data yang Berubah');
+
+
+    }
+
 }
