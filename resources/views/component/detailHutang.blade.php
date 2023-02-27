@@ -51,6 +51,17 @@
     <div class="row">
       <div class="col-12">
         <div class="card mb-4">
+
+          @if(Session::get('berhasilHapus'))
+          <div class="col-3">
+            <div class="alert alert-success">
+              <div class="text-light fw-bold">
+                {{ Session::get('berhasilHapus') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            </div>
+          </div>
+        @endif
           <div class="card-header pb-0">
             <h6>Rincian Hutang</h6>
             <div class="d-flex justify-content-end">
@@ -114,7 +125,7 @@
                       <span class="badge badge-sm "><a href="/editDetailHutang/{{ $d->id }}/{{ $d->nama }}/{{ $d->kode }}"><i class="fas fa-edit fa-lg"></i></a></span>
                     </td>
                     <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm "><a onclick="return confirm('Yakin Menghapus Data?')" href=""><i class="fas fa-trash fa-lg"></i></a></span>
+                      <span class="badge badge-sm "><a onclick="return confirm('Yakin Menghapus Data?')" href="/deleteDetailHutang/{{ $d->id }}/{{ $d->kode }}"><i class="fas fa-trash fa-lg"></i></a></span>
                     </td>
                   </tr>
                   @endforeach

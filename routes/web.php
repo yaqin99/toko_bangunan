@@ -40,6 +40,7 @@ Route::post('/addDataHutangLama/{kode}/{nama}',[DetailHutangController::class , 
 Route::get('/deleteStok/{id}' , [StokController::class , 'deleteStok']);
 Route::get('/deleteSupply/{id}/{nama_barang}/' , [SupplyController::class , 'deleteSupply']);
 Route::get('/deleteTransaksi/{id}/{nama_barang}/' , [TransaksiController::class , 'deleteTransaksi']);
+Route::get('/deleteDetailHutang/{id}/{kode}' , [DetailHutangController::class , 'deleteDetailHutang']);
 
 
 // PUT METHOD 

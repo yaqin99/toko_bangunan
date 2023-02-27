@@ -88,16 +88,19 @@ class DetailHutangController extends Controller
             'tanggal' => request()->input('tanggal'),
            
          ]);
-        
-         $cek = DB::table('hutangs')->where('kode' , $kode)->update([
-            "total" => request()->input('total') , 
-            "bayar" => request()->input('bayar'),
-            "sisa" => request()->input('sisa'),
+         $data = DB::table('detail_hutangs')->orderBy('tanggal' , 'desc')->latest()->select('*')->where('kode',$kode)->first();
+
+         DB::table('hutangs')->where('kode' , $kode)->update([
+            "total" => $data->total , 
+            "bayar" => $data->bayar,
+            "sisa" => $data->sisa,
          ]);
 
+       
 
-         if($query && $cek){
-             return redirect('/dataHutang')->with('success' , 'Data Berhasil di Tambahkan');
+
+         if($query){
+             return redirect('/detailHutang'.'/'.$kode)->with('success' , 'Data Berhasil di Tambahkan');
          } 
 
              dd('gagal mek');
@@ -122,16 +125,23 @@ class DetailHutangController extends Controller
         
        
         
-
         $cek = DB::table('detail_hutangs')->where('id' , $id)->update([
             
             'total' => request()->input('total') , 
             'bayar' => request()->input('bayar') , 
             'sisa' => request()->input('sisa') , 
             'tanggal' => request()->input('tanggal') , 
-          
+            
         ]);
-        if ($cek) {
+        
+        $data = DB::table('detail_hutangs')->orderBy('tanggal' , 'desc')->latest()->select('*')->where('kode',$kode)->first();
+        $hutang = DB::table('hutangs')->where('kode' , $kode)->update([
+            "total" => $data->total , 
+            "bayar" => $data->bayar,
+            "sisa" => $data->sisa,
+         ]);
+
+        if ($cek && $hutang) {
             # code...
             return redirect('/detailHutang'.'/'.$kode)->with('berhasilEdit' , 'Data Berhasil di Update');
         } 
@@ -139,6 +149,23 @@ class DetailHutangController extends Controller
         // return redirect('/editStok'.'/'.$id)->with('nothing' , 'Tidak Ada Data yang Berubah');
 
 
+    }
+
+    public function deleteDetailHutang($id , $kode){
+        $data = DetailHutang::find($id);
+       $delete =  $data->delete();
+       $data = DB::table('detail_hutangs')->orderBy('tanggal' , 'desc')->latest()->select('*')->where('kode',$kode)->first();
+       $hutang = DB::table('hutangs')->where('kode' , $kode)->update([
+           "total" => $data->total , 
+           "bayar" => $data->bayar,
+           "sisa" => $data->sisa,
+        ]);
+       if($delete && $hutang){
+        return back()->with('berhasilHapus' , 'Data Berhasil di Hapus');
+    } else {
+        return back()->with('gagalHapus' , 'Data Gagal di Hapus');
+
+    }
     }
 
 }

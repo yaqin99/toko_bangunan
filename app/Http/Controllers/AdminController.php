@@ -55,7 +55,7 @@ class AdminController extends Controller
         );
    }
    public function detailHutang($kode){
-    $data = DB::table('detail_hutangs')->select('*')->where('kode',$kode)->paginate(10);
+    $data = DB::table('detail_hutangs')->orderBy('tanggal' , 'desc')->latest()->select('*')->where('kode',$kode)->paginate(10);
     
         return view(
             'component.detailHutang' , [
