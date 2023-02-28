@@ -87,7 +87,9 @@
               <h6>Data Penjualan</h6>
               <div class="d-flex justify-content-end">
 
-                <a class="btn btn-success justify-content-end" href="/addTransaksi"><i class="bi bi-plus" ></i>Transaksi</a>
+                <a class="btn btn-success justify-content-end me-2" href="/addTransaksi"><i class="bi bi-plus" ></i>Transaksi</a>
+                <a class="btn btn-success justify-content-end" href="/cetakPenjualan"><i class="bi bi-printer"></i>  Cetak</a>
+
               </div>
             
             

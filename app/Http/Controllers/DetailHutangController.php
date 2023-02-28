@@ -22,6 +22,7 @@ class DetailHutangController extends Controller
              'total' => 'required' , 
              'bayar' => 'required' , 
              'sisa' => 'required' , 
+             'uang_masuk' => 'required' , 
              'tanggal' => 'required' , 
            
              
@@ -41,6 +42,7 @@ class DetailHutangController extends Controller
             'total'  =>request()->input('total'),
             'bayar' =>request()->input('bayar'),
             'sisa' =>request()->input('sisa'),
+            'uang_masuk' =>request()->input('uang_masuk'),
             'tanggal' => request()->input('tanggal'),
            
          ]);
@@ -69,6 +71,7 @@ class DetailHutangController extends Controller
              'total' => 'required' , 
              'bayar' => 'required' , 
              'sisa' => 'required' , 
+             'uang_masuk' => 'required' , 
              'tanggal' => 'required' , 
            
              
@@ -85,6 +88,7 @@ class DetailHutangController extends Controller
             'total'  =>request()->input('total'),
             'bayar' =>request()->input('bayar'),
             'sisa' =>request()->input('sisa'),
+            'uang_masuk' =>request()->input('uang_masuk'),
             'tanggal' => request()->input('tanggal'),
            
          ]);

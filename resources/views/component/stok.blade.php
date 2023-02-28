@@ -82,7 +82,9 @@
             <h6>Stok Barang</h6>
             <div class="d-flex justify-content-end">
 
-            <a class="btn btn-success" href="/addStok"><i class="bi bi-plus"></i>Stok Barang</a>
+            <a class="btn btn-success me-2" href="/addStok"><i class="bi bi-plus"></i>Stok Barang</a>
+            <a class="btn btn-success justify-content-end" href="/cetakStok"><i class="bi bi-printer"></i>  Cetak</a>
+
             </div>
             
           </div>

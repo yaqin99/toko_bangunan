@@ -10,12 +10,17 @@ use App\Http\Controllers\DetailHutangController;
 
 // GET METHOD
 
-Route::get('/',[AdminController::class , 'index']);
+Route::get('/',[AdminController::class , 'todayTransaksi']);
 Route::get('/dataPenjualan',[AdminController::class , 'dataPenjualan']);
 Route::get('/stokBarang',[AdminController::class , 'stokBarang']);
 Route::get('/dataHutang',[AdminController::class , 'dataHutang']);
 Route::get('/dataSupply',[AdminController::class , 'dataSupply']);
 Route::get('/detailHutang/{kode}',[AdminController::class , 'detailHutang']);
+Route::get('/cetakDetail/{kode}',[AdminController::class , 'cetakDetail']);
+Route::get('/cetakStok',[AdminController::class , 'cetakStok']);
+Route::get('/cetakSupply',[AdminController::class , 'cetakSupply']);
+Route::get('/cetakPenjualan',[AdminController::class , 'cetakPenjualan']);
+Route::get('/cetakPenjualanHarian',[AdminController::class , 'cetakPenjualanHarian']);
 Route::get('/addTransaksi',[AdminController::class , 'addTransaksi']);
 Route::get('/addStok',[AdminController::class , 'addStok']);
 Route::get('/addDataHutang',[AdminController::class , 'addDataHutang']);

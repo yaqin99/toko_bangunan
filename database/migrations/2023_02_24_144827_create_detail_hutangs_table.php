@@ -20,6 +20,7 @@ class CreateDetailHutangsTable extends Migration
             $table->integer('total');
             $table->integer('bayar');
             $table->integer('sisa');
+            $table->integer('uang_masuk');
             $table->date('tanggal');
             $table->timestamps();
         });

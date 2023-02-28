@@ -47,6 +47,11 @@
                     <span style="color:red"></span>
                   </div>
                   <div class="mb-3">
+                    <label  class="form-label">Uang Masuk</label>
+                    <input autocomplete="off" type="number" class="form-control" required name="uang_masuk" value="{{ old('sisa') }}">
+                    <span style="color:red"></span>
+                  </div>
+                  <div class="mb-3">
                     <label  class="form-label">Tanggal</label>
                     <input autocomplete="off" type="date" class="form-control" required name="tanggal" value="{{ old('tanggal') }}">
                     <span style="color:red"></span>

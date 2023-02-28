@@ -16,9 +16,9 @@
       <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
         <div class="ms-md-auto pe-md-3 d-flex align-items-center">
           
-            {{-- <form action="/stokBarang" method="GET">
-            <input type="text" class="form-control" name="search"  placeholder="Type here..." value="{{ request('search') }}">
-        </form> --}}
+            <form action="/dataPenjualan" method="GET">
+            <input type="text" class="form-control" name="searchTransaksi"  placeholder="Cari ..." value="{{ request('searchTransaksi') }}">
+        </form>
         </div>
         <ul class="navbar-nav  justify-content-end">
           <li class="nav-item d-flex align-items-center">
@@ -50,94 +50,112 @@
   <div class="container-fluid py-4">
     <div class="row">
       <div class="col-12">
-        <div class="card mb-4">
-
-          @if(Session::get('berhasilHapus'))
+        <div class="card mb-6">
+          @if(Session::get('suksesTambahTransaksi'))
           <div class="col-3">
             <div class="alert alert-success">
               <div class="text-light fw-bold">
-                {{ Session::get('berhasilHapus') }}
+                {{ Session::get('suksesTambahTransaksi') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
               </div>
             </div>
           </div>
         @endif
-          <div class="card-header pb-0">
-            <h6>Rincian Hutang</h6>
-            <div class="d-flex justify-content-end">
-
-            <a class="btn btn-success justify-content-end me-2" href="/addDataHutangLama/{{ $kode }}"><i class="bi bi-plus"></i> Catatan</a>
-            <div class="bg-transparent"></div>
-            <a class="btn btn-success justify-content-end" href="/cetakDetail/{{ $kode }}"><i class="bi bi-printer"></i>  Cetak</a>
+        @if(Session::get('berhasilEditSupply'))
+          <div class="col-3">
+            <div class="alert alert-success">
+              <div class="text-light fw-bold">
+                {{ Session::get('berhasilEditSupply') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
             </div>
           </div>
+        @endif
+        @if(Session::get('berhasilHapusSupply'))
+          <div class="col-3">
+            <div class="alert alert-success">
+              <div class="text-light fw-bold">
+                {{ Session::get('berhasilHapusSupply') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            </div>
+          </div>
+        @endif
+        
+
+            <div class="card-header pb-0">
+              <h6>Penjualan Harian</h6>
+              <div class="d-flex justify-content-end">
+
+                <a class="btn btn-success justify-content-end me-2" href="/addTransaksi"><i class="bi bi-plus" ></i>Transaksi</a>
+                <a class="btn btn-success justify-content-end" href="/cetakPenjualanHarian"><i class="bi bi-printer"></i>  Cetak</a>
+
+              </div>
+            
+            
+          </div>
+         
+          
           <div class="card-body px-0 pt-0 pb-2">
             <div class="table-responsive p-0">
               <table class="table align-items-center mb-0">
                 <thead>
                   <tr>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama Pelanggan</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">Total Piutang</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">Bayar</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Sisa</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Uang Masuk</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama Barang</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Jumlah Barang</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Harga Satuan</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Total Biaya</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Bayar</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kembalian</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Edit</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Hapus</th>
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach($data as $d)
+                  @foreach($transaksi as $a)
                     
-                 
+                  
                   <tr>
                     <td>
                       <div class="d-flex px-2 py-1">
                         
                         <div class="d-flex flex-column justify-content-center">
-                          <h4 class="mb-0 text-sm">{{ $d->nama }}</h4>
+                          <h4 class="mb-0 text-sm">{{ $a->nama_barang }}</h4>
                         </div>
                       </div>
                     </td>
                     <td>
-                      <div class="d-flex px-2 py-1">
-                        
-                        <div class="d-flex flex-column justify-content-center">
-                          <span class="text-secondary text-xs font-weight-bold">Rp. {{ @number_format($d->total,2,",",".") }}</span>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="d-flex px-2 py-1">
-                        
-                        <div class="d-flex flex-column justify-content-center">
-                          <span class="text-secondary text-xs font-weight-bold">Rp. {{ @number_format($d->bayar,2,",",".") }}</span>
-                        </div>
-                      </div>
-                    </td>
-                   
-                   
-                    <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold">Rp. {{ @number_format($d->sisa,2,",",".") }}</span>
+                      <h5 class="text-xs font-weight-bold mb-0">{{ $a->jumlah_barang }}</h5>
+                      {{-- <p class="text-xs text-secondary mb-0">Organization</p> --}}
                     </td>
                     <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold">Rp. {{ @number_format($d->uang_masuk,2,",",".") }}</span>
+                      <span class="text-secondary text-xs font-weight-bold">Rp. {{ @number_format($a->harga_satuan,2,",",".") }}</span>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold">{{  \Carbon\Carbon::parse($d->tanggal)->isoFormat(' dddd, D MMMM Y') }}</span>
+                      <span class="text-secondary text-xs font-weight-bold">Rp. {{  @number_format($a->total_biaya,2,",",".") }}</span>
                     </td>
-                                       
-                    <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm "><a href="/editDetailHutang/{{ $d->id }}/{{ $d->nama }}/{{ $d->kode }}"><i class="fas fa-edit fa-lg"></i></a></span>
+                    <td class="align-middle text-center">
+                      <span class="text-secondary text-xs font-weight-bold">{{ \Carbon\Carbon::parse($a->tanggal)->isoFormat(' dddd, D MMMM Y') }}</span>
+                    </td>
+                    <td class="align-middle text-center">
+                      <span class="text-secondary text-xs font-weight-bold">Rp. {{  @number_format($a->bayar,2,",",".") }}</span>
+                    </td> <td class="align-middle text-center">
+                      <span class="text-secondary text-xs font-weight-bold">Rp. {{  @number_format($a->kembalian,2,",",".") }}</span>
                     </td>
                     <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm "><a onclick="return confirm('Yakin Menghapus Data?')" href="/deleteDetailHutang/{{ $d->id }}/{{ $d->kode }}"><i class="fas fa-trash fa-lg"></i></a></span>
+                      <span class="badge badge-sm "><a href="/editTransaksi/{{ $a->id }}/{{ $a->nama_barang }}"><i class="fas fa-edit fa-lg"></i></a></span>
                     </td>
-                  </tr>
-                  @endforeach
+                    <td class="align-middle text-center text-sm">
+                      <span class="badge badge-sm "><a onclick="return confirm('Yakin Menghapus Data?')" href="/deleteTransaksi/{{ $a->id }}/{{ $a->nama_barang }}"><i class="fas fa-trash fa-lg"></i></a></span>
+                    </td>
+                    @endforeach
                     
-    
- 
+               
+
+                 
+                
+                 
                 </tbody>
               </table>
             </div>
@@ -147,7 +165,7 @@
     </div>
     <div class="d-flex justify-content-start">
 
-      {{ $data->links() }}
+      {{ $transaksi->links() }}
     </div>
     
     @include('component.footer')

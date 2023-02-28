@@ -9,6 +9,7 @@ use App\Models\Transaksi;
 use App\Models\DetailHutang;
 use App\Models\Hutang;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class AdminController extends Controller
 {
@@ -20,10 +21,22 @@ class AdminController extends Controller
         );
    }
    public function dataPenjualan(){
+   
         return view(
             'component.dataPenjualan' , 
             ["title" => 'Data Penjualan',
             "transaksi" => Transaksi::orderBy('tanggal' , 'desc')->latest()->SearchTransaksi()->paginate(10)->withQueryString(),
+
+            ]
+        );
+   }
+   public function todayTransaksi(){
+    $date =  Carbon::today()->toDateString();
+    $data = Transaksi::select('*')->where('tanggal',$date)->orderBy('tanggal' , 'desc')->latest()->SearchTransaksi()->paginate(10)->withQueryString();
+        return view(
+            'component.todayTransaksi' , 
+            ["title" => 'Data Penjualan Harian',
+            "transaksi" => $data,
 
             ]
         );
@@ -55,13 +68,63 @@ class AdminController extends Controller
         );
    }
    public function detailHutang($kode){
-    $data = DB::table('detail_hutangs')->orderBy('tanggal' , 'desc')->latest()->select('*')->where('kode',$kode)->paginate(10);
+    $data = DB::table('detail_hutangs')->orderBy('tanggal' , 'asc')->latest()->select('*')->where('kode',$kode)->paginate(10);
     
         return view(
             'component.detailHutang' , [
                 'data' => $data,
                 'kode' => $kode , 
                 "title" => 'Rincian Hutang'
+            ]
+        );
+   }
+   public function cetakDetail($kode){
+    $data = DB::table('detail_hutangs')->orderBy('tanggal' , 'asc')->latest()->select('*')->where('kode',$kode)->get();
+    $nama = DB::table('detail_hutangs')->select('nama')->where('kode',$kode)->first();
+        return view(
+            'component.cetakDetail' , [
+                'data' => $data,
+                'nama' => $nama->nama,
+                'kode' => $kode , 
+                "title" => 'Cetak Detail'
+            ]
+        );
+   }
+   public function cetakStok(){
+        return view(
+            'component.cetakStok' , [
+                'data' => Stok::all(),
+                 
+                "title" => 'Cetak Stok'
+            ]
+        );
+   }
+   public function cetakSupply(){
+        return view(
+            'component.cetakSupply' , [
+                'data' => Supply::all(),
+                 
+                "title" => 'Cetak Supply'
+            ]
+        );
+   }
+   public function cetakPenjualan(){
+        return view(
+            'component.cetakPenjualan' , [
+                'data' => Transaksi::all(),
+                 
+                "title" => 'Cetak Penjualan'
+            ]
+        );
+   }
+   public function cetakPenjualanHarian(){
+    $date =  Carbon::today()->toDateString();
+    $data = Transaksi::select('*')->where('tanggal',$date)->orderBy('tanggal' , 'desc')->latest()->get();
+        return view(
+            'component.cetakPenjualanHarian' , [
+                'data' => $data,
+                 
+                "title" => 'Cetak Penjualan Harian'
             ]
         );
    }
@@ -141,7 +204,7 @@ class AdminController extends Controller
     
         return view(
             'component.addData.tambahDataHutangLama' , [
-                "cuz" =>  DB::table('detail_hutangs')->select('nama' , 'kode' , 'total' , 'bayar')->where('kode',$kode)->orderBy('tanggal' , 'desc')->latest()->first(),
+                "cuz" =>  DB::table('detail_hutangs')->select('*')->where('kode',$kode)->orderBy('tanggal' , 'desc')->latest()->first(),
                 
                 "title" => "Tambah Catatan Piutang"
             ]
