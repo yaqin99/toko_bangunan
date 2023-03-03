@@ -20,6 +20,12 @@ class Hutang extends Model
     }
 
     public function detailHutang(){
-        return $this->hasMany(DetailHutang::class);
+        return $this->hasMany(DetailHutang::class );
+    }
+    public function customer(){
+        return $this->belongsTo(Customers::class);
+    }
+    public function transaksi(){
+        return $this->belongsTo(Transaksi::class);
     }
 }

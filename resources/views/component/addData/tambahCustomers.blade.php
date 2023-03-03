@@ -2,8 +2,10 @@
 
 @section('main')
 
+
 <main class="main-content position-relative border-radius-lg ">
   <!-- Navbar -->
+
   <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
     <div class="container-fluid py-1 px-3">
       {{-- <nav aria-label="breadcrumb">
@@ -16,9 +18,7 @@
       <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
         <div class="ms-md-auto pe-md-3 d-flex align-items-center">
           
-            {{-- <form action="/dataPenjualan" method="GET">
-            <input type="text" class="form-control" name="searchTransaksi"  placeholder="Cari ..." value="{{ request('searchTransaksi') }}">
-        </form> --}}
+            
         </div>
         <ul class="navbar-nav  justify-content-end">
           <li class="nav-item d-flex align-items-center">
@@ -45,15 +45,16 @@
         </ul>
       </div>
     </div>
-  </nav>    <!-- End Navbar -->
+  </nav>
+  <!-- End Navbar -->
   <div class="container-fluid py-4">
     <div class="row">
       <div class="col-12">
         <div class="card mb-4">
-         
+          
 
             <div class="card-header pb-0">
-              <h6 class="text-center">Tambah Transaksi</h6>
+              <h6 class="text-center">Tambah Customer</h6>
 
           </div>
          
@@ -61,38 +62,26 @@
           <div class="card-body pb-2">
            <div class="col-12">
             <div class="table-responsive p-0">
-              <form  action="/addTransaksi" method="POST" enctype="multipart/form-data">
+              <form  action="/addCustomers" method="POST" enctype="multipart/form-data">
                   @csrf
+                 
                   <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Nama Barang</label>
-                    <select class="form-select" required name="nama_barang"  aria-label="Default select example">
-                     
-                      <option selected>Pilih -</option>
-                      @foreach($stoks as $k)
-                      <option value="{{ $k->id }}">{{ $k->nama_barang }}</option>
-                      @endforeach
-                      
-                      
-                    </select>
+                    <label  class="form-label">Nama Pelanggan</label>
+                    <input autocomplete="off" type="text" class="form-control" required name="nama_pelanggan"  value="{{ old('nama_pelanggan') }}">
                   </div>
                   <div class="mb-3">
-                    <label  class="form-label">Jumlah Barang</label>
-                    <input autocomplete="off" type="number" class="form-control" required name="jumlah_barang"  aria-describedby="emailHelp" value="{{ old('jumlah_barang') }}">
-                    <span style="color:red"></span>
+                    <label  class="form-label">NIK</label>
+                    <input autocomplete="off" type="number" class="form-control" required name="nik"  value="{{ old('nik') }}">
                   </div>
-         
                   <div class="mb-3">
-                    <label  class="form-label">Tanggal</label>
-                    <input autocomplete="off" type="date" class="form-control" required name="tanggal"  aria-describedby="emailHelp" value="{{ old('tanggal') }}">
-                    <span style="color:red"></span>
+                    <label  class="form-label">Nomer Telpon</label>
+                    <input autocomplete="off" type="number" class="form-control" required name="no_hp"  value="{{ old('no_hp') }}">
                   </div>
-                  {{-- <div class="mb-3">
-                    <label  class="form-label">Bayar</label>
-                    <input autocomplete="off" type="number" class="form-control" required name="bayar"  aria-describedby="emailHelp" value="{{ old('bayar') }}">
-                    <span style="color:red"></span>
+                  <div class="mb-3">
+                    <label  class="form-label">Alamat</label>
+                    <input autocomplete="off" type="text" class="form-control" required name="alamat"  value="{{ old('alamat') }}">
                   </div>
-                  --}}
-                
+                                   
                  
                   <div class="mb-3">
                       <button type="submit" class="btn btn-primary" >Tambah</button>

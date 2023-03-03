@@ -23,6 +23,8 @@
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
   <link href="/assets/css/nucleo-svg.css" rel="stylesheet" />
   <!-- CSS Files -->
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
   <link id="pagestyle" href="/assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" />
 </head>
 
@@ -106,12 +108,20 @@
     </div>
   </div> --}}
   <!--   Core JS Files   -->
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
   <script src="/assets/js/core/popper.min.js"></script>
   <script src="/assets/js/core/bootstrap.min.js"></script>
   <script src="/assets/js/plugins/perfect-scrollbar.min.js"></script>
   <script src="/assets/js/plugins/smooth-scrollbar.min.js"></script>
   <script src="/assets/js/plugins/chartjs.min.js"></script>
+  
   <script>
+
+    $(document).ready(function() {
+        $('#nama_barang').select2();
+    });
+
     var ctx1 = document.getElementById("chart-line").getContext("2d");
 
     var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);

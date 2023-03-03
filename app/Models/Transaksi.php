@@ -16,4 +16,15 @@ class Transaksi extends Model
           // ->orWhere('nama_kategori','like','%'.request('search').'%');
       } 
       }
+
+      public function detailTransaksi(){
+
+        return $this->hasMany(DetailTransaksi::class);
+       
+      }
+      public function hutang(){
+
+        return $this->belongsTo(Hutang::class);
+       
+      }
 }

@@ -22,4 +22,14 @@ class Stok extends Model
     public function supply(){
         return $this->hasMany(Supply::class);
     }
+    public function detailTransaksi(){
+
+        return $this->hasMany(DetailTransaksi::class);
+       
+      }
+    public function sementara(){
+
+        return $this->hasMany(Sementara::class);
+       
+      }
 }

@@ -16,8 +16,8 @@
       <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
         <div class="ms-md-auto pe-md-3 d-flex align-items-center">
           
-            <form action="/dataHutang" method="GET">
-            <input type="text" class="form-control" name="searchHutang"  placeholder="Cari ..." value="{{ request('searchHutang') }}">
+            <form action="/dataCustomers" method="GET">
+            <input type="text" class="form-control" name="searchCustomers"  placeholder="Cari ..." value="{{ request('searchCustomers') }}">
         </form>
         </div>
         <ul class="navbar-nav  justify-content-end">
@@ -50,86 +50,106 @@
   <div class="container-fluid py-4">
     <div class="row">
       <div class="col-12">
-        <div class="card mb-4">
-          @if(Session::get('success'))
+        <div class="card mb-6">
+          @if(Session::get('suksesTambah'))
           <div class="col-3">
             <div class="alert alert-success">
               <div class="text-light fw-bold">
-                {{ Session::get('success') }}
+                {{ Session::get('suksesTambah') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
               </div>
             </div>
           </div>
         @endif
-          <div class="card-header pb-0">
-            <h6>Data Hutang</h6>
-            <div class="d-flex justify-content-end">
-
-            <a class="btn btn-success justify-content-end" href="/addDataHutang"><i class="bi bi-plus"></i>Data Hutang</a>
+        @if(Session::get('berhasilEditSupply'))
+          <div class="col-3">
+            <div class="alert alert-success">
+              <div class="text-light fw-bold">
+                {{ Session::get('berhasilEditSupply') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
             </div>
           </div>
+        @endif
+        @if(Session::get('berhasilHapusSupply'))
+          <div class="col-3">
+            <div class="alert alert-success">
+              <div class="text-light fw-bold">
+                {{ Session::get('berhasilHapusSupply') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            </div>
+          </div>
+        @endif
+        
+
+            <div class="card-header pb-0">
+              <h6>Data Customer</h6>
+              <div class="d-flex justify-content-end">
+
+                <a class="btn btn-success justify-content-end me-2" href="/addCustomers"><i class="bi bi-plus" ></i>Customer</a>
+                <a class="btn btn-success justify-content-end" href="/cetakPenjualan"><i class="bi bi-printer"></i>  Cetak</a>
+
+              </div>
+            
+            
+          </div>
+         
+          
           <div class="card-body px-0 pt-0 pb-2">
             <div class="table-responsive p-0">
               <table class="table align-items-center mb-0">
                 <thead>
                   <tr>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama Pelanggan</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">Total Piutang</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">Bayar</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Sisa</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Keterangan</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tambah Rincian</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Rincian</th>
-                   
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama Barang</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Kode Customers</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">NIK</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No. Telpon</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Alamat</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Opsi</th>
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach($hutang as $h)
+                  @foreach($customer as $a)
+                    
                   
                   <tr>
                     <td>
                       <div class="d-flex px-2 py-1">
+                        
                         <div class="d-flex flex-column justify-content-center">
-                          <h4 class="mb-0 text-sm">{{ $h->customer->nama_pelanggan }}</h4>
+                          <h4 class="mb-0 text-sm">{{ $a->nama_pelanggan }}</h4>
                         </div>
                       </div>
                     </td>
                     <td>
-                      <div class="d-flex px-2 py-1">
-                        
-                        <div class="d-flex flex-column justify-content-center">
-                          <span class="text-secondary text-xs font-weight-bold">Rp. {{ @number_format($h->transaksi->total,2,",",".") }}</span>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="d-flex px-2 py-1">
-                        
-                        <div class="d-flex flex-column justify-content-center">
-                          <span class="text-secondary text-xs font-weight-bold">Rp. {{ @number_format($h->transaksi->bayar,2,",",".") }}</span>
-                        </div>
-                      </div>
-                    </td>
-                   
-                   
-                    <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold">Rp. {{ @number_format($h->sisa,2,",",".") }}</span>
+                      <h5 class="text-xs font-weight-bold mb-0">{{ $a->kode_customers }}</h5>
+                      {{-- <p class="text-xs text-secondary mb-0">Organization</p> --}}
                     </td>
                     <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold">{{ $h->sisa === 0 ? 'Lunas' : 'Belum Lunas' }}</span>
+                      <span class="text-secondary text-xs font-weight-bold">{{ $a->nik }}</span>
+                    </td>
+                   
+                    <td class="align-middle text-center">
+                      <span class="text-secondary text-xs font-weight-bold">{{ $a->no_hp }}</span>
+                    </td>
+                   
+                    <td class="align-middle text-center">
+                      <span class="text-secondary text-xs font-weight-bold">{{ $a->alamat }}</span>
                     </td>
                     <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm "><a href="/addDataHutangLama/{{ $h->kode }}"><i class="bi bi-plus-circle fa-lg"></i></a></span>
-                    </td> 
-                    
-                    <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm "><a href="/detailHutang/{{ $h->kode }}">Lihat Detail</span>
+                      <span class="badge badge-sm "><a href="/editTransaksi/{{ $a->id }}/{{ $a->nama_barang }}"><i class="fas fa-edit fa-lg"></i></a></span>
+                      <span class="badge badge-sm "><a onclick="return confirm('Yakin Menghapus Data?')" href="/deleteTransaksi/{{ $a->id }}/{{ $a->nama_barang }}"><i class="fas fa-trash fa-lg"></i></a></span>
                     </td>
-                    
+                  
+                   
                     @endforeach
+                    
+               
 
-    
- 
+                 
+                
+                 
                 </tbody>
               </table>
             </div>
@@ -139,9 +159,8 @@
     </div>
     <div class="d-flex justify-content-start">
 
-      {{ $hutang->links() }}
+      {{ $customer->links() }}
     </div>
-    
     
     @include('component.footer')
   </div>

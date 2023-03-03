@@ -1,0 +1,176 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Sementara;
+use App\Models\Transaksi;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+use Illuminate\Support\Str;
+
+
+
+class SementaraController extends Controller
+{
+
+    public function addPenjualan($total , $sementara){
+
+        
+        
+        request()->validate([
+            'bayar' => 'required' , 
+        ]);
+        // $data = [
+        //     "nama_pelanggan" => request()->input('nama_pelanggan'),
+        //     "bayar" => request()->input('bayar'),
+        // ];
+        // dd($data);
+        if (request()->input('nama_pelanggan') == 'Nama Pelanggan') {
+            if (request()->input('bayar') < $total) {
+                return back()->with('tidakCukup','Uang Anda Kurang, Silahkan Pilih Customers Jika Data Merupakan Data Hutang');
+            }
+            if (request()->input('bayar') >= $total) {
+            $ranStr = Str::random(6);
+            $ranNum =  random_int(100, 10000);
+            $kode = $ranStr.$ranNum ;
+            $time = Carbon::now();
+            $kembalian = request()->input('bayar') - $total ; 
+            $query = DB::table('transaksis')->insert([
+                'kode_transaksi' =>$kode,
+                'tanggal' => $time,
+                'total'  =>$total,
+                'bayar' =>request()->input('bayar'),
+                'kembalian' => $kembalian , 
+            ]);
+    
+            $readyData = [
+                "nama_barang" => '' , 
+                "jumlah_barang" => 0 , 
+                "total_biaya" => 0 , 
+                "tanggal" => '' , 
+                "kode_transaksi" => '',
+            ] ; 
+            $sementaraData = Sementara::all();
+    
+    
+            foreach ($sementaraData as $a) {
+           
+                $readyData['nama_barang'] = $a->stok->nama_barang ; 
+                $readyData['jumlah_barang'] = $a->jumlah_barang ; 
+                $readyData['total_biaya'] = $a->jumlah_barang * $a->stok->harga_satuan;
+                $readyData['tanggal'] = $a->tanggal ; 
+                $readyData['kode_transaksi'] = $kode;
+                
+                $query = DB::table('detail_transaksis')->insert([
+                    "nama_barang" => $readyData['nama_barang'] , 
+                    "jumlah_barang" => $readyData['jumlah_barang'] , 
+                    "total_biaya" => $readyData['total_biaya'] , 
+                    "tanggal" => $readyData['tanggal'] , 
+                    "kode_transaksi" => $readyData['kode_transaksi'],
+                ]);
+    
+                $newStok = $a->stok->jumlah_stok - $readyData['jumlah_barang'] ; 
+                DB::table('stoks')->where('id' , $a->stok->id)->update(['jumlah_stok' => $newStok ]);
+    
+             }
+            }
+        }
+       
+        
+       
+        
+        
+
+        
+         if (request()->input('nama_pelanggan') != 'Nama Pelanggan') {
+
+            if (request()->input('bayar') < $total) {
+
+                $ranStr = Str::random(6);
+            $ranNum =  random_int(100, 10000);
+            $kode = $ranStr.$ranNum ;
+            $time = Carbon::now();
+            $kembalian = request()->input('bayar') - $total ; 
+            $query = DB::table('transaksis')->insert([
+                'kode_transaksi' =>$kode,
+                'tanggal' => $time,
+                'total'  =>$total,
+                'bayar' =>request()->input('bayar'),
+                'kembalian' => $kembalian , 
+            ]);
+    
+            $readyData = [
+                "nama_barang" => '' , 
+                "jumlah_barang" => 0 , 
+                "total_biaya" => 0 , 
+                "tanggal" => '' , 
+                "kode_transaksi" => '',
+            ] ; 
+            $sementaraData = Sementara::all();
+    
+    
+            foreach ($sementaraData as $a) {
+           
+                $readyData['nama_barang'] = $a->stok->nama_barang ; 
+                $readyData['jumlah_barang'] = $a->jumlah_barang ; 
+                $readyData['total_biaya'] = $a->jumlah_barang * $a->stok->harga_satuan;
+                $readyData['tanggal'] = $a->tanggal ; 
+                $readyData['kode_transaksi'] = $kode;
+                
+                $query = DB::table('detail_transaksis')->insert([
+                    "nama_barang" => $readyData['nama_barang'] , 
+                    "jumlah_barang" => $readyData['jumlah_barang'] , 
+                    "total_biaya" => $readyData['total_biaya'] , 
+                    "tanggal" => $readyData['tanggal'] , 
+                    "kode_transaksi" => $readyData['kode_transaksi'],
+                ]);
+    
+                $newStok = $a->stok->jumlah_stok - $readyData['jumlah_barang'] ; 
+                DB::table('stoks')->where('id' , $a->stok->id)->update(['jumlah_stok' => $newStok ]);
+    
+             }
+             $transaksi =  Transaksi::select('*')->orderBy('id' , 'desc')->latest()->first();
+
+                $query = DB::table('hutangs')->insert([
+                    'customer_id' => request()->input('nama_pelanggan'),
+                    'transaksi_id' => $transaksi->id,
+                    'sisa' =>  $transaksi->total - $transaksi->bayar, 
+                ]);
+            }
+            
+
+            if (request()->input('bayar') >= $total) {
+                return back()->with('bayar','Pada Data Hutang Pembayaran Harus Di Bawah Total');
+            }
+            
+    
+         }
+
+
+         
+
+
+        if($query){
+            Sementara::query()->delete();
+            return redirect('/')->with('suksesTambahTransaksi' , 'Data Transaksi Berhasil di Tambahkan');
+        } 
+    }
+
+    public function delete($id){
+        $data = Sementara::find($id);
+        
+        $delete =  $data->delete();
+
+       if($delete){
+        return back();
+    } else {
+        return back()->with('gagalHapus' , 'Data Gagal di Hapus');
+
+    }
+    }
+
+    public function deleteAll(){
+        return Sementara::query()->delete();
+    }
+}

@@ -55,6 +55,18 @@
             </div>
           </a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link {{ ($title === 'Data Customer' || $title === 'Tambah Customer' || $title === 'Edit Customer') ? 'active' : '' }}" href="/dataCustomers">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              {{-- <i class="ni ni-app text-info text-sm opacity-10"></i> --}}
+              <i class="bi bi-person-fill text-success text-lg opacity-10"></i>
+            </div>
+            <div class="d-flex align-items-center">
+              
+              <span class="nav-link-text ms-1">Data Customer</span>
+            </div>
+          </a>
+        </li>
         
         
       

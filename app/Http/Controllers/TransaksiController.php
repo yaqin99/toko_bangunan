@@ -7,6 +7,8 @@ use App\Http\Requests\StoreTransaksiRequest;
 use App\Http\Requests\UpdateTransaksiRequest;
 use App\Models\Stok;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+
 
 
 
@@ -19,33 +21,36 @@ class TransaksiController extends Controller
 
         request()->validate([
              'nama_barang' => 'required' , 
-             'bayar' => 'required',
+            //  'bayar' => 'required',
              'jumlah_barang' => 'required' , 
              'tanggal' => 'required' , 
            
              
          ]);
+        
+        // $ranStr = Str::random(5);
+        // $ranNum =  random_int(100, 10000);
+        // $kode = $ranStr.$ranNum ;
         $data = Stok::find(request()->nama_barang);
         $totalBiaya = $data->harga_satuan * request()->input('jumlah_barang');
         $kembalian = request()->input('bayar') - $totalBiaya ; 
-        $query = DB::table('transaksis')->insert([
-             'nama_barang' =>$data->nama_barang, 
+
+        $query = DB::table('sementaras')->insert([
+             'stok_id' =>request()->input('nama_barang'),
              'jumlah_barang' =>request()->input('jumlah_barang'),
-             'harga_satuan' =>$data->harga_satuan,
              'total_biaya'  =>$totalBiaya,
              'tanggal' => request()->input('tanggal'),
-             'bayar' => request()->input('bayar'),
-             'kembalian' => $kembalian,
+           
 
            
          ]);
 
-        $data->jumlah_stok = $data->jumlah_stok - request()->input('jumlah_barang');
-        $data->save();
+        // $data->jumlah_stok = $data->jumlah_stok - request()->input('jumlah_barang');
+        // $data->save();
 
  
          if($query){
-             return redirect('/dataPenjualan')->with('suksesTambahTransaksi' , 'Data Transaksi Berhasil di Tambahkan');
+             return redirect('/')->with('suksesTambahTransaksi' , 'Data Transaksi Berhasil di Tambahkan');
          } 
 
              dd('gagal');
