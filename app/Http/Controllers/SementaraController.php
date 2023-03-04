@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Sementara;
 use App\Models\Transaksi;
+use App\Models\Hutang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -45,7 +46,7 @@ class SementaraController extends Controller
             ]);
     
             $readyData = [
-                "nama_barang" => '' , 
+                "nama_barang" => 0 , 
                 "jumlah_barang" => 0 , 
                 "total_biaya" => 0 , 
                 "tanggal" => '' , 
@@ -56,14 +57,14 @@ class SementaraController extends Controller
     
             foreach ($sementaraData as $a) {
            
-                $readyData['nama_barang'] = $a->stok->nama_barang ; 
+                $readyData['nama_barang'] = $a->stok->id ; 
                 $readyData['jumlah_barang'] = $a->jumlah_barang ; 
                 $readyData['total_biaya'] = $a->jumlah_barang * $a->stok->harga_satuan;
-                $readyData['tanggal'] = $a->tanggal ; 
+                $readyData['tanggal'] = $time ; 
                 $readyData['kode_transaksi'] = $kode;
                 
                 $query = DB::table('detail_transaksis')->insert([
-                    "nama_barang" => $readyData['nama_barang'] , 
+                    "stok_id" => $readyData['nama_barang'] , 
                     "jumlah_barang" => $readyData['jumlah_barang'] , 
                     "total_biaya" => $readyData['total_biaya'] , 
                     "tanggal" => $readyData['tanggal'] , 
@@ -101,7 +102,7 @@ class SementaraController extends Controller
             ]);
     
             $readyData = [
-                "nama_barang" => '' , 
+                "nama_barang" => 0 , 
                 "jumlah_barang" => 0 , 
                 "total_biaya" => 0 , 
                 "tanggal" => '' , 
@@ -112,14 +113,14 @@ class SementaraController extends Controller
     
             foreach ($sementaraData as $a) {
            
-                $readyData['nama_barang'] = $a->stok->nama_barang ; 
+                $readyData['nama_barang'] = $a->stok->id ; 
                 $readyData['jumlah_barang'] = $a->jumlah_barang ; 
                 $readyData['total_biaya'] = $a->jumlah_barang * $a->stok->harga_satuan;
-                $readyData['tanggal'] = $a->tanggal ; 
+                $readyData['tanggal'] = $time ; 
                 $readyData['kode_transaksi'] = $kode;
                 
                 $query = DB::table('detail_transaksis')->insert([
-                    "nama_barang" => $readyData['nama_barang'] , 
+                    "stok_id" => $readyData['nama_barang'] , 
                     "jumlah_barang" => $readyData['jumlah_barang'] , 
                     "total_biaya" => $readyData['total_biaya'] , 
                     "tanggal" => $readyData['tanggal'] , 
@@ -135,8 +136,25 @@ class SementaraController extends Controller
                 $query = DB::table('hutangs')->insert([
                     'customer_id' => request()->input('nama_pelanggan'),
                     'transaksi_id' => $transaksi->id,
+                    'total' => $transaksi->total ,
+                    'bayar' => $transaksi->bayar ,
                     'sisa' =>  $transaksi->total - $transaksi->bayar, 
                 ]);
+
+                
+             $hutang =  Hutang::select('id')->orderBy('id' , 'desc')->latest()->first();
+
+                $query = DB::table('detail_hutangs')->insert([
+                    'customer_id' => request()->input('nama_pelanggan'),
+                    'hutang_id' => $hutang->id,
+                    'total' => $transaksi->total ,
+                    'bayar' => $transaksi->bayar , 
+                    'sisa' =>  $transaksi->total - $transaksi->bayar, 
+                    'uang_masuk' => $transaksi->bayar , 
+                    'tanggal' => $transaksi->tanggal , 
+                ]);
+
+
             }
             
 

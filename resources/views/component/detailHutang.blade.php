@@ -65,10 +65,9 @@
           <div class="card-header pb-0">
             <h6>Rincian Hutang</h6>
             <div class="d-flex justify-content-end">
-
-            <a class="btn btn-success justify-content-end me-2" href="/addDataHutangLama/{{ $kode }}"><i class="bi bi-plus"></i> Catatan</a>
+            <a class="btn btn-success justify-content-end me-2" href="/addDataHutangLama/{{ $hutang_id }}/{{ $nama }}/{{ $customer_id }}"><i class="bi bi-plus"></i> Catatan</a>
             <div class="bg-transparent"></div>
-            <a class="btn btn-success justify-content-end" href="/cetakDetail/{{ $kode }}"><i class="bi bi-printer"></i>  Cetak</a>
+            <a class="btn btn-success justify-content-end" href="/cetakDetail/{{ $hutang_id }}"><i class="bi bi-printer"></i>  Cetak</a>
             </div>
           </div>
           <div class="card-body px-0 pt-0 pb-2">
@@ -78,7 +77,7 @@
                   <tr>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama Pelanggan</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">Total Piutang</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">Bayar</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">Total Bayar</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Sisa</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Uang Masuk</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal</th>
@@ -95,7 +94,7 @@
                       <div class="d-flex px-2 py-1">
                         
                         <div class="d-flex flex-column justify-content-center">
-                          <h4 class="mb-0 text-sm">{{ $d->nama }}</h4>
+                          <h4 class="mb-0 text-sm">{{ $d->customer->nama_pelanggan }}</h4>
                         </div>
                       </div>
                     </td>
@@ -128,10 +127,10 @@
                     </td>
                                        
                     <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm "><a href="/editDetailHutang/{{ $d->id }}/{{ $d->nama }}/{{ $d->kode }}"><i class="fas fa-edit fa-lg"></i></a></span>
+                      <span class="badge badge-sm "><a href="/editDetailHutang/{{ $d->id }}/{{ $d->nama }}/{{ $d->customer_id }}"><i class="fas fa-edit fa-lg"></i></a></span>
                     </td>
                     <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm "><a onclick="return confirm('Yakin Menghapus Data?')" href="/deleteDetailHutang/{{ $d->id }}/{{ $d->kode }}"><i class="fas fa-trash fa-lg"></i></a></span>
+                      <span class="badge badge-sm "><a onclick="return confirm('Yakin Menghapus Data?')" href="/deleteDetailHutang/{{ $d->id }}"><i class="fas fa-trash fa-lg"></i></a></span>
                     </td>
                   </tr>
                   @endforeach

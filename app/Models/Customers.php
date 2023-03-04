@@ -24,4 +24,7 @@ class Customers extends Model
       public function hutang(){
         return $this->hasMany(Hutang::class, 'customer_id');
     }
+      public function detailHutang(){
+        return $this->hasMany(DetailHutang::class, 'customer_id');
+    }
 }

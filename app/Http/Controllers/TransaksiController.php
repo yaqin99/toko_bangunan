@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Transaksi;
 use App\Http\Requests\StoreTransaksiRequest;
 use App\Http\Requests\UpdateTransaksiRequest;
+use App\Models\DetailTransaksi;
 use App\Models\Stok;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -23,7 +24,6 @@ class TransaksiController extends Controller
              'nama_barang' => 'required' , 
             //  'bayar' => 'required',
              'jumlah_barang' => 'required' , 
-             'tanggal' => 'required' , 
            
              
          ]);
@@ -39,7 +39,6 @@ class TransaksiController extends Controller
              'stok_id' =>request()->input('nama_barang'),
              'jumlah_barang' =>request()->input('jumlah_barang'),
              'total_biaya'  =>$totalBiaya,
-             'tanggal' => request()->input('tanggal'),
            
 
            
@@ -58,40 +57,17 @@ class TransaksiController extends Controller
          
      }
 
-     public function editTransaksi( $id , $idStok){
-        
-       
-        
+     public function editTransaksi( $id){
+  
         $validatedData =  request()->validate([
-            'nama_barang' => 'required' , 
-            'bayar' => 'required',
-            'jumlah_barang' => 'required' , 
+           
             'tanggal' => 'required' , 
         ]);
-        
-        if (request()->nama_barang === 'Pilih -') {
-            return back()->with('lengkapi' , 'Harap Lengkapi Semua Data');
-
-        }
-
-        $stok = DB::table('stoks')->select('*')->where('id',$idStok)->first();
-        
-        $data = Transaksi::find($id)->jumlah_barang ;
-        $newStok = $stok->jumlah_stok + $data ;
-       
-        $totalStok = $newStok - request()->input('jumlah_barang');
-        DB::table('stoks')->where('id' , $stok->id)->update(['jumlah_stok' => $totalStok ]);
-        $totalBiaya = $stok->harga_satuan * request()->input('jumlah_barang');
-        $kembalian = request()->input('bayar') - $totalBiaya ; 
-       
-        DB::table('transaksis')->where('id' , $id)->update(['total_biaya' => $totalBiaya  , 'kembalian' => $kembalian]);
-
-        
-
+ 
         $cek = DB::table('transaksis')->where('id' , $id)->update($validatedData);
         if ($cek) {
             # code...
-            return redirect('/dataPenjualan')->with('berhasilEditSupply' , 'Data Berhasil di Update');
+            return redirect('/')->with('berhasilEdit' , 'Data Berhasil di Update');
         } else {
 
             
@@ -101,11 +77,20 @@ class TransaksiController extends Controller
 
     }
 
-    public function deleteTransaksi($id , $nama_barang){
+    public function deleteTransaksi($id , $kode_transaksi){
         $data = Transaksi::find($id);
-        $stok = DB::table('stoks')->select('*')->where('nama_barang',$nama_barang)->first();
-        $newStok = $stok->jumlah_stok + $data->jumlah_barang ; 
-        DB::table('stoks')->where('id' , $stok->id)->update(['jumlah_stok' => $newStok ]);
+
+
+        $detail = DetailTransaksi::with('stok')->select('*')->where('kode_transaksi' , $kode_transaksi)->get();
+        //DETAIL DI ATAS KARENA GET MAKA DIA DAPATNYA COLLECTION ATAU BANYAK DATA
+        $single = DetailTransaksi::with('stok')->select('*')->where('kode_transaksi' , $kode_transaksi)->first();
+        
+        //SINGLE DI ATAS KARENA FIRST MAKA DAPAT SINGLE DATA 
+        $newStok = $single->stok->jumlah_stok + $single->jumlah_barang ; 
+        
+        DB::table('stoks')->where('id' , $single->stok->id)->update(['jumlah_stok' => $newStok ]);
+
+        DetailTransaksi::where('kode_transaksi', $kode_transaksi)->delete();
         $delete =  $data->delete();
 
        if($delete){

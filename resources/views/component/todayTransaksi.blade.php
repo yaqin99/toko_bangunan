@@ -72,6 +72,16 @@
             </div>
           </div>
         @endif
+          @if(Session::get('berhasilEdit'))
+          <div class="col-12">
+            <div class="alert alert-success">
+              <div class="text-light fw-bold">
+                {{ Session::get('berhasilEdit') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            </div>
+          </div>
+        @endif
           <div class="card-header pb-0 px-3">
             <h6 class="mb-0">Transaksi Harian</h6>
             <div class="d-flex justify-content-end">
@@ -123,8 +133,8 @@
                     <span class="text-secondary text-xs font-weight-bold">Rp.{{ @number_format($sari->kembalian,2,",",".")}}</span>
                  
                   <td class="align-middle text-center text-sm">
-                    <span class="badge badge-sm "><a href="/editTransaksi/"><i class="fas fa-edit fa-lg"></i></a></span>
-                    <span class="badge badge-sm "><a onclick="return confirm('Yakin Menghapus Data?')" href="/deleteTransaksi/"><i class="fas fa-trash fa-lg"></i></a></span>
+                    <span class="badge badge-sm "><a href="/editTransaksi/{{ $sari->id }}"><i class="fas fa-edit fa-lg"></i></a></span>
+                    <span class="badge badge-sm "><a onclick="return confirm('Yakin Menghapus Data?')" href="/deleteTransaksi/{{ $sari->id }}/{{ $sari->kode_transaksi }}"><i class="fas fa-trash fa-lg"></i></a></span>
 
                   </td>
                

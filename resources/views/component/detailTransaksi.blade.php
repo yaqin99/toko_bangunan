@@ -106,11 +106,12 @@
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Total Biaya</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kode</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Edit</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Hapus</th>
+                    {{-- <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Edit</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Hapus</th> --}}
                   </tr>
                 </thead>
                 <tbody>
+                  
                   @foreach($data as $a)
                     
                   
@@ -119,7 +120,7 @@
                       <div class="d-flex px-2 py-1">
                         
                         <div class="d-flex flex-column justify-content-center">
-                          <h4 class="mb-0 text-sm">{{ $a->nama_barang }}</h4>
+                          <h4 class="mb-0 text-sm">{{ $a->stok->nama_barang }}</h4>
                         </div>
                       </div>
                     </td>
@@ -136,12 +137,12 @@
                     <td class="align-middle text-center">
                       <span class="text-secondary text-xs font-weight-bold">{{ $a->kode_transaksi }}</span>
                     </td>  
-                    <td class="align-middle text-center text-sm">
+                    {{-- <td class="align-middle text-center text-sm">
                       <span class="badge badge-sm "><a href="/editTransaksi/{{ $a->id }}/{{ $a->nama_barang }}"><i class="fas fa-edit fa-lg"></i></a></span>
                     </td>
                     <td class="align-middle text-center text-sm">
                       <span class="badge badge-sm "><a onclick="return confirm('Yakin Menghapus Data?')" href="/deleteTransaksi/{{ $a->id }}/{{ $a->nama_barang }}"><i class="fas fa-trash fa-lg"></i></a></span>
-                    </td>
+                    </td> --}}
                     @endforeach
                     
                

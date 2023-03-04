@@ -14,4 +14,7 @@ class DetailHutang extends Model
     public function hutang(){
         return $this->belongsTo(Hutang::class);
     }
+    public function customer(){
+        return $this->belongsTo(Customers::class);
+    }
 }

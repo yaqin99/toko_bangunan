@@ -64,47 +64,44 @@ class DetailHutangController extends Controller
  
          
      }
-    public function addHutangLama($kode , $nama){
+    public function addHutangLama($customer_id , $hutang_id , $tot , $bay , $sis){
 
 
         request()->validate([
-             'total' => 'required' , 
-             'bayar' => 'required' , 
-             'sisa' => 'required' , 
+          
              'uang_masuk' => 'required' , 
              'tanggal' => 'required' , 
            
              
          ]);
-
-       
-       
-
- 
-           
+        $totalBayar = $bay + request()->input('uang_masuk') ; 
+        $sisa = $tot - $totalBayar ; 
+        if ($sisa < 0) {
+            $sisa = 0 ; 
+        }
         $query = DB::table('detail_hutangs')->insert([
-            'nama'=>$nama, 
-            'kode' => $kode , 
-            'total'  =>request()->input('total'),
-            'bayar' =>request()->input('bayar'),
-            'sisa' =>request()->input('sisa'),
+            'customer_id' => $customer_id , 
+            'hutang_id' => $hutang_id , 
+            'total'  =>$tot,
+            'bayar' =>$totalBayar , 
+            'sisa' => $sisa ,
             'uang_masuk' =>request()->input('uang_masuk'),
             'tanggal' => request()->input('tanggal'),
            
          ]);
-         $data = DB::table('detail_hutangs')->orderBy('tanggal' , 'desc')->latest()->select('*')->where('kode',$kode)->first();
-
-         DB::table('hutangs')->where('kode' , $kode)->update([
-            "total" => $data->total , 
-            "bayar" => $data->bayar,
-            "sisa" => $data->sisa,
+        
+       
+         DB::table('hutangs')->where('id' , $hutang_id)->update([
+            "total" =>  $tot, 
+            "bayar" => $totalBayar,
+            "sisa" => $sisa,
          ]);
 
        
 
 
          if($query){
-             return redirect('/detailHutang'.'/'.$kode)->with('success' , 'Data Berhasil di Tambahkan');
+             return redirect('/dataHutang')->with('success' , 'Data Berhasil di Tambahkan');
          } 
 
              dd('gagal mek');

@@ -81,17 +81,6 @@
                     <span style="color:red"></span>
                   </div>
          
-                  <div class="mb-3">
-                    <label  class="form-label">Tanggal</label>
-                    <input autocomplete="off" type="date" class="form-control" required name="tanggal"  aria-describedby="emailHelp" value="{{ old('tanggal') }}">
-                    <span style="color:red"></span>
-                  </div>
-                  {{-- <div class="mb-3">
-                    <label  class="form-label">Bayar</label>
-                    <input autocomplete="off" type="number" class="form-control" required name="bayar"  aria-describedby="emailHelp" value="{{ old('bayar') }}">
-                    <span style="color:red"></span>
-                  </div>
-                  --}}
                 
                  
                   <div class="mb-3">

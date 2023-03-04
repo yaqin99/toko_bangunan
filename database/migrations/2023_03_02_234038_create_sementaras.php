@@ -18,7 +18,6 @@ class CreateSementaras extends Migration
             $table->foreignId('stok_id');
             $table->integer('jumlah_barang');
             $table->integer('total_biaya');
-            $table->date('tanggal');
             $table->timestamps();
         });
     }

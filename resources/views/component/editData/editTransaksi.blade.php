@@ -82,29 +82,29 @@
           <div class="card-body pb-2">
            <div class="col-12">
             <div class="table-responsive p-0">
-              <form  action="/editTransaksi/{{ $transaksis->id }}/{{ $stok->id }}" method="POST" enctype="multipart/form-data">
+              <form  action="/editTransaksi/{{ $transaksis->id }}" method="POST" enctype="multipart/form-data">
                   @csrf
                  @method('put')
                     
                  <div class="mb-3">
-                  <label  class="form-label">Nama Barang</label>
-                  <input autocomplete="off" type="text" class="form-control" required name="nama_barang"  aria-describedby="emailHelp" value="{{ old('nama_barang' , $transaksis->nama_barang) }}">
+                  <label  class="form-label">Kode Transaksi</label>
+                  <input autocomplete="off" type="text" class="form-control" disabled required name="kode_transaksi"  aria-describedby="emailHelp" value="{{ old('kode_transaksi' , $transaksis->kode_transaksi) }}">
                   <span style="color:red"></span>
                 </div>
                   <div class="mb-3">
-                    <label  class="form-label">Jumlah Barang</label>
-                    <input autocomplete="off" type="number" class="form-control" required name="jumlah_barang"  aria-describedby="emailHelp" value="{{ old('jumlah_barang' , $transaksis->jumlah_barang) }}">
+                    <label  class="form-label">Total</label>
+                    <input autocomplete="off" type="number" class="form-control" disabled required name="jumlah_barang"  aria-describedby="emailHelp" value="{{ old('jumlah_barang' , $transaksis->total) }}">
                     <span style="color:red"></span>
                   </div>
          
                   <div class="mb-3">
-                    <label  class="form-label">Tanggal</label>
-                    <input autocomplete="off" type="date" class="form-control" required name="tanggal"  aria-describedby="emailHelp" value="{{ old('tanggal' , $transaksis->tanggal) }}">
+                    <label  class="form-label">Bayar</label>
+                    <input autocomplete="off" type="number" class="form-control" disabled required name="tanggal"  aria-describedby="emailHelp" value="{{ old('tanggal' , $transaksis->bayar) }}">
                     <span style="color:red"></span>
                   </div>
                   <div class="mb-3">
-                    <label  class="form-label">Bayar</label>
-                    <input autocomplete="off" type="number" class="form-control" required name="bayar"  aria-describedby="emailHelp" value="{{ old('bayar',$transaksis->bayar) }}">
+                    <label  class="form-label">Tanggal</label>
+                    <input autocomplete="off" type="date" class="form-control" required name="tanggal"  aria-describedby="emailHelp" value="{{ old('bayar',$transaksis->tanggal) }}">
                     <span style="color:red"></span>
                   </div>         
                  

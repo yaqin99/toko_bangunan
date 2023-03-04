@@ -17,6 +17,8 @@ class CreateHutangsTable extends Migration
             $table->id();
             $table->foreignId('customer_id');
             $table->foreignId('transaksi_id');
+            $table->integer('total');
+            $table->integer('bayar');
             $table->integer('sisa');
             $table->timestamps();
         });

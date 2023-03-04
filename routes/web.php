@@ -19,7 +19,7 @@ Route::get('/dataSupply',[AdminController::class , 'dataSupply']);
 Route::get('/dataCustomers',[AdminController::class , 'dataCustomers']);
 
 
-Route::get('/detailHutang/{kode}',[AdminController::class , 'detailHutang']);
+Route::get('/detailHutang/{id}/{nama}/{customer_id}',[AdminController::class , 'detailHutang']);
 Route::get('/detailTransaksi/{kode_transaksi}',[AdminController::class , 'detailTransaksi']);
 
 
@@ -33,14 +33,14 @@ Route::get('/cetakPenjualanHarian',[AdminController::class , 'cetakPenjualanHari
 Route::get('/addTransaksi',[AdminController::class , 'addTransaksi']);
 Route::get('/addStok',[AdminController::class , 'addStok']);
 Route::get('/addDataHutang',[AdminController::class , 'addDataHutang']);
-Route::get('/addDataHutangLama/{kode}',[AdminController::class , 'addDataHutangLama']);
+Route::get('/addDataHutangLama/{hutang_id}/{nama}/{customer_id}',[AdminController::class , 'addDataHutangLama']);
 Route::get('/addDataSupply',[AdminController::class , 'addDataSupply']);
 Route::get('/addCustomers',[AdminController::class , 'addCustomers']);
 
 
 Route::get('/editStok/{id}',[AdminController::class , 'editStokLayout']);
 Route::get('/editSupply/{id}/{nama_barang}',[AdminController::class , 'editSupplyLayout']);
-Route::get('/editTransaksi/{id}/{nama_barang}',[AdminController::class , 'editTransaksiLayout']);
+Route::get('/editTransaksi/{id}',[AdminController::class , 'editTransaksiLayout']);
 Route::get('/editDetailHutang/{id}/{nama_barang}/{kode}',[AdminController::class , 'editDetailHutangLayout']);
 
 // POST METHOD
@@ -50,19 +50,19 @@ Route::post('/addSupply',[SupplyController::class , 'addSupply']);
 Route::post('/addTransaksi',[TransaksiController::class , 'addTransaksi']);
 Route::post('/addCustomers',[CustomersController::class , 'addCustomers']);
 Route::post('/addDataHutang',[DetailHutangController::class , 'addHutang']);
-Route::post('/addDataHutangLama/{kode}/{nama}',[DetailHutangController::class , 'addHutangLama']);
+Route::post('/addDataHutangLama/{customer_id}/{hutang_id}/{tot}/{bay}/{sis}',[DetailHutangController::class , 'addHutangLama']);
 
 
 // DELETE METHOD
 Route::get('/deleteStok/{id}' , [StokController::class , 'deleteStok']);
 Route::get('/deleteSementara/{id}' , [SementaraController::class , 'delete']);
 Route::get('/deleteSupply/{id}/{nama_barang}/' , [SupplyController::class , 'deleteSupply']);
-Route::get('/deleteTransaksi/{id}/{nama_barang}/' , [TransaksiController::class , 'deleteTransaksi']);
+Route::get('/deleteTransaksi/{id}/{kode_transaksi}' , [TransaksiController::class , 'deleteTransaksi']);
 Route::get('/deleteDetailHutang/{id}/{kode}' , [DetailHutangController::class , 'deleteDetailHutang']);
 
 
 // PUT METHOD 
 Route::put('/editStok/{id}', [StokController::class , 'editStok']);
 Route::put('/editSupply/{id}/{idStok}',[SupplyController::class , 'editSupply']);
-Route::put('/editTransaksi/{id}/{idStok}',[TransaksiController::class , 'editTransaksi']);
+Route::put('/editTransaksi/{id}',[TransaksiController::class , 'editTransaksi']);
 Route::put('/editDetailHutang/{id}/{kode}',[DetailHutangController::class , 'editDetailHutang']);

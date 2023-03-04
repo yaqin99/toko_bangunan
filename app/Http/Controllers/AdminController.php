@@ -8,6 +8,7 @@ use App\Models\Stok;
 use App\Models\Supply;
 use App\Models\Transaksi;
 use App\Models\DetailHutang;
+use App\Models\DetailTransaksi;
 use App\Models\Hutang;
 use App\Models\Sementara;
 use Illuminate\Support\Facades\DB;
@@ -87,22 +88,24 @@ class AdminController extends Controller
             ]
         );
    }
-   public function detailHutang($kode){
+   public function detailHutang($id , $nama , $customer_id){
     Sementara::query()->delete();
-    $data = DB::table('detail_hutangs')->orderBy('tanggal' , 'asc')->latest()->select('*')->where('kode',$kode)->paginate(10);
+    $data = DetailHutang::with('customer')->orderBy('tanggal' , 'asc')->latest()->select('*')->where('hutang_id',$id)->paginate(10);
     
-        return view(
+    return view(
             'component.detailHutang' , [
                 'data' => $data,
-                'kode' => $kode , 
+                'hutang_id' => $id , 
+                'nama' => $nama,
+                "customer_id" => $customer_id , 
                 "title" => 'Rincian Hutang'
             ]
         );
    }
    public function detailTransaksi($kodeTransaksi){
     Sementara::query()->delete();
-    $data = DB::table('detail_transaksis')->orderBy('tanggal' , 'asc')->latest()->select('*')->where('kode_transaksi',$kodeTransaksi)->paginate(10);
-    
+    $data = DetailTransaksi::with('stok')->orderBy('tanggal' , 'asc')->latest()->select('*')->where('kode_transaksi',$kodeTransaksi)->paginate(10);
+   
         return view(
             'component.detailTransaksi' , [
                 'data' => $data,
@@ -229,14 +232,14 @@ class AdminController extends Controller
        
     ]);
    }
-   public function editTransaksiLayout($id , $nama_barang){
+   public function editTransaksiLayout($id){
     Sementara::query()->delete();
-    $data = Transaksi::find($id);
-    $stok = DB::table('stoks')->select('*')->where('nama_barang',$nama_barang)->first();
+    // $data = Transaksi::find($id);
+    // $stok = DB::table('stoks')->select('*')->where('nama_barang',$nama_barang)->first();
 
     return view('component.editData.editTransaksi' , [
         'transaksis' =>Transaksi::find($id),
-        'stok' =>$stok,
+        // 'stok' =>$stok,
         'title' => "Edit Transaksi"
        
     ]);
@@ -251,12 +254,13 @@ class AdminController extends Controller
             ]
         );
    }
-   public function addDataHutangLama($kode){
+   public function addDataHutangLama($hutang_id , $nama){
     Sementara::query()->delete();
+    $data = DB::table('detail_hutangs')->select('*')->where('hutang_id',$hutang_id)->orderBy('id' , 'desc')->latest()->first() ; 
         return view(
             'component.addData.tambahDataHutangLama' , [
-                "cuz" =>  DB::table('detail_hutangs')->select('*')->where('kode',$kode)->orderBy('tanggal' , 'desc')->latest()->first(),
-                
+                "cuz" =>  $data ,
+                "nama" => $nama , 
                 "title" => "Tambah Catatan Piutang"
             ]
         );
