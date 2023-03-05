@@ -17,7 +17,7 @@
         <div class="ms-md-auto pe-md-3 d-flex align-items-center">
           
             <form action="/dataCustomers" method="GET">
-            <input type="text" class="form-control" name="searchCustomers"  placeholder="Cari ..." value="{{ request('searchCustomers') }}">
+            <input type="text" class="form-control" name="search"  placeholder="Cari ..." value="{{ request('search') }}">
         </form>
         </div>
         <ul class="navbar-nav  justify-content-end">
@@ -61,11 +61,11 @@
             </div>
           </div>
         @endif
-        @if(Session::get('berhasilEditSupply'))
+        @if(Session::get('edit'))
           <div class="col-3">
             <div class="alert alert-success">
               <div class="text-light fw-bold">
-                {{ Session::get('berhasilEditSupply') }}
+                {{ Session::get('edit') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
               </div>
             </div>
@@ -138,8 +138,8 @@
                       <span class="text-secondary text-xs font-weight-bold">{{ $a->alamat }}</span>
                     </td>
                     <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm "><a href="/editTransaksi/{{ $a->id }}/{{ $a->nama_barang }}"><i class="fas fa-edit fa-lg"></i></a></span>
-                      <span class="badge badge-sm "><a onclick="return confirm('Yakin Menghapus Data?')" href="/deleteTransaksi/{{ $a->id }}/{{ $a->nama_barang }}"><i class="fas fa-trash fa-lg"></i></a></span>
+                      <span class="badge badge-sm "><a href="/editCustomer/{{ $a->id }}"><i class="fas fa-edit fa-lg"></i></a></span>
+                      {{-- <span class="badge badge-sm "><a onclick="return confirm('Yakin Menghapus Data?')" href="/deleteTransaksi/{{ $a->id }}/{{ $a->nama_barang }}"><i class="fas fa-trash fa-lg"></i></a></span> --}}
                     </td>
                   
                    

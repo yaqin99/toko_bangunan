@@ -21,30 +21,35 @@
             <div class="card-body pb-2">
              <div class="col-12">
               <div class="table-responsive p-0">
-                <form  action="/editDetailHutang/{{ $details->id }}/{{ $details->kode }}" method="POST" enctype="multipart/form-data">
+                <form  action="/editDetailHutang/{{ $details->id }} / {{ $details->total }}/{{ $details->bayar }}/{{ $details->sisa }}/{{ $details->hutang->id }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('put')
                    <div class="mb-3">
                     <label  class="form-label">Nama Pelanggan</label>
-                    <input autocomplete="off" type="text" class="form-control" disabled required name="nama" value="{{ old('nama' , $details->nama) }}">
+                    <input autocomplete="off" type="text" class="form-control" disabled required name="nama" value="{{ old('nama' , $details->customer->nama_pelanggan) }}">
                     
                   </div>
                    
                     <div class="mb-3">
                       <label  class="form-label">Total</label>
-                      <input autocomplete="off" type="number" class="form-control" required name="total" value="{{ old('total' , $details->total) }}">
+                      <input autocomplete="off" type="number" class="form-control" disabled required name="total" value="{{ old('total' , $details->total) }}">
                       <span style="color:red"></span>
                     </div>
                     
                    
                     <div class="mb-3">
                       <label  class="form-label">Bayar</label>
-                      <input autocomplete="off" type="number" class="form-control" required name="bayar" value="{{ old('bayar' , $details->bayar) }}">
+                      <input autocomplete="off" type="number" class="form-control" disabled required name="bayar" value="{{ old('bayar' , $details->bayar) }}">
                       <span style="color:red"></span>
                     </div>
                     <div class="mb-3">
                       <label  class="form-label">Sisa</label>
-                      <input autocomplete="off" type="number" class="form-control" required name="sisa" value="{{ old('sisa' , $details->sisa) }}">
+                      <input autocomplete="off" type="number" class="form-control" disabled required name="sisa" value="{{ old('sisa' , $details->sisa) }}">
+                      <span style="color:red"></span>
+                    </div>
+                    <div class="mb-3">
+                      <label  class="form-label">Uang Masuk</label>
+                      <input autocomplete="off" type="number" class="form-control" required name="uang_masuk" value="{{ old('uang_masuk' , $details->uang_masuk) }}">
                       <span style="color:red"></span>
                     </div>
                     <div class="mb-3">

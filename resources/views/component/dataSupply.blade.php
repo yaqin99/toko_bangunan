@@ -19,8 +19,9 @@
         <div class="ms-md-auto pe-md-3 d-flex align-items-center">
           
             <form action="/dataSupply" method="GET">
-            <input type="text" class="form-control" name="searchSupply"  placeholder="Cari .." value="{{ request('searchSupply') }}">
-        </form>
+            <input type="date" class="form-control" id="tanggalCari" name="searchSupply"  value="{{ request('searchSupply') }}">
+            {{-- <button type="button" class="btn btn-primary">Cari</button> --}}
+          </form>
         </div>
         <ul class="navbar-nav  justify-content-end">
           <li class="nav-item d-flex align-items-center">
@@ -161,5 +162,15 @@
     @include('component.footer')
   </div>
 </main>
+<script>
 
+//   let tanggal = document.getElementById('tanggalCari').value
+//   alert(tanggal);
+// $(document).ready(function(){
+//   $("searchSupply").change(function(){
+//     this.form.submit();
+//   alert("The text has been changed.");
+// });
+// });
+</script>
 @endsection

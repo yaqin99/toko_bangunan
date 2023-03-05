@@ -87,7 +87,7 @@
               <h6>Detail Transaksi</h6>
               <div class="d-flex justify-content-end">
 
-                <a class="btn btn-success justify-content-end me-2" href="/addTransaksi"><i class="bi bi-plus" ></i>Transaksi</a>
+                <a class="btn btn-success justify-content-end me-2" href="/addDetailTransaksi/{{ $kode }}"><i class="bi bi-plus" ></i>Transaksi</a>
                 <a class="btn btn-success justify-content-end" href="/cetakPenjualan"><i class="bi bi-printer"></i>  Cetak</a>
 
               </div>
@@ -104,10 +104,10 @@
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama Barang</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Jumlah Barang</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Total Biaya</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal</th>
+                    {{-- <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal</th> --}}
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kode</th>
-                    {{-- <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Edit</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Hapus</th> --}}
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Edit</th>
+                    {{-- <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Hapus</th> --}}
                   </tr>
                 </thead>
                 <tbody>
@@ -131,16 +131,16 @@
                     <td class="align-middle text-center">
                       <span class="text-secondary text-xs font-weight-bold">Rp. {{  @number_format($a->total_biaya,2,",",".") }}</span>
                     </td>
-                    <td class="align-middle text-center">
+                    {{-- <td class="align-middle text-center">
                       <span class="text-secondary text-xs font-weight-bold">{{ \Carbon\Carbon::parse($a->tanggal)->isoFormat(' dddd, D MMMM Y') }}</span>
-                    </td>  
+                    </td>   --}}
                     <td class="align-middle text-center">
                       <span class="text-secondary text-xs font-weight-bold">{{ $a->kode_transaksi }}</span>
                     </td>  
-                    {{-- <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm "><a href="/editTransaksi/{{ $a->id }}/{{ $a->nama_barang }}"><i class="fas fa-edit fa-lg"></i></a></span>
-                    </td>
                     <td class="align-middle text-center text-sm">
+                      <span class="badge badge-sm "><a href="/editDetailTransaksi/{{ $a->id }}"><i class="fas fa-edit fa-lg"></i></a></span>
+                    </td>
+                    {{-- <td class="align-middle text-center text-sm">
                       <span class="badge badge-sm "><a onclick="return confirm('Yakin Menghapus Data?')" href="/deleteTransaksi/{{ $a->id }}/{{ $a->nama_barang }}"><i class="fas fa-trash fa-lg"></i></a></span>
                     </td> --}}
                     @endforeach

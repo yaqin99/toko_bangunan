@@ -39,7 +39,7 @@ class AdminController extends Controller
         return view(
             'component.dataCustomers' , 
             ["title" => 'Data Customer',
-            "customer" => Customers::orderBy('id' , 'desc')->latest()->SearchCustomers()->paginate(10)->withQueryString(),
+            "customer" => Customers::orderBy('nama_pelanggan' , 'asc')->latest()->SearchCustomer()->paginate(10)->withQueryString(),
 
             ]
         );
@@ -105,11 +105,12 @@ class AdminController extends Controller
    public function detailTransaksi($kodeTransaksi){
     Sementara::query()->delete();
     $data = DetailTransaksi::with('stok')->orderBy('tanggal' , 'asc')->latest()->select('*')->where('kode_transaksi',$kodeTransaksi)->paginate(10);
+    $single = DetailTransaksi::with('stok')->latest()->select('kode_transaksi')->where('kode_transaksi',$kodeTransaksi)->first();
    
         return view(
             'component.detailTransaksi' , [
                 'data' => $data,
-                // 'kode' => $kode , 
+                'kode' => $single->kode_transaksi , 
                 "title" => 'Detail Transaksi'
             ]
         );
@@ -177,6 +178,15 @@ class AdminController extends Controller
             ]
         );
    }
+   public function addDetailTransaksi($kode){
+        return view(
+            'component.addData.tambahDetailTransaksi' , 
+            ["title" => "Tambah Detail Transaksi" , 
+            "stoks" => Stok::all() , 
+            "kode" => $kode , 
+            ]
+        );
+   }
    public function addCustomers(){
         return view(
             'component.addData.tambahCustomers' , 
@@ -212,7 +222,7 @@ class AdminController extends Controller
        
     ]);
    }
-   public function editDetailHutangLayout($id , $nama , $kode){
+   public function editDetailHutangLayout($id ){
     Sementara::query()->delete();
     $data = DetailHutang::find($id);
     return view('component.editData.editDetailHutang' , [
@@ -232,6 +242,16 @@ class AdminController extends Controller
        
     ]);
    }
+   public function editCustomerLayout($id){
+    Sementara::query()->delete();
+    $data = Customers::find($id);
+    return view('component.editData.editCustomer' , [
+        'data' => $data,
+       
+        'title' => "Edit Customers"
+       
+    ]);
+   }
    public function editTransaksiLayout($id){
     Sementara::query()->delete();
     // $data = Transaksi::find($id);
@@ -241,6 +261,17 @@ class AdminController extends Controller
         'transaksis' =>Transaksi::find($id),
         // 'stok' =>$stok,
         'title' => "Edit Transaksi"
+       
+    ]);
+   }
+   public function editDetailTransaksiLayout($id){
+    Sementara::query()->delete();
+    // $data = Transaksi::find($id);
+    $detail = DetailTransaksi::with('stok')->select('*')->where('id',$id)->first();
+    return view('component.editData.editDetailTransaksi' , [
+        'detail' =>$detail,
+        // 'stok' =>$stok,
+        'title' => "Edit Detail Transaksi"
        
     ]);
    }

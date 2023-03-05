@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Transaksi;
 use App\Http\Requests\StoreTransaksiRequest;
 use App\Http\Requests\UpdateTransaksiRequest;
+use App\Models\DetailHutang;
 use App\Models\DetailTransaksi;
 use App\Models\Stok;
 use Illuminate\Support\Facades\DB;
@@ -32,6 +33,10 @@ class TransaksiController extends Controller
         // $ranNum =  random_int(100, 10000);
         // $kode = $ranStr.$ranNum ;
         $data = Stok::find(request()->nama_barang);
+
+        if ($data->jumlah_stok < request()->input('jumlah_barang')) {
+           return back()->with('tidakCukup' , 'Stok Barang Tidak Cukup');
+        }
         $totalBiaya = $data->harga_satuan * request()->input('jumlah_barang');
         $kembalian = request()->input('bayar') - $totalBiaya ; 
 
@@ -60,14 +65,20 @@ class TransaksiController extends Controller
      public function editTransaksi( $id){
   
         $validatedData =  request()->validate([
-           
+            'bayar' => 'required' ,
             'tanggal' => 'required' , 
         ]);
- 
-        $cek = DB::table('transaksis')->where('id' , $id)->update($validatedData);
+
+        $bayar =  Transaksi::select('total')->where('id',$id)->first();
+        $kembalian = request()->bayar - $bayar->total ; 
+        $cek = DB::table('transaksis')->where('id' , $id)->update([
+            "bayar" => request()->bayar , 
+            "tanggal" => request()->tanggal , 
+            "kembalian" => $kembalian , 
+        ]);
         if ($cek) {
             # code...
-            return redirect('/')->with('berhasilEdit' , 'Data Berhasil di Update');
+            return redirect('/dataPenjualan')->with('berhasilEdit' , 'Data Berhasil di Update');
         } else {
 
             

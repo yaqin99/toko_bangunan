@@ -127,10 +127,10 @@
                     </td>
                                        
                     <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm "><a href="/editDetailHutang/{{ $d->id }}/{{ $d->nama }}/{{ $d->customer_id }}"><i class="fas fa-edit fa-lg"></i></a></span>
+                      <span class="badge badge-sm "><a href="/editDetailHutang/{{ $d->id }}"><i class="fas fa-edit fa-lg"></i></a></span>
                     </td>
                     <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm "><a onclick="return confirm('Yakin Menghapus Data?')" href="/deleteDetailHutang/{{ $d->id }}"><i class="fas fa-trash fa-lg"></i></a></span>
+                      <span class="badge badge-sm "><a onclick="return confirm('Menghapus Data bisa mempengaruhi data lainnya ! Yakin Menghapus Data?')" href="/deleteDetailHutang/{{ $d->id }}"><i class="fas fa-trash fa-lg"></i></a></span>
                     </td>
                   </tr>
                   @endforeach

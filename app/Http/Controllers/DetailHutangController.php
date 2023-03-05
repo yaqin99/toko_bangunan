@@ -109,42 +109,40 @@ class DetailHutangController extends Controller
          
      }
 
-     public function editDetailHutang( $id , $kode){
-        
+     public function editDetailHutang( $id , $total , $bayar , $sisa , $hutang_id){
 
-       
-        
         request()->validate([
-           
-            'total' => 'required' , 
-            'bayar' => 'required' , 
-            'sisa' => 'required' , 
+            'uang_masuk' => 'required' , 
             'tanggal' => 'required' , 
-          
-            
-        ]);
-        
        
-        
+        ]);
+
+        $totalBayar = request()->input('uang_masuk') - $total ; 
+        $totalFix = $totalBayar + $total ; 
+        $sisaHutang = $total - $totalFix ; 
+        if ($sisaHutang < 0) {
+            $sisaHutang = 0 ; 
+        }
         $cek = DB::table('detail_hutangs')->where('id' , $id)->update([
-            
-            'total' => request()->input('total') , 
-            'bayar' => request()->input('bayar') , 
-            'sisa' => request()->input('sisa') , 
+           
+            'bayar' => $totalFix , 
+            'sisa' => $sisaHutang , 
+            'uang_masuk' => request()->input('uang_masuk') , 
             'tanggal' => request()->input('tanggal') , 
             
         ]);
+
+     
         
-        $data = DB::table('detail_hutangs')->orderBy('tanggal' , 'desc')->latest()->select('*')->where('kode',$kode)->first();
-        $hutang = DB::table('hutangs')->where('kode' , $kode)->update([
-            "total" => $data->total , 
-            "bayar" => $data->bayar,
-            "sisa" => $data->sisa,
+        $hutang = DB::table('hutangs')->where('id' , $hutang_id)->update([
+            "total" => $total , 
+            "bayar" => $totalFix,
+            "sisa" => $sisaHutang,
          ]);
 
         if ($cek && $hutang) {
             # code...
-            return redirect('/detailHutang'.'/'.$kode)->with('berhasilEdit' , 'Data Berhasil di Update');
+            return redirect('/dataHutang')->with('berhasilEdit' , 'Data Berhasil di Update');
         } 
 
         // return redirect('/editStok'.'/'.$id)->with('nothing' , 'Tidak Ada Data yang Berubah');
@@ -152,14 +150,14 @@ class DetailHutangController extends Controller
 
     }
 
-    public function deleteDetailHutang($id , $kode){
+    public function deleteDetailHutang($id){
         $data = DetailHutang::find($id);
        $delete =  $data->delete();
-       $data = DB::table('detail_hutangs')->orderBy('tanggal' , 'desc')->latest()->select('*')->where('kode',$kode)->first();
-       $hutang = DB::table('hutangs')->where('kode' , $kode)->update([
-           "total" => $data->total , 
-           "bayar" => $data->bayar,
-           "sisa" => $data->sisa,
+       $element = DetailHutang::select('*')->orderBy('id' , 'desc')->latest()->where('hutang_id',$data->hutang->id)->first();
+       $hutang = DB::table('hutangs')->where('id' , $data->hutang->id)->update([
+           "total" => $element->total , 
+           "bayar" => $element->bayar,
+           "sisa" => $element->sisa,
         ]);
        if($delete && $hutang){
         return back()->with('berhasilHapus' , 'Data Berhasil di Hapus');

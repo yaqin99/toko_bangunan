@@ -2,8 +2,10 @@
 
 @section('main')
 
+
 <main class="main-content position-relative border-radius-lg ">
   <!-- Navbar -->
+
   <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
     <div class="container-fluid py-1 px-3">
       {{-- <nav aria-label="breadcrumb">
@@ -16,9 +18,7 @@
       <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
         <div class="ms-md-auto pe-md-3 d-flex align-items-center">
           
-            {{-- <form action="/dataPenjualan" method="GET">
-            <input type="text" class="form-control" name="searchTransaksi"  placeholder="Cari ..." value="{{ request('searchTransaksi') }}">
-        </form> --}}
+            
         </div>
         <ul class="navbar-nav  justify-content-end">
           <li class="nav-item d-flex align-items-center">
@@ -45,24 +45,46 @@
         </ul>
       </div>
     </div>
-  </nav>    <!-- End Navbar -->
+  </nav>
+  <!-- End Navbar -->
   <div class="container-fluid py-4">
     <div class="row">
       <div class="col-12">
         <div class="card mb-4">
-          @if(Session::get('tidakCukup'))
+            @if(Session::get('nothing'))
+            <div class="col-3">
+              <div class="alert alert-warning">
+                <div class="text-light fw-bold">
+                  {{ Session::get('nothing') }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              </div>
+            </div>
+          @endif
+
+          @if(Session::get('lengkapi'))
           <div class="col-3">
-            <div class="alert alert-secondary">
+            <div class="alert alert-danger">
               <div class="text-light fw-bold">
-                {{ Session::get('tidakCukup') }}
+                {{ Session::get('lengkapi') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
               </div>
             </div>
           </div>
         @endif
+        @if(Session::get('tidakCukup'))
+        <div class="col-3">
+          <div class="alert alert-secondary">
+            <div class="text-light fw-bold">
+              {{ Session::get('tidakCukup') }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          </div>
+        </div>
+      @endif
 
             <div class="card-header pb-0">
-              <h6 class="text-center">Tambah Transaksi</h6>
+              <h6 class="text-center">Edit Detail Transaksi</h6>
 
           </div>
          
@@ -70,32 +92,44 @@
           <div class="card-body pb-2">
            <div class="col-12">
             <div class="table-responsive p-0">
-              <form  action="/addTransaksi" method="POST" enctype="multipart/form-data">
+              <form  action="/editDetailTransaksi/{{ $detail->id }}" method="POST" enctype="multipart/form-data">
                   @csrf
+                 @method('put')
+                    
+                 <div class="mb-3">
+                  <label  class="form-label">Nama Barang</label>
+                  <input autocomplete="off" type="text" class="form-control" disabled required name="nama_barang"  aria-describedby="emailHelp" value="{{ old('nama_barang' , $detail->stok->nama_barang) }}">
+                  <span style="color:red"></span>
+                </div>
+                 <div class="mb-3">
+                  <label  class="form-label">Kode Transaksi</label>
+                  <input autocomplete="off" type="text" class="form-control" disabled required name="kode_transaksi"  aria-describedby="emailHelp" value="{{ old('kode_transaksi' , $detail->kode_transaksi) }}">
+                  <span style="color:red"></span>
+                </div>
                   <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Nama Barang</label>
-                    <select class="form-select" required name="nama_barang"  aria-label="Default select example">
-                     
-                      <option selected>Pilih -</option>
-                      @foreach($stoks as $k)
-                      <option value="{{ $k->id }}">{{ $k->nama_barang }}</option>
-                      @endforeach
-                      
-                      
-                    </select>
-                  </div>
-                  <div class="mb-3">
-                    <label  class="form-label">Jumlah Barang</label>
-                    <input autocomplete="off" type="number" class="form-control" required name="jumlah_barang"  aria-describedby="emailHelp" value="{{ old('jumlah_barang') }}">
+                    <label  class="form-label">Total</label>
+                    <input autocomplete="off" type="number" class="form-control" disabled required name="total_biaya"  aria-describedby="emailHelp" value="{{ old('total_biaya' , $detail->total_biaya) }}">
                     <span style="color:red"></span>
                   </div>
          
-                
+                  <div class="mb-3">
+                    <label  class="form-label">Jumlah Barang</label>
+                    <input autocomplete="off" type="number" class="form-control"  required name="jumlah_barang"  aria-describedby="emailHelp" value="{{ old('jumlah_barang' , $detail->jumlah_barang) }}">
+                    <span style="color:red"></span>
+                  </div>
+                  {{-- <div class="mb-3">
+                    <label  class="form-label">Tanggal</label>
+                    <input autocomplete="off" type="date" class="form-control" required name="tanggal"  aria-describedby="emailHelp" value="{{ old('bayar',$detail->tanggal) }}">
+                    <span style="color:red"></span>
+                  </div>          --}}
                  
                   <div class="mb-3">
-                      <button type="submit" class="btn btn-primary" >Tambah</button>
+                      <button type="submit" class="btn btn-primary" >Update</button>
                     </div>
-                </form>
+
+                    
+                  </form>
+                 
               
               
             </div>

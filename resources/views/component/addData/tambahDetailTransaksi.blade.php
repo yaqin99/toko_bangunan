@@ -62,7 +62,7 @@
         @endif
 
             <div class="card-header pb-0">
-              <h6 class="text-center">Tambah Transaksi</h6>
+              <h6 class="text-center">Tambah</h6>
 
           </div>
          
@@ -70,8 +70,14 @@
           <div class="card-body pb-2">
            <div class="col-12">
             <div class="table-responsive p-0">
-              <form  action="/addTransaksi" method="POST" enctype="multipart/form-data">
+              <form  action="/addDetailTransaksi/{{ $kode }}" method="POST" enctype="multipart/form-data">
                   @csrf
+
+                  <div class="mb-3">
+                    <label  class="form-label">Kode Transaksi</label>
+                    <input autocomplete="off" type="text" class="form-control" disabled required name="kode_transaksi"  aria-describedby="emailHelp" value="{{ old('kode_transaksi' , $kode) }}">
+                    
+                  </div>
                   <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Nama Barang</label>
                     <select class="form-select" required name="nama_barang"  aria-label="Default select example">

@@ -40,7 +40,7 @@ class CustomersController extends Controller
 
  
          if($query){
-             return redirect('/dataCustomers')->with('suksesTambah' , 'Data Transaksi Berhasil di Tambahkan');
+             return redirect('/dataCustomers')->with('suksesTambah' , 'Data Pelanggan Berhasil di Tambahkan');
          } 
 
              dd('gagal');
@@ -48,59 +48,20 @@ class CustomersController extends Controller
          
      }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreCustomersRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreCustomersRequest $request)
-    {
-        //
-    }
+     
+     public function editCustomer($id){
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Customers  $customers
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Customers $customers)
-    {
-        //
-    }
+      $data =  request()->validate([
+            "nama_pelanggan" => 'required' , 
+            "nik" => 'required' , 
+            "no_hp" => 'required' , 
+            "alamat" => 'required' , 
+        ]);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Customers  $customers
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Customers $customers)
-    {
-        //
-    }
+        $query = Customers::where('id' , $id)->update($data);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateCustomersRequest  $request
-     * @param  \App\Models\Customers  $customers
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateCustomersRequest $request, Customers $customers)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Customers  $customers
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Customers $customers)
-    {
-        //
-    }
+        if ($query) {
+           return redirect('/dataCustomers')->with('edit','Data Berhasil Di Edit');
+        }
+     }
 }

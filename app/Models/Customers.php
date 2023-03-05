@@ -13,10 +13,10 @@ class Customers extends Model
 
    
 
-    public function scopeSearchCustomers($query ){
-        if (request('searchCustomers')) {
-          $query->where('nama_pelanggan','like','%'.request('searchCustomers').'%')
-          ->orWhere('alamat','like','%'.request('search').'%');
+    public function scopeSearchCustomer($query ){
+        if (request('search')) {
+          $query->where('nama_pelanggan','like','%'.request('search').'%')
+          ->orWhere('nik','like','%'.request('search').'%');
       } 
       }
   
