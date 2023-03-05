@@ -16,9 +16,9 @@
       <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
         <div class="ms-md-auto pe-md-3 d-flex align-items-center">
           
-            <form action="/dataSupply" method="GET">
+            {{-- <form action="/dataSupply" method="GET">
             <input type="text" class="form-control" name="searchSupply"  placeholder="Cari .." value="{{ request('searchSupply') }}">
-        </form>
+        </form> --}}
         </div>
         <ul class="navbar-nav  justify-content-end">
           <li class="nav-item d-flex align-items-center">
