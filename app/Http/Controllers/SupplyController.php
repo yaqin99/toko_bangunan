@@ -14,6 +14,9 @@ class SupplyController extends Controller
 
     public function addSupply(){
 
+        if (request()->nama_barang === 'Pilih -') {
+            return back()->with('lengkapi' , 'Harap Lengkapi Semua Data');
+        }
 
         request()->validate([
              'nama_barang' => 'required' , 
@@ -24,10 +27,12 @@ class SupplyController extends Controller
            
              
          ]);
+
+
         $data = Stok::find(request()->nama_barang);
 
         $query = DB::table('supplies')->insert([
-             'nama_barang' =>$data->nama_barang, 
+             'stok_id' =>request()->nama_barang, 
              'nama_supplier'  =>request()->input('nama_supplier'),
              'biaya'  =>request()->input('biaya'),
              'jumlah_stok' =>request()->input('jumlah_stok'),
@@ -36,7 +41,7 @@ class SupplyController extends Controller
          ]);
 
         $data->jumlah_stok = $data->jumlah_stok + request()->jumlah_stok;
-        $data->supplier = request()->nama_supplier;
+        // $data->supplier = request()->nama_supplier;
         $data->save();
 
  
@@ -49,7 +54,7 @@ class SupplyController extends Controller
          
      }
 
-     public function editSupply( $id , $idStok){
+     public function editSupply( $id){
         
 
        
@@ -69,13 +74,13 @@ class SupplyController extends Controller
         //     'tanggal' => $data['tanggal'],
         // ];
 
-        $stok = DB::table('stoks')->select('*')->where('id',$idStok)->first();
+        $data = Supply::find($id) ;
+        $stok = DB::table('stoks')->select('*')->where('id',$data->stok->id)->first();
         
-        $data = Supply::find($id)->jumlah_stok ;
-        $newStok =  $data - request()->input('jumlah_stok');;
+        $newStok =  $data->jumlah_stok - request()->input('jumlah_stok');;
        
         $totalStok = $stok->jumlah_stok - $newStok;
-        DB::table('stoks')->where('id' , $stok->id)->update(['jumlah_stok' => $totalStok ]);
+        DB::table('stoks')->where('id' , $data->stok->id)->update(['jumlah_stok' => $totalStok ]);
         
         
 
@@ -94,11 +99,11 @@ class SupplyController extends Controller
 
 
      
-     public function deleteSupply($id,$nama_barang){
+     public function deleteSupply($id){
         $data = Supply::find($id);
-        $stok = DB::table('stoks')->select('*')->where('nama_barang',$nama_barang)->first();
+        $stok = DB::table('stoks')->select('jumlah_stok')->where('id',$data->stok->id)->first();
         $newStok = $stok->jumlah_stok - $data->jumlah_stok ; 
-        DB::table('stoks')->where('id' , $stok->id)->update(['jumlah_stok' => $newStok ]);
+        DB::table('stoks')->where('id' , $data->stok->id)->update(['jumlah_stok' => $newStok ]);
         $delete =  $data->delete();
        if($delete){
         return back()->with('berhasilHapusSupply' , 'Data Berhasil di Hapus');

@@ -15,7 +15,7 @@ class CreateSuppliesTable extends Migration
     {
         Schema::create('supplies', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_barang');
+            $table->foreignId('stok_id');
             $table->string('nama_supplier');
             $table->integer('biaya');
             $table->integer('jumlah_stok');

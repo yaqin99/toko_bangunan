@@ -51,7 +51,16 @@
     <div class="row">
       <div class="col-12">
         <div class="card mb-4">
-         
+          @if(Session::get('lengkapi'))
+          <div class="col-3">
+            <div class="alert alert-danger">
+              <div class="text-light fw-bold">
+                {{ Session::get('lengkapi') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            </div>
+          </div>
+        @endif
 
             <div class="card-header pb-0">
               <h6 class="text-center">Tambah Supply</h6>
@@ -67,7 +76,7 @@
                  
                   <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Nama Barang</label>
-                    <select class="form-select" name="nama_barang"  aria-label="Default select example">
+                    <select class="form-select" required name="nama_barang"  aria-label="Default select example">
                      
                       <option selected>Pilih -</option>
                       @foreach($stoks as $k)
@@ -79,20 +88,20 @@
                   </div>
                   <div class="mb-3">
                     <label  class="form-label">Nama Supplier</label>
-                    <input autocomplete="off" type="text" class="form-control" name="nama_supplier"  value="{{ old('nama_supplier') }}">
+                    <input autocomplete="off" type="text" class="form-control" required name="nama_supplier"  value="{{ old('nama_supplier') }}">
                   </div>
                   <div class="mb-3">
                     <label  class="form-label">Biaya</label>
-                    <input autocomplete="off" type="number" class="form-control" name="biaya"  value="{{ old('biaya') }}">
+                    <input autocomplete="off" type="number" class="form-control" required name="biaya"  value="{{ old('biaya') }}">
                   </div>
                   <div class="mb-3">
                     <label  class="form-label">Jumlah Stok</label>
-                    <input autocomplete="off" type="number" class="form-control" name="jumlah_stok"  value="{{ old('jumlah_stok') }}">
+                    <input autocomplete="off" type="number" class="form-control" required name="jumlah_stok"  value="{{ old('jumlah_stok') }}">
                   </div>
                  
                   <div class="mb-3">
                     <label  class="form-label">Tanggal</label>
-                    <input autocomplete="off" type="date" class="form-control" name="tanggal"  value="{{ old('tanggal') }}">
+                    <input autocomplete="off" type="date" class="form-control" required name="tanggal"  value="{{ old('tanggal') }}">
                   </div>
                                    
                  

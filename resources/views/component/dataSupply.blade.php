@@ -121,7 +121,7 @@
                       <div class="d-flex px-2 py-1">
                         
                         <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">{{ $sup->nama_barang }}</h6>
+                          <h6 class="mb-0 text-sm">{{ $sup->stok->nama_barang }}</h6>
                           <p class="text-xs text-secondary mb-0">{{ $sup->nama_supplier }}</p>
                         </div>
                       </div>
@@ -139,10 +139,10 @@
                       <span class="text-secondary text-xs font-weight-bold">{{\Carbon\Carbon::parse($sup->tanggal)->isoFormat(' dddd, D MMMM Y')}}</span>
                     </td>
                     <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm "><a href="/editSupply/{{ $sup->id }}/{{ $sup->nama_barang }}"><i class="fas fa-edit fa-lg"></i></a></span>
+                      <span class="badge badge-sm "><a href="/editSupply/{{ $sup->id }}"><i class="fas fa-edit fa-lg"></i></a></span>
                     </td>
                     <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm "><a  onclick="return confirm('Yakin Menghapus Data?')" href="/deleteSupply/{{ $sup->id }}/{{ $sup->nama_barang }}"><i class="fas fa-trash fa-lg"></i></a></span>
+                      <span class="badge badge-sm "><a  onclick="return confirm('Yakin Menghapus Data?')" href="/deleteSupply/{{ $sup->id }}"><i class="fas fa-trash fa-lg"></i></a></span>
                     </td>
                   </tr>
                   @endforeach

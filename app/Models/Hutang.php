@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class Hutang extends Model
 {
@@ -14,9 +15,19 @@ class Hutang extends Model
 
     public function scopeSearchHutang($query ){
       if (request('searchHutang')) {
-        $query->where('nama','like','%'.request('searchHutang').'%');
-        // ->orWhere('nama_kategori','like','%'.request('search').'%');
+        $query->whereHas('customer',function (Builder $query) {
+            $query->where('nama_pelanggan', 'like', '%'.request('searchHutang').'%')->orWhere('kode_customers','like','%'.request('searchHutang').'%');
+        });
+        
+        //
     } 
+    // if (request()->input('searchHutang')) {
+    //     $search_text = request()->input('searchHutang');
+    //     $query->where('nama_pelanggan', 'Like', '%' . $search_text . '%')
+    //     ->orWhereHas('customer', function ($query2)use($search_text) {
+    //         $query2->where('nama_pelanggan', 'Like', '%' . $search_text . '%');
+    //     });
+    // }
     }
 
     public function detailHutang(){

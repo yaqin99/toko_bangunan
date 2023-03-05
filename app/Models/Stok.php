@@ -12,9 +12,7 @@ class Stok extends Model
 
     public function scopeSearchStok($query ){
       if (request('search')) {
-        $query->where('nama_barang','like','%'.request('search').'%')->orWhere(
-            'supplier','like','%'.request('search').'%'
-        );
+        $query->where('nama_barang','like','%'.request('search').'%');
         // ->orWhere('nama_kategori','like','%'.request('search').'%');
     } 
     }

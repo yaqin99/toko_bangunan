@@ -16,10 +16,10 @@ class CreateStoksTable extends Migration
         Schema::create('stoks', function (Blueprint $table) {
             $table->id();
             $table->string('nama_barang');
-            $table->string('supplier');
+            // $table->string('supplier');
             $table->integer('jumlah_stok');
             $table->integer('harga_satuan');
-            $table->date('tanggal');
+            // $table->date('tanggal');
             $table->timestamps();
         });
     }

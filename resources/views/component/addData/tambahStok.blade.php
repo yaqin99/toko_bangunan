@@ -77,15 +77,11 @@
                     <label  class="form-label">Harga Satuan</label>
                     <input autocomplete="off" type="number" class="form-control" required name="harga_satuan"  value="{{ old('harga_satuan') }}">
                   </div>
-                  <div class="mb-3">
+                  {{-- <div class="mb-3">
                     <label  class="form-label">Nama Supplier</label>
                     <input autocomplete="off" type="text" class="form-control" required name="nama_supplier"  value="{{ old('nama_supplier') }}">
-                  </div>
-                  <div class="mb-3">
-                    <label  class="form-label">Tanggal</label>
-                    <input autocomplete="off" type="date" class="form-control" required name="tanggal"  value="{{ old('tanggal') }}">
-                  </div>
-                                   
+                  </div> --}}
+                     
                  
                   <div class="mb-3">
                       <button type="submit" class="btn btn-primary" >Tambah</button>

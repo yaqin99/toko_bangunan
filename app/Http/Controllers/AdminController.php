@@ -73,7 +73,7 @@ class AdminController extends Controller
     Sementara::query()->delete();
         return view(
             'component.dataSupply' , 
-            [   "supplys" => Supply::orderBy('id' , 'desc')->latest()->SearchSupply()->paginate(10)->withQueryString(),
+            [   "supplys" => Supply::with('stok')->orderBy('id' , 'desc')->latest()->SearchSupply()->paginate(10)->withQueryString(),
                 "title" => 'Data Supply'
             ]
         );
@@ -112,6 +112,19 @@ class AdminController extends Controller
                 'data' => $data,
                 'kode' => $single->kode_transaksi , 
                 "title" => 'Detail Transaksi'
+            ]
+        );
+   }
+   public function detailSupply($id){
+    Sementara::query()->delete();
+    
+    $data  = Supply::select('*')->where('stok_id',$id)->orderBy('tanggal','desc')->paginate(40);
+   
+        return view(
+            'component.detailSupply' , [
+                'data' => $data,
+                
+                "title" => 'Detail Supply'
             ]
         );
    }
@@ -217,7 +230,7 @@ class AdminController extends Controller
     Sementara::query()->delete();
     $data = Stok::find($id);
     return view('component.editData.editStok' , [
-        'stoks' => $data->where('id' , $id)->get(),
+        'data' => $data,
         'title' => "Edit Stok"
        
     ]);
@@ -231,12 +244,13 @@ class AdminController extends Controller
        
     ]);
    }
-   public function editSupplyLayout($id , $nama_barang){
+   public function editSupplyLayout($id){
     Sementara::query()->delete();
-    $stok = DB::table('stoks')->select('*')->where('nama_barang',$nama_barang)->first();
+    $data = Supply::find($id);
+    $stok = DB::table('stoks')->select('*')->where('id',$data->stok->id)->first();
 
     return view('component.editData.editSupply' , [
-        'supplys' => Supply::find($id),
+        'supplys' => $data,
         'stok' => $stok , 
         'title' => "Edit Supply"
        

@@ -18,9 +18,10 @@
       <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
         <div class="ms-md-auto pe-md-3 d-flex align-items-center">
           
-            <form action="/stokBarang" method="GET">
-            <input type="text" class="form-control" name="search"  placeholder="Cari ..." value="{{ request('search') }}">
-        </form>
+            {{-- <form action="/dataSupply" method="GET">
+            <input type="date" class="form-control" id="tanggalCari" name="searchSupply"  value="{{ request('searchSupply') }}"> --}}
+            {{-- <button type="button" class="btn btn-primary">Cari</button> --}}
+          {{-- </form> --}}
         </div>
         <ul class="navbar-nav  justify-content-end">
           <li class="nav-item d-flex align-items-center">
@@ -56,37 +57,47 @@
       <div class="col-12">
         <div class="card mb-4">
         
-          @if(Session::get('berhasilHapus'))
+          @if(Session::get('suksesTambahSupply'))
             <div class="col-3">
               <div class="alert alert-success">
                 <div class="text-light fw-bold">
-                  {{ Session::get('berhasilHapus') }}
+                  {{ Session::get('suksesTambahSupply') }}
                   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
               </div>
             </div>
           @endif
-          @if(Session::get('berhasilEdit'))
+          @if(Session::get('berhasilEditSupply'))
             <div class="col-3">
               <div class="alert alert-success">
                 <div class="text-light fw-bold">
-                  {{ Session::get('berhasilEdit') }}
+                  {{ Session::get('berhasilEditSupply') }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              </div>
+            </div>
+          @endif
+          @if(Session::get('berhasilHapusSupply'))
+            <div class="col-3">
+              <div class="alert alert-success">
+                <div class="text-light fw-bold">
+                  {{ Session::get('berhasilHapusSupply') }}
                   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
               </div>
             </div>
           @endif
           
-       
+
           <div class="card-header pb-0">
-            <h6>Stok Barang</h6>
+            <h6>Catatan Supply</h6>
             <div class="d-flex justify-content-end">
 
-            <a class="btn btn-success me-2" href="/addStok"><i class="bi bi-plus"></i>Stok Barang</a>
-            <a class="btn btn-success justify-content-end" href="/cetakStok"><i class="bi bi-printer"></i>  Cetak</a>
+            <a class="btn btn-success me-2" href="/addDataSupply"><i class="bi bi-plus"></i> Catatan</a>
+            <a class="btn btn-success justify-content-end" href="/cetakSupply"><i class="bi bi-printer"></i>  Cetak</a>
+
 
             </div>
-            
           </div>
           <div class="card-body px-0 pt-0 pb-2">
             <div class="table-responsive p-0">
@@ -95,14 +106,14 @@
                   <tr>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama Barang</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Jumlah Stok</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Harga Satuan</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">List Supply</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Total Biaya</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Edit</th>
-                    {{-- <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Hapus</th> --}}
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Hapus</th>
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach($stoks as $stok)
+                  @foreach($data as $sup)
                     
                  
                   <tr>
@@ -110,29 +121,29 @@
                       <div class="d-flex px-2 py-1">
                         
                         <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">{{ $stok->nama_barang }}</h6>
-                          {{-- <p class="text-xs text-secondary mb-0">{{ $stok->supplier }}</p> --}}
+                          <h6 class="mb-0 text-sm">{{ $sup->stok->nama_barang }}</h6>
+                          <p class="text-xs text-secondary mb-0">{{ $sup->nama_supplier }}</p>
                         </div>
                       </div>
                     </td>
                     <td>
-                      <h5 class="text-xs font-weight-bold mb-0">{{ $stok->jumlah_stok }}</h5>
+                      <h5 class="text-xs font-weight-bold mb-0">{{ $sup->jumlah_stok }}</h5>
                       {{-- <p class="text-xs text-secondary mb-0">Organization</p> --}}
                     </td>
                     <td>
-                      <h5 class="text-xs font-weight-bold mb-0">Rp. {{ @number_format($stok->harga_satuan,2,",",".") }}</h5>
+                      <h5 class="text-xs font-weight-bold mb-0">Rp. {{ @number_format($sup->biaya,2,",",".") }}</h5>
                       {{-- <p class="text-xs text-secondary mb-0">Organization</p> --}}
                     </td>
-                   
-                    <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm "><a href="/detailSupply/{{ $stok->id }}">Rincian</a></span>
+                    
+                    <td class="align-middle text-center">
+                      <span class="text-secondary text-xs font-weight-bold">{{\Carbon\Carbon::parse($sup->tanggal)->isoFormat(' dddd, D MMMM Y')}}</span>
                     </td>
                     <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm "><a href="/editStok/{{ $stok->id }}"><i class="fas fa-edit fa-lg"></i></a></span>
+                      <span class="badge badge-sm "><a href="/editSupply/{{ $sup->id }}"><i class="fas fa-edit fa-lg"></i></a></span>
                     </td>
-                    {{-- <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm "><a  onclick="return confirm('Menghapus data bisa mempengaruhi fungsi data lainnya! Yakin Hapus Data?')" href="/deleteStok/{{ $stok->id }}"><i class="fas fa-trash fa-lg"></i></a></span>
-                    </td> --}}
+                    <td class="align-middle text-center text-sm">
+                      <span class="badge badge-sm "><a  onclick="return confirm('Yakin Menghapus Data?')" href="/deleteSupply/{{ $sup->id }}"><i class="fas fa-trash fa-lg"></i></a></span>
+                    </td>
                   </tr>
                   @endforeach
                 </tbody>
@@ -145,11 +156,21 @@
     </div>
     <div class="d-flex justify-content-start">
 
-      {{ $stoks->links() }}
+      {{ $data->links() }}
     </div>
     
     @include('component.footer')
   </div>
 </main>
+<script>
 
+//   let tanggal = document.getElementById('tanggalCari').value
+//   alert(tanggal);
+// $(document).ready(function(){
+//   $("searchSupply").change(function(){
+//     this.form.submit();
+//   alert("The text has been changed.");
+// });
+// });
+</script>
 @endsection

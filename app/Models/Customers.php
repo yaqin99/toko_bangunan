@@ -17,7 +17,7 @@ class Customers extends Model
         if (request('search')) {
           $query->where('nama_pelanggan','like','%'.request('search').'%')
           ->orWhere('nik','like','%'.request('search').'%');
-      } 
+      }
       }
   
 

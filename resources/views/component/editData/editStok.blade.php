@@ -81,8 +81,8 @@
           <div class="card-body pb-2">
            <div class="col-12">
             <div class="table-responsive p-0">
-                @foreach($stoks as $you)
-              <form  action="/editStok/{{ $you->id }}" method="POST" enctype="multipart/form-data">
+               
+              <form  action="/editStok/{{ $data->id }}" method="POST" enctype="multipart/form-data">
                
                 @method('put')
 
@@ -91,31 +91,23 @@
                 
                   <div class="mb-3">
                     <label  class="form-label">Nama Barang</label>
-                    <input autocomplete="off" type="text" class="form-control" required name="nama_barang"  value="{{ old('nama_barang' , $you->nama_barang) }}">
+                    <input autocomplete="off" type="text" class="form-control" required name="nama_barang"  value="{{ old('nama_barang' , $data->nama_barang) }}">
                   </div>
                   <div class="mb-3">
                     <label  class="form-label">Jumlah Stok</label>
-                    <input autocomplete="off" type="number" class="form-control" disabled required name="jumlah_stok"  value="{{ old('jumlah_stok', $you->jumlah_stok) }}">
+                    <input autocomplete="off" type="number" class="form-control" disabled required name="jumlah_stok"  value="{{ old('jumlah_stok', $data->jumlah_stok) }}">
                   </div>
                   <div class="mb-3">
                     <label  class="form-label">Harga Satuan</label>
-                    <input autocomplete="off" type="number" class="form-control" required name="harga_satuan"  value="{{ old('harga_satuan', $you->harga_satuan) }}">
+                    <input autocomplete="off" type="number" class="form-control" required name="harga_satuan"  value="{{ old('harga_satuan', $data->harga_satuan) }}">
                   </div>
-                  <div class="mb-3">
-                    <label  class="form-label">Nama Supplier</label>
-                    <input autocomplete="off" type="text" class="form-control" required name="nama_supplier"  value="{{ old('nama_supplier' , $you->supplier) }}">
-                  </div>
-                  <div class="mb-3">
-                    <label  class="form-label">Tanggal</label>
-                    <input autocomplete="off" type="date" class="form-control" required name="tanggal"  value="{{ old('tanggal' , $you->tanggal) }}">
-                  </div>
-                                   
+                  
                  
                   <div class="mb-3">
                       <button type="submit" class="btn btn-primary" >Update</button>
                     </div>
                 </form>
-                @endforeach
+               
               
               
             </div>

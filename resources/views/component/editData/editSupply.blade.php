@@ -83,13 +83,13 @@
            <div class="col-12">
             <div class="table-responsive p-0">
               
-              <form  action="/editSupply/{{ $supplys->id }}/{{ $stok->id }}" method="POST" enctype="multipart/form-data">
+              <form  action="/editSupply/{{ $supplys->id }}" method="POST" enctype="multipart/form-data">
                   @csrf
                  @method('put')
                     
                  <div class="mb-3">
                   <label  class="form-label">Nama Barang</label>
-                  <input autocomplete="off" type="text" class="form-control" required disabled name="nama_barang"  aria-describedby="emailHelp" value="{{ old('nama_barang' , $supplys->nama_barang) }}">
+                  <input autocomplete="off" type="text" class="form-control" required disabled name="nama_barang"  aria-describedby="emailHelp" value="{{ old('nama_barang' , $supplys->stok->nama_barang) }}">
                   <span style="color:red"></span>
                 </div>
                   <div class="mb-3">
