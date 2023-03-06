@@ -22,7 +22,9 @@ Route::get('/dataCustomers',[AdminController::class , 'dataCustomers']);
 
 Route::get('/detailHutang/{id}/{nama}/{customer_id}',[AdminController::class , 'detailHutang']);
 Route::get('/detailTransaksi/{kode_transaksi}',[AdminController::class , 'detailTransaksi']);
-Route::get('//detailSupply/{id}',[AdminController::class , 'detailSupply']);
+Route::get('/detailSupply/{id}',[AdminController::class , 'detailSupply']);
+Route::get('/rincianHutang/{id}',[AdminController::class , 'rincianHutang']);
+Route::get('/detailCustomer/{id}',[AdminController::class , 'detailCustomer']);
 
 
 Route::get('/cetakDetail/{kode}',[AdminController::class , 'cetakDetail']);
@@ -55,8 +57,9 @@ Route::post('/addSupply',[SupplyController::class , 'addSupply']);
 Route::post('/addTransaksi',[TransaksiController::class , 'addTransaksi']);
 Route::post('/addDetailTransaksi/{kode}',[DetailTransaksiController::class , 'addDetailTransaksi']);
 Route::post('/addCustomers',[CustomersController::class , 'addCustomers']);
+Route::post('/addCustomersModal',[CustomersController::class , 'addCustomersModal']);
 Route::post('/addDataHutang',[DetailHutangController::class , 'addHutang']);
-Route::post('/addDataHutangLama/{customer_id}/{hutang_id}/{tot}/{bay}/{sis}',[DetailHutangController::class , 'addHutangLama']);
+Route::post('/addDataHutangLama/{customer_id}/{hutang_id}/{tot}/{bay}/{sis}/{nama}',[DetailHutangController::class , 'addHutangLama']);
 
 
 // DELETE METHOD
@@ -70,7 +73,7 @@ Route::get('/deleteDetailHutang/{id}' , [DetailHutangController::class , 'delete
 // PUT METHOD 
 Route::put('/editStok/{id}', [StokController::class , 'editStok']);
 Route::put('/editSupply/{id}',[SupplyController::class , 'editSupply']);
-Route::put('/editTransaksi/{id}',[TransaksiController::class , 'editTransaksi']);
+Route::put('/editTransaksi/{id}/{kode_transaksi}',[TransaksiController::class , 'editTransaksi']);
 Route::put('/editDetailTransaksi/{id}',[DetailTransaksiController::class , 'editDetailTransaksi']);
 Route::put('/editDetailHutang/{id}/{total}/{bayar}/{sisa}/{hutang_id}',[DetailHutangController::class , 'editDetailHutang']);
 Route::put('/editCustomer/{id}',[CustomersController::class , 'editCustomer']);

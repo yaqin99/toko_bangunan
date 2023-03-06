@@ -64,7 +64,7 @@ class DetailHutangController extends Controller
  
          
      }
-    public function addHutangLama($customer_id , $hutang_id , $tot , $bay , $sis){
+    public function addHutangLama($customer_id , $hutang_id , $tot , $bay , $sis,$nama){
 
 
         request()->validate([
@@ -101,7 +101,7 @@ class DetailHutangController extends Controller
 
 
          if($query){
-             return redirect('/dataHutang')->with('success' , 'Data Berhasil di Tambahkan');
+             return redirect('/detailHutang'.'/'.$hutang_id.'/'.$nama.'/'.$customer_id)->with('success' , 'Data Berhasil di Tambahkan');
          } 
 
              dd('gagal mek');

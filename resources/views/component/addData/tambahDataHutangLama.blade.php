@@ -20,7 +20,7 @@
           <div class="card-body pb-2">
            <div class="col-12">
             <div class="table-responsive p-0">
-              <form  action="/addDataHutangLama/{{ $cuz->customer_id }}/{{ $cuz->hutang_id }}/{{ $cuz->total }}/{{ $cuz->bayar }}/{{ $cuz->sisa }}" method="POST" enctype="multipart/form-data">
+              <form  action="/addDataHutangLama/{{ $cuz->customer_id }}/{{ $cuz->hutang_id }}/{{ $cuz->total }}/{{ $cuz->bayar }}/{{ $cuz->sisa }}/{{ $nama }}" method="POST" enctype="multipart/form-data">
                   @csrf
                  <div class="mb-3">
                   <label  class="form-label">Nama Pelanggan </label>

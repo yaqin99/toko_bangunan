@@ -56,7 +56,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {{ ($title === 'Data Customer' || $title === 'Tambah Customer' || $title === 'Edit Customer') ? 'active' : '' }}" href="/dataCustomers">
+          <a class="nav-link {{ ($title === 'Rincian Hutang' || $title === 'Data Customer' || $title === 'Tambah Customer' || $title === 'Edit Customer' || $title === 'Detail Customer') ? 'active' : '' }}" href="/dataCustomers">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               {{-- <i class="ni ni-app text-info text-sm opacity-10"></i> --}}
               <i class="bi bi-person-fill text-success text-lg opacity-10"></i>

@@ -16,9 +16,9 @@
       <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
         <div class="ms-md-auto pe-md-3 d-flex align-items-center">
           
-            <form action="/dataCustomers" method="GET">
+            {{-- <form action="/dataCustomers" method="GET">
             <input type="text" class="form-control" name="search"  placeholder="Cari ..." value="{{ request('search') }}">
-        </form>
+        </form> --}}
         </div>
         <ul class="navbar-nav  justify-content-end">
           <li class="nav-item d-flex align-items-center">
@@ -97,7 +97,7 @@
         
 
             <div class="card-header pb-0">
-              <h6>Data Customer</h6>
+              <h6>Detail Customer</h6>
               <div class="d-flex justify-content-end">
 
                 <a class="btn btn-success justify-content-end me-2" href="/addCustomers"><i class="bi bi-plus" ></i>Customer</a>
@@ -114,63 +114,52 @@
               <table class="table align-items-center mb-0">
                 <thead>
                   <tr>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama Pelanggan</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Kode Customers</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama Pelanggan</th>
-                    {{-- <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">NIK</th> --}}
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">NIK</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No. Telpon</th>
-                    {{-- <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Total Hutang</th> --}}
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Rincian Hutang</th>
-                    {{-- <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Edit</th> --}}
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Alamat</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Edit</th>
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach($customer as $a)
+                  
                     
                   
                   <tr>
                     
-                    <td>
-                      <h5 class="text-xs font-weight-bold mb-0">{{ $a->kode_customers }}</h5>
-                      {{-- <p class="text-xs text-secondary mb-0">Organization</p> --}}
-                    </td>
+                    
                     <td>
                       <div class="d-flex px-2 py-1">
                         
                         <div class="d-flex flex-column justify-content-center">
-                         <a href="/detailCustomer/{{ $a->id }}"><h4 class="mb-0 text-sm">{{ $a->nama_pelanggan }}</h4></a> 
+                        <h4 class="mb-0 text-sm">{{$customer->nama_pelanggan }}</h4>
                         </div>
                       </div>
                     </td>
-                    {{-- <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold">{{ $a->nik }}</span>
-                    </td> --}}
+                    <td>
+                        <h5 class="text-xs font-weight-bold mb-0">{{$customer->kode_customers }}</h5>
+                        {{-- <p class="text-xs text-secondary mb-0">Organization</p> --}}
+                      </td>
+                    <td class="align-middle text-center">
+                      <span class="text-secondary text-xs font-weight-bold">{{$customer->nik }}</span>
+                    </td>
                    
                     <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold">{{ $a->no_hp }}</span>
+                      <span class="text-secondary text-xs font-weight-bold">{{$customer->no_hp }}</span>
                     </td>
                    
-                    {{-- <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold">
-                        @foreach($a->hutang as $hut)
-                          @php
-                              $total = $hut->sum('total') ; 
-
-                          @endphp
-                          {{ $total}}
-                        @endforeach
-                      </span>
-                    </td> --}}
+                    <td class="align-middle text-center">
+                      <span class="text-secondary text-xs font-weight-bold">{{$customer->alamat }}</span>
+                    </td>
+                    
                     <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm "><a href="/rincianHutang/{{ $a->id }}"><i class="bi bi-info-circle-fill fa-2x"></i></a></span>
+                      <span class="badge badge-sm "><a href="/editCustomer/{{$customer->id }}"><i class="fas fa-edit fa-2x"></i></a></span>
                       {{-- <span class="badge badge-sm "><a onclick="return confirm('Yakin Menghapus Data?')" href="/deleteTransaksi/{{ $a->id }}/{{ $a->nama_barang }}"><i class="fas fa-trash fa-lg"></i></a></span> --}}
                     </td>
-                    {{-- <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm "><a href="/editCustomer/{{ $a->id }}"><i class="fas fa-edit fa-2x"></i></a></span>
-                      <span class="badge badge-sm "><a onclick="return confirm('Yakin Menghapus Data?')" href="/deleteTransaksi/{{ $a->id }}/{{ $a->nama_barang }}"><i class="fas fa-trash fa-lg"></i></a></span>
-                    </td>
                   
-                    --}}
-                    @endforeach
+                   
+                    
                     
                
 
@@ -184,13 +173,7 @@
         </div>
       </div>
     </div>
-    <div class="d-flex justify-content-start">
-
-      {{ $customer->links() }}
-    </div>
     
-    @include('component.footer')
-  </div>
 </main>
 
 @endsection

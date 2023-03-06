@@ -18,7 +18,6 @@ class SementaraController extends Controller
     public function addPenjualan($total , $sementara){
 
         
-        
         request()->validate([
             'bayar' => 'required' , 
         ]);
@@ -27,7 +26,7 @@ class SementaraController extends Controller
         //     "bayar" => request()->input('bayar'),
         // ];
         // dd($data);
-        if (request()->input('nama_pelanggan') == 'Nama Pelanggan') {
+        if (request()->input('nama_pelanggan') == "Pilih Pelanggan") {
             if (request()->input('bayar') < $total) {
                 return back()->with('tidakCukup','Uang Anda Kurang, Silahkan Pilih Customers Jika Data Merupakan Data Hutang');
             }
@@ -84,8 +83,7 @@ class SementaraController extends Controller
         
 
         
-         if (request()->input('nama_pelanggan') != 'Nama Pelanggan') {
-
+         if (request()->input('nama_pelanggan') != "Pilih Pelanggan") {
             if (request()->input('bayar') < $total) {
 
                 $ranStr = Str::random(6);
@@ -133,7 +131,7 @@ class SementaraController extends Controller
              }
              $transaksi =  Transaksi::select('*')->orderBy('id' , 'desc')->latest()->first();
 
-                $query = DB::table('hutangs')->insert([
+                $query = DB::table('hutangs')->insertGetId([
                     'customer_id' => request()->input('nama_pelanggan'),
                     'transaksi_id' => $transaksi->id,
                     'total' => $transaksi->total ,
@@ -141,6 +139,13 @@ class SementaraController extends Controller
                     'sisa' =>  $transaksi->total - $transaksi->bayar, 
                 ]);
 
+                // $roses = DB::getPdo()->lastInsertId(); 
+                
+                // $query = DB::table('hutang_customer')->insert([
+                //     'hutang_id' => $roses,
+                //     'customer_id' => request()->input('nama_pelanggan'),
+                    
+                // ]);
                 
              $hutang =  Hutang::select('id')->orderBy('id' , 'desc')->latest()->first();
 

@@ -82,6 +82,36 @@
             </div>
           </div>
         @endif
+          @if(Session::get('nik'))
+          <div class="col-12">
+            <div class="alert alert-warning">
+              <div class="text-light fw-bold">
+                {{ Session::get('nik') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            </div>
+          </div>
+        @endif
+          @if(Session::get('no'))
+          <div class="col-12">
+            <div class="alert alert-danger">
+              <div class="text-light fw-bold">
+                {{ Session::get('no') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            </div>
+          </div>
+        @endif
+          @if(Session::get('suksesTambah'))
+          <div class="col-12">
+            <div class="alert alert-success">
+              <div class="text-light fw-bold">
+                {{ Session::get('suksesTambah') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            </div>
+          </div>
+        @endif
           <div class="card-header pb-0 px-3">
             <h6 class="mb-0">Transaksi Harian</h6>
             <div class="d-flex justify-content-end">
@@ -96,7 +126,7 @@
             <table class="table align-items-center mb-0">
               <thead>
                 <tr>
-                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kode</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kode Transaksi</th>
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Tanggal</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Total</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Bayar</th>
@@ -159,20 +189,34 @@
         <div class="card h-100 mb-4">
           <div class="card-header pb-0 px-3">
             <div class="row">
-              <div class="col-md-4">
+              <div class="col-md-12 mb-3">
                 <h6 class="mb-0">Data Struk</h6>
               </div>
-              <div class="col-md-8">
-                {{-- <label for="exampleInputPassword1" class="form-label">Nama Barang</label> --}}
-           
+              <div class="row">
+                <div class="col-md-8">
                 <select class="form-select" required id="nama_pelanggan" name="nama_pelanggan">
                  
-                  <option>Nama Pelanggan</option>
+                  <option>Pilih Pelanggan</option>
                   @foreach($customers as $k)
                   <option value="{{ $k->id }}">{{ $k->nama_pelanggan }}</option>
                   @endforeach
                 </select>
               </div>
+              <div class="col-md-4">
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Tambah
+              </button>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="col-md-5">
+                {{-- <label for="examp leInputPassword1" class="form-label">Nama Barang</label> --}}
+                <div class="d-flex justify-content-end">
+
+                  
+                </div>
+            
   
             </div>
           </div>
@@ -212,7 +256,7 @@
                 
                 <div class="d-flex">
 
-                  <input required class="form-control me-2"  type="number" placeholder="Bayar" name="bayar" value="{{ old('bayar') }}">
+                  <input  class="form-control me-2"  type="number" placeholder="Bayar" name="bayar" value="{{ old('bayar') }}">
                   <button class="btn btn-primary" id="button-addon2" type="submit">Beli</button>
                   
                 </div>
@@ -230,5 +274,129 @@
 
   </div>
 </main>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Pelanggan</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" onclick="dismiss()" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="card mb-4">
 
+
+          <div class="card-header pb-0">
+            
+
+        </div>
+       
+        
+        <div class="card-body pb-2">
+         <div class="col-12">
+          <div class="table-responsive p-0">
+            <form  action="/addCustomersModal" name="modal" method="POST" enctype="multipart/form-data">
+                @csrf
+               
+                <div class="mb-3">
+                  <label  class="form-label">Nama Pelanggan</label>
+                  <input autocomplete="off" type="text" class="form-control" required name="nama_pelanggan"  value="{{ old('nama_pelanggan') }}">
+                </div>
+                <div class="mb-3">
+                  <label  class="form-label">NIK</label>
+                  <input autocomplete="off" type="number" oninput="stringlength(document.modal.nik,16)" class="form-control" id="nik" required name="nik" maxlength="16" value="{{ old('nik') }}">
+                  <p><small  id="nikAlert"></small></p>
+                  
+                </div>
+                <div class="mb-3">
+                  <label  class="form-label">Nomer Telpon</label>
+                  <input autocomplete="off" type="number"  oninput="noTelp(document.modal.noHp,12 , 13 )" id="noHp" class="form-control" required name="no_hp" maxlength="13" value="{{ old('no_hp') }}">
+                  <p><small  id="noAlert"></small></p>
+
+                </div>
+                <div class="mb-3">
+                  <label  class="form-label">Alamat</label>
+                  <input autocomplete="off" type="text" class="form-control" required name="alamat"  value="{{ old('alamat') }}">
+                </div>
+                                 
+               
+                <div class="d-flex justify-content-end mb-3">
+                  <button type="button" class="btn btn-secondary me-2" onclick="dismiss()" data-bs-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary" onclick="stringlength(document.modal.nik,16)">Tambah</button>
+                </div>
+              </form>
+            
+            
+          </div>
+         </div>
+        </div>
+      </div>
+           
+        
+    </div>
+  </div>
+</div>
+
+</div>
+<script>
+  
+      function stringlength(inputtxt, length)
+  { 
+  var field = document.getElementById("nik").value; 
+  var panjang = length;
+  
+  if(field.length != 16)
+  { 
+    document.getElementById("nikAlert").innerHTML = "NIK Harus Berisi 16 Digit";
+    document.getElementById("nikAlert").style.color = "red";
+    return false;
+    }
+  
+  if(field.length == 16)
+  { 
+    document.getElementById("nikAlert").innerHTML = "NIK Sesuai";
+    document.getElementById("nikAlert").style.color = "green";
+
+    return false;
+    }
+  
+  }
+      function noTelp(inputtxt, min , max)
+  { 
+  var field = document.getElementById("noHp").value; 
+  var min = min;
+  var max = max;
+  
+  if(field.length < min)
+  { 
+    document.getElementById("noAlert").innerHTML = "Jumlah Digit Kurang";
+    document.getElementById("noAlert").style.color = "red";
+    return false;
+    }
+  
+  if(field.length == 12 || field.length == 13)
+  { 
+    document.getElementById("noAlert").innerHTML = "Nomer Telepon Sesuai";
+    document.getElementById("noAlert").style.color = "green";
+
+    return false;
+    }
+  
+  if( field.length > 13)
+  { 
+    document.getElementById("noAlert").innerHTML = "Jumlah Digit Terlalu Banyak";
+    document.getElementById("noAlert").style.color = "red";
+
+    return false;
+    }
+  
+  }
+
+  function dismiss(){
+    document.getElementById("nikAlert").innerHTML = "";
+    document.getElementById("nikAlert").style.color = "none";
+    document.getElementById("noAlert").innerHTML = "";
+    document.getElementById("noAlert").style.color = "none";
+  }
+  
+</script>
 @endsection

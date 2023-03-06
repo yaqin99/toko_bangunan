@@ -51,7 +51,47 @@
     <div class="row">
       <div class="col-12">
         <div class="card mb-4">
-          
+          @if(Session::get('no'))
+          <div class="col-12">
+            <div class="alert alert-danger">
+              <div class="text-light fw-bold">
+               <div class="row">
+                 <span> {{ Session::get('no') }}</span>
+
+                <div class="d-flex justify-content-end">
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              </div>
+
+              </div>
+            </div>
+          </div>
+        @endif
+        @if(Session::get('nik'))
+          <div class="col-12">
+            <div class="alert alert-warning">
+              <div class="text-light fw-bold">
+                {{ Session::get('nik') }}
+                <div class="d-flex justify-content-end">
+
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>             
+            </div>
+          </div>
+        @endif
+        @if(Session::get('nikSudah'))
+          <div class="col-12">
+            <div class="alert alert-warning">
+              <div class="text-light fw-bold">
+                {{ Session::get('nikSudah') }}
+                <div class="d-flex justify-content-end">
+
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>             
+            </div>
+          </div>
+        @endif
+        
 
             <div class="card-header pb-0">
               <h6 class="text-center">Tambah Customer</h6>
@@ -62,7 +102,7 @@
           <div class="card-body pb-2">
            <div class="col-12">
             <div class="table-responsive p-0">
-              <form  action="/addCustomers" method="POST" enctype="multipart/form-data">
+              <form name="formCus" action="/addCustomers" method="POST" enctype="multipart/form-data">
                   @csrf
                  
                   <div class="mb-3">
@@ -71,11 +111,15 @@
                   </div>
                   <div class="mb-3">
                     <label  class="form-label">NIK</label>
-                    <input autocomplete="off" type="number" class="form-control" required name="nik"  value="{{ old('nik') }}">
+                    <input autocomplete="off" type="number" oninput="stringlength(document.formCus.nik,16)" class="form-control" id="nik" required name="nik" maxlength="16" value="{{ old('nik') }}">
+                    <p><small  id="nikAlert"></small></p>
+                    
                   </div>
                   <div class="mb-3">
                     <label  class="form-label">Nomer Telpon</label>
-                    <input autocomplete="off" type="number" class="form-control" required name="no_hp"  value="{{ old('no_hp') }}">
+                    <input autocomplete="off" type="number"  oninput="noTelp(document.formCus.noHp,12 , 13 )" id="noHp" class="form-control" required name="no_hp" maxlength="13" value="{{ old('no_hp') }}">
+                    <p><small  id="noAlert"></small></p>
+  
                   </div>
                   <div class="mb-3">
                     <label  class="form-label">Alamat</label>
@@ -99,5 +143,66 @@
     @include('component.footer')
   </div>
 </main>
+<script>
+  
+  function stringlength(inputtxt, length)
+{ 
+var field = document.getElementById("nik").value; 
+var panjang = length;
 
+if(field.length != 16)
+{ 
+document.getElementById("nikAlert").innerHTML = "NIK Harus Berisi 16 Digit";
+document.getElementById("nikAlert").style.color = "red";
+return false;
+}
+
+if(field.length == 16)
+{ 
+document.getElementById("nikAlert").innerHTML = "NIK Sesuai";
+document.getElementById("nikAlert").style.color = "green";
+
+return false;
+}
+
+}
+  function noTelp(inputtxt, min , max)
+{ 
+var field = document.getElementById("noHp").value; 
+var min = min;
+var max = max;
+
+if(field.length < min)
+{ 
+document.getElementById("noAlert").innerHTML = "Jumlah Digit Kurang";
+document.getElementById("noAlert").style.color = "red";
+return false;
+}
+
+if(field.length == 12 || field.length == 13)
+{ 
+document.getElementById("noAlert").innerHTML = "Nomer Telepon Sesuai";
+document.getElementById("noAlert").style.color = "green";
+
+return false;
+}
+
+if( field.length > 13)
+{ 
+document.getElementById("noAlert").innerHTML = "Jumlah Digit Terlalu Banyak";
+document.getElementById("noAlert").style.color = "red";
+
+return false;
+}
+
+}
+
+function dismiss(){
+document.getElementById("nikAlert").innerHTML = "";
+document.getElementById("nikAlert").style.color = "none";
+document.getElementById("noAlert").innerHTML = "";
+document.getElementById("noAlert").style.color = "none";
+}
+
+</script>
 @endsection

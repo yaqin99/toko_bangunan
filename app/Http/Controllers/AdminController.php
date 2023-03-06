@@ -36,10 +36,15 @@ class AdminController extends Controller
    }
    public function dataCustomers(){
     Sementara::query()->delete();
-        return view(
+    // $roles = Customers::with('hutang')->select('*')->orderBy('nama_pelanggan' , 'asc')->latest()->SearchCustomer()->paginate(10)->withQueryString();
+    // $totalHutang = Hutang::with(['customer' , 'transaksi'])->where('customer_id' , );
+    
+    $data = Customers::orderBy('nama_pelanggan' , 'asc')->latest()->SearchCustomer()->paginate(10)->withQueryString();
+    // dd($data);
+    return view(
             'component.dataCustomers' , 
             ["title" => 'Data Customer',
-            "customer" => Customers::orderBy('nama_pelanggan' , 'asc')->latest()->SearchCustomer()->paginate(10)->withQueryString(),
+            "customer" => $data,
 
             ]
         );
@@ -47,7 +52,7 @@ class AdminController extends Controller
    public function todayTransaksi(){
     $date =  Carbon::today()->toDateString();
     $data = Transaksi::select('*')->where('tanggal',$date)->orderBy('tanggal' , 'desc')->latest()->SearchTransaksi()->paginate(10)->withQueryString();
-    $sementara = Sementara::all();
+    $sementara = Sementara::with('stok')->get();
     $total = $sementara->sum('total_biaya');
     return view(
             'component.todayTransaksi' , 
@@ -55,7 +60,7 @@ class AdminController extends Controller
             "transaksi" => $data,
             "sementara" => $sementara,
             "total" => $total , 
-            "customers" => Customers::select('*')->orderBy('nama_pelanggan' , 'asc')->latest()->get(),
+            "customers" => Customers::select(['id' , 'nama_pelanggan' , 'kode_customers'])->orderBy('nama_pelanggan' , 'asc')->latest()->get(),
             ]
         );
    }
@@ -118,13 +123,40 @@ class AdminController extends Controller
    public function detailSupply($id){
     Sementara::query()->delete();
     
-    $data  = Supply::select('*')->where('stok_id',$id)->orderBy('tanggal','desc')->paginate(40);
+    $data  = Supply::with('stok')->select('*')->where('stok_id',$id)->orderBy('tanggal','desc')->paginate(40);
    
         return view(
             'component.detailSupply' , [
                 'data' => $data,
                 
                 "title" => 'Detail Supply'
+            ]
+        );
+   }
+   public function detailCustomer($id){
+    Sementara::query()->delete();
+    
+    $data  = Customers::select('*')->where('id',$id)->first();
+   
+        return view(
+            'component.detailCustomer' , [
+                'customer' => $data,
+                
+                "title" => 'Detail Customer'
+            ]
+        );
+   }
+   public function rincianHutang($id){
+    Sementara::query()->delete();
+    
+    $data = Hutang::with('customer' , 'transaksi')->orderBy('id' , 'desc')->where('customer_id' , $id)->paginate(40); 
+    $namaKode = Hutang::with('customer')->select('customer_id')->where('customer_id' , $id)->latest()->first(); 
+        return view(
+            'component.rincianHutang' , [
+                'hutang' => $data,
+                 'nama' => $namaKode->customer->nama_pelanggan , 
+                 'kode' => $namaKode->customer->kode_customers , 
+                "title" => 'Rincian Hutang'
             ]
         );
    }
@@ -299,13 +331,14 @@ class AdminController extends Controller
             ]
         );
    }
-   public function addDataHutangLama($hutang_id , $nama){
+   public function addDataHutangLama($hutang_id , $nama,$customer_id){
     Sementara::query()->delete();
     $data = DB::table('detail_hutangs')->select('*')->where('hutang_id',$hutang_id)->orderBy('id' , 'desc')->latest()->first() ; 
         return view(
             'component.addData.tambahDataHutangLama' , [
                 "cuz" =>  $data ,
                 "nama" => $nama , 
+                "customer_id" =>$customer_id,
                 "title" => "Tambah Catatan Piutang"
             ]
         );

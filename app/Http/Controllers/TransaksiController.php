@@ -7,6 +7,7 @@ use App\Http\Requests\StoreTransaksiRequest;
 use App\Http\Requests\UpdateTransaksiRequest;
 use App\Models\DetailHutang;
 use App\Models\DetailTransaksi;
+use App\Models\Hutang;
 use App\Models\Stok;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -62,8 +63,7 @@ class TransaksiController extends Controller
          
      }
 
-     public function editTransaksi( $id){
-  
+     public function editTransaksi( $id , $kode_transaksi){
         $validatedData =  request()->validate([
             'bayar' => 'required' ,
             'tanggal' => 'required' , 
@@ -76,6 +76,23 @@ class TransaksiController extends Controller
             "tanggal" => request()->tanggal , 
             "kembalian" => $kembalian , 
         ]);
+
+        $hutang = Hutang::with('customer' , 'transaksi')->select('*')->where('transaksi_id',$id)->first();
+
+        if ($hutang != null) {
+           
+            Hutang::where('transaksi_id' , $id)->update([
+                'bayar' => request()->bayar , 
+                'sisa' => $hutang->total - request()->bayar ,
+            ]);
+
+            DetailHutang::where('hutang_id' , $hutang->id)->update([
+                'bayar' => request()->bayar , 
+                'sisa' => $hutang->total - request()->bayar ,
+                'uang_masuk' => request()->bayar ,
+            ]);
+        }
+
         if ($cek) {
             # code...
             return redirect('/dataPenjualan')->with('berhasilEdit' , 'Data Berhasil di Update');

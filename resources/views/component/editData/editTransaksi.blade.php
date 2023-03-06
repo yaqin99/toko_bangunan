@@ -82,7 +82,7 @@
           <div class="card-body pb-2">
            <div class="col-12">
             <div class="table-responsive p-0">
-              <form  action="/editTransaksi/{{ $transaksis->id }}" method="POST" enctype="multipart/form-data">
+              <form  action="/editTransaksi/{{ $transaksis->id }}/{{ $transaksis->kode_transaksi }}" method="POST" enctype="multipart/form-data">
                   @csrf
                  @method('put')
                     

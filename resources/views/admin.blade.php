@@ -108,7 +108,7 @@
     </div>
   </div> --}}
   <!--   Core JS Files   -->
-  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  {{-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> --}}
 
   <script src="/assets/js/core/popper.min.js"></script>
   <script src="/assets/js/core/bootstrap.min.js"></script>
@@ -117,9 +117,23 @@
   <script src="/assets/js/plugins/chartjs.min.js"></script>
   
   <script>
+     
 
     $(document).ready(function() {
-        $('#nama_barang').select2();
+      function stringlength(inputtxt, length)
+  { 
+  var field = document.getElementById("nik").value; 
+  var panjang = length;
+  
+  
+  if(field.length != 16)
+  { 
+    alert("Nik Harus Berisi 16 Digit");
+    return false;
+    }
+  
+  }
+        // $('#nama_barang').select2();
     });
 
     var ctx1 = document.getElementById("chart-line").getContext("2d");

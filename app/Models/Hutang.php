@@ -33,6 +33,9 @@ class Hutang extends Model
     public function detailHutang(){
         return $this->hasMany(DetailHutang::class );
     }
+    // public function customer(){
+    //     return $this->belongsToMany(Customers::class , 'hutang_customer' , 'hutang_id' , 'customer_id');
+    // }
     public function customer(){
         return $this->belongsTo(Customers::class);
     }
