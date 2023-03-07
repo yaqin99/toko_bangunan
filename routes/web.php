@@ -40,6 +40,7 @@ Route::get('/addStok',[AdminController::class , 'addStok']);
 Route::get('/addDataHutang',[AdminController::class , 'addDataHutang']);
 Route::get('/addDataHutangLama/{hutang_id}/{nama}/{customer_id}',[AdminController::class , 'addDataHutangLama']);
 Route::get('/addDataSupply',[AdminController::class , 'addDataSupply']);
+Route::get('/addDataSupplyDetail/{stok_id}',[AdminController::class , 'addDataSupplyDetail']);
 Route::get('/addCustomers',[AdminController::class , 'addCustomers']);
 
 

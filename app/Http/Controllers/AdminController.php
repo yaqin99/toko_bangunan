@@ -128,7 +128,7 @@ class AdminController extends Controller
         return view(
             'component.detailSupply' , [
                 'data' => $data,
-                
+                "stok_id" => $id , 
                 "title" => 'Detail Supply'
             ]
         );
@@ -254,6 +254,16 @@ class AdminController extends Controller
     return view(
         'component.addData.tambahSupply' , 
         ["stoks" => Stok::all() , 
+        "title" => "Tambah Catatan"
+        ]
+    );
+}
+   public function addDataSupplyDetail($stok_id){
+    Sementara::query()->delete();
+    $data = Stok::select(['nama_barang' , 'id'])->where('id' , $stok_id)->latest()->first();
+    return view(
+        'component.addData.tambahSupplyDetail' , 
+        ["data" => $data, 
         "title" => "Tambah Catatan"
         ]
     );
