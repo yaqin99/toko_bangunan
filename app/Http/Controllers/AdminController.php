@@ -151,6 +151,7 @@ class AdminController extends Controller
     
     $data = Hutang::with('customer' , 'transaksi')->orderBy('id' , 'desc')->where('customer_id' , $id)->paginate(40); 
     $namaKode = Hutang::with('customer')->select('customer_id')->where('customer_id' , $id)->latest()->first(); 
+    
         return view(
             'component.rincianHutang' , [
                 'hutang' => $data,

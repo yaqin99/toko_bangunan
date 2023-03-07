@@ -26,6 +26,7 @@
   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
   <link id="pagestyle" href="/assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" />
+  
 </head>
 
 <body class="g-sidenav-show   bg-gray-100">
@@ -133,7 +134,7 @@
     }
   
   }
-        // $('#nama_barang').select2();
+        $('#nama_barang').select2();
     });
 
     var ctx1 = document.getElementById("chart-line").getContext("2d");

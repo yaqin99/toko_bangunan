@@ -65,7 +65,7 @@
           <div class="card-header pb-0">
             <h6>Rincian Hutang</h6>
             <div class="d-flex justify-content-end">
-            <a class="btn btn-success justify-content-end me-2" href="/addDataHutangLama/{{ $hutang_id }}/{{ $nama }}/{{ $customer_id }}"><i class="bi bi-plus"></i> Catatan</a>
+            <a class="btn btn-success justify-content-end me-2" href="/addDataHutangLama/{{ $hutang_id }}/{{ $nama }}/{{ $customer_id }}"><i class="bi bi-plus"></i> Bayar</a>
             <div class="bg-transparent"></div>
             <a class="btn btn-success justify-content-end" href="/cetakDetail/{{ $hutang_id }}"><i class="bi bi-printer"></i>  Cetak</a>
             </div>

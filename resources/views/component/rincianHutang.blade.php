@@ -24,7 +24,7 @@
           <li class="nav-item d-flex align-items-center">
             <a href="javascript:;" class="nav-link text-white font-weight-bold px-0">
               <i class="fa fa-user me-sm-1"></i>
-              <span class="d-sm-inline d-none">Sign In</span>
+              <span class="d-sm-inline d-none" id="sign">Sign In</span>
             </a>
           </li>
           <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
@@ -87,7 +87,7 @@
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">Total Bayar</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Sisa</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Keterangan</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Rincian</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Detail Bayar</th>
                    
                   </tr>
                 </thead>
@@ -95,20 +95,7 @@
                   @foreach($hutang as $h)
                   
                   <tr>
-                    {{-- <td>
-                      <div class="d-flex px-2 py-1">
-                        <div class="d-flex flex-column justify-content-center">
-                          <h4 class="mb-0 text-sm">{{ $h->customer->nama_pelanggan }}</h4>
-                        </div>
-                      </div>
-                    </td> --}}
-                    {{-- <td>
-                      <div class="d-flex px-2 py-1">
-                        <div class="d-flex flex-column justify-content-center">
-                          <h4 class="mb-0 text-sm">{{ $h->customer->kode_customers }}</h4>
-                        </div>
-                      </div>
-                    </td> --}}
+                    
                     <td>
                       <div class="d-flex px-2 py-1">
                         <div class="d-flex flex-column justify-content-center">
@@ -138,11 +125,11 @@
                       <span class="text-secondary text-xs font-weight-bold">Rp. {{ @number_format($h->sisa,2,",",".") }}</span>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold">{{ $h->sisa === 0 ? 'Lunas' : 'Belum Lunas' }}</span>
+                      <span class="text-secondary text-xs font-weight-bold" >{{ $h->sisa === 0 ? 'Lunas' : 'Belum Lunas' }}</span>
                     </td>
                     
                     <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm "><a href="/detailHutang/{{ $h->id }}/{{ $h->customer->nama_pelanggan }}/{{ $h->customer_id }}">Lihat Detail</span>
+                      <span class="badge badge-sm "><a href="/detailHutang/{{ $h->id }}/{{ $h->customer->nama_pelanggan }}/{{ $h->customer_id }}">Rincian </a></span>
                     </td>
                     
                   </tr>
@@ -205,5 +192,17 @@
     @include('component.footer')
   </div>
 </main>
-
+<script>
+  
+      
+    
+  //     var keterangan =  document.getElementById("keterangan").innerHTML;
+  //     if (keterangan === 'Lunas' ) {
+  //       document.getElementById('rincian').style.pointer = 'none';
+  //       document.getElementById('rincian').style.cursor = 'default';
+      
+  // }
+  
+  
+</script>
 @endsection

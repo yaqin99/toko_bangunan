@@ -100,7 +100,7 @@
               <h6>Data Customer</h6>
               <div class="d-flex justify-content-end">
 
-                <a class="btn btn-success justify-content-end me-2" href="/addCustomers"><i class="bi bi-plus" ></i>Customer</a>
+                {{-- <a class="btn btn-success justify-content-end me-2" href="/addCustomers"><i class="bi bi-plus" ></i>Customer</a> --}}
                 <a class="btn btn-success justify-content-end" href="/cetakPenjualan"><i class="bi bi-printer"></i>  Cetak</a>
 
               </div>
@@ -151,12 +151,16 @@
                    
                     {{-- <td class="align-middle text-center">
                       <span class="text-secondary text-xs font-weight-bold">
-                        @foreach($a->hutang as $hut)
-                          @php
-                              $total = $hut->sum('total') ; 
+                        @php
+                         $namaKode = App\Models\Hutang::with('customer')->select('total')->where('customer_id' , $a->id)->get();
 
-                          @endphp
-                          {{ $total}}
+                         $dive = 0 ; 
+                        @endphp
+                        @foreach($namaKode as $hut)
+                        @php
+                            $dive =  $hut->sum('total')
+                        @endphp
+                        {{$dive}}
                         @endforeach
                       </span>
                     </td> --}}

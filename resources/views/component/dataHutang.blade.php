@@ -137,8 +137,60 @@
                       <span class="badge badge-sm "><a href="/detailHutang/{{ $h->id }}/{{ $h->customer->nama_pelanggan }}/{{ $h->customer_id }}">Lihat Detail</span>
                     </td>
                     
+                  </tr>
                     @endforeach
-
+                    <tr>
+                      <td>
+                        <div class="d-flex px-2 py-1">
+                          <div class="d-flex flex-column justify-content-center">
+                           <h4 class="mb-0 text-sm"></h4>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="d-flex px-2 py-1">
+                          <div class="d-flex flex-column justify-content-center">
+                           <h4 class="mb-0 text-sm"></h4>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="d-flex px-2 py-1">
+                          <div class="d-flex flex-column justify-content-center">
+                           <h4 class="mb-0 text-sm">Total</h4>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="d-flex px-2 py-1">
+                          
+                          <div class="d-flex flex-column justify-content-center">
+                            <span class="text-secondary text-xs font-weight-bold">Rp. {{ @number_format($h->transaksi->sum('total'),2,",",".") }}</span>
+                          </div>
+                        </div>
+                      </td>
+                      <td> 
+                        <div class="d-flex px-2 py-1">
+                          
+                          <div class="d-flex flex-column justify-content-center">
+                            <span class="text-secondary text-xs font-weight-bold">Rp. {{ @number_format($h->sum('bayar'),2,",",".") }}</span>
+                          </div>
+                        </div>
+                      </td>
+                     
+                     
+                      <td class="align-middle text-center">
+                        <span class="text-secondary text-xs font-weight-bold">Rp. {{ @number_format($h->sum('sisa'),2,",",".") }}</span>
+                      </td>
+                      <td class="align-middle text-center">
+                        <span class="text-secondary text-xs font-weight-bold"></span>
+                      </td>
+                      
+                      <td class="align-middle text-center text-sm">
+                        <span class="badge badge-sm "></span>
+                      </td>
+                      
+                    </tr>
     
  
                 </tbody>
