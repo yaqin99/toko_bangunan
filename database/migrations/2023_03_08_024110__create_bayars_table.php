@@ -4,30 +4,21 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDetailHutangsTable extends Migration
+class CreateBayarsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
-        Schema::create('detail_hutangs', function (Blueprint $table) {
+        Schema::create('bayars', function (Blueprint $table) {
             $table->id();
             $table->foreignId('customer_id');
-            $table->foreignId('hutang_id');
-            $table->foreignId('transaksi_id');
-
+            $table->string('keterangan');
+            $table->date('tanggal');
             $table->integer('total');
             $table->integer('bayar');
             $table->integer('sisa');
-            $table->integer('uang_masuk');
-            $table->date('tanggal');
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      *
@@ -35,6 +26,6 @@ class CreateDetailHutangsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('detail_hutangs');
+        //
     }
 }

@@ -27,4 +27,7 @@ class Customers extends Model
       public function detailHutang(){
         return $this->hasMany(DetailHutang::class, 'customer_id');
     }
+      public function bayar(){
+        return $this->hasMany(Bayar::class);
+    }
 }

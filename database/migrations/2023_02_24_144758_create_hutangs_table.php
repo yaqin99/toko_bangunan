@@ -16,7 +16,9 @@ class CreateHutangsTable extends Migration
         Schema::create('hutangs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('customer_id');
-            $table->foreignId('transaksi_id');
+            $table->foreignId('transaksi_id')->nullable();
+            $table->string('keterangan');
+            $table->date('tanggal');
             $table->integer('total');
             $table->integer('bayar');
             $table->integer('sisa');

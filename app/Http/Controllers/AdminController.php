@@ -95,15 +95,14 @@ class AdminController extends Controller
    }
    public function detailHutang($id , $nama , $customer_id){
     Sementara::query()->delete();
-    $data = DetailHutang::with('customer')->orderBy('tanggal' , 'asc')->latest()->select('*')->where('hutang_id',$id)->paginate(10);
-    
+    $hutang = DetailHutang::with('customer' , 'transaksi')->orderBy('tanggal' , 'asc')->latest()->select('*')->where('customer_id',$customer_id)->first();
+    // $data = DetailTransaksi::select('*')->where('kode_transaksi' , $hutang->transaksi->kode_transaksi)->paginate(15);
+    dd($hutang);
     return view(
             'component.detailHutang' , [
                 'data' => $data,
-                'hutang_id' => $id , 
-                'nama' => $nama,
-                "customer_id" => $customer_id , 
-                "title" => 'Rincian Hutang'
+                
+                "title" => 'Detail Hutang'
             ]
         );
    }
@@ -149,14 +148,16 @@ class AdminController extends Controller
    public function rincianHutang($id){
     Sementara::query()->delete();
     
-    $data = Hutang::with('customer' , 'transaksi')->orderBy('id' , 'desc')->where('customer_id' , $id)->paginate(40); 
-    $namaKode = Hutang::with('customer')->select('customer_id')->where('customer_id' , $id)->latest()->first(); 
+    $data = Hutang::with('customer' , 'transaksi')->where('customer_id' , $id)->paginate(40); 
+    $namaKode = Hutang::with('customer' , 'transaksi')->select('customer_id' , 'transaksi_id')->where('customer_id' , $id)->latest()->first(); 
     
         return view(
             'component.rincianHutang' , [
                 'hutang' => $data,
                  'nama' => $namaKode->customer->nama_pelanggan , 
                  'kode' => $namaKode->customer->kode_customers , 
+                 'customer' => $id , 
+                //  'transaksi' => $namaKode->transaksi->id , 
                 "title" => 'Rincian Hutang'
             ]
         );
@@ -351,6 +352,16 @@ class AdminController extends Controller
                 "nama" => $nama , 
                 "customer_id" =>$customer_id,
                 "title" => "Tambah Catatan Piutang"
+            ]
+        );
+   }
+   public function bayarHutang($sisa , $customer_id){
+    Sementara::query()->delete();
+        return view(
+            'component.bayarHutang' , [
+                "sisa" =>  $sisa ,
+                'customer_id' => $customer_id , 
+                "title" => "Bayar Hutang"
             ]
         );
    }

@@ -63,12 +63,17 @@
         @endif
           <div class="card-header pb-0">
             <h6>Rincian Hutang</h6>
+            
+            <div class="d-flex justify-content-end">
+              <a class="btn btn-primary me-2 " href="/bayarHutang/{{$hutang->sum('sisa')}}/{{$customer}}"><i class="bi bi-plus"></i> Bayar</a>
+
+            </div>
+
             <div class="d-flex justify-content-start">
               <div class="row">
                 <div class="col-md-12">
                   <p><small class="text-xs">Nama Pelanggan : {{ $nama }}</small></p>
                   
-                <div class="col-md-12 py-0">
                   <p><small class="text-xs">Kode Pelanggan : {{$kode }}</small></p>
                   
                 </div>
@@ -80,13 +85,13 @@
               <table class="table align-items-center mb-0">
                 <thead>
                   <tr>
-                    {{-- <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama Pelanggan</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kode Pelanggan</th> --}}
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kode Transaksi</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Keterangan</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">Total Hutang</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">Total Bayar</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">Bayar</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Sisa</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Keterangan</th>
+                    {{-- <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kode Transaksi</th> --}}
+                    {{-- <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Keterangan</th> --}}
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Detail Bayar</th>
                    
                   </tr>
@@ -99,15 +104,23 @@
                     <td>
                       <div class="d-flex px-2 py-1">
                         <div class="d-flex flex-column justify-content-center">
-                          <a href="/detailTransaksi/{{ $h->transaksi->kode_transaksi }}"><h4 class="mb-0 text-sm">{{ $h->transaksi->kode_transaksi }}</h4></a>
+                          <h4 class="mb-0 text-sm">{{ $h->keterangan }}</h4>
                         </div>
                       </div>
                     </td>
                     <td>
                       <div class="d-flex px-2 py-1">
+                        <div class="d-flex flex-column justify-content-center">
+                          <h4 class="mb-0 text-sm">{{ $h->tanggal }}</h4>
+                        </div>
+                      </div>
+                    </td>
+                    
+                    <td>
+                      <div class="d-flex px-2 py-1">
                         
                         <div class="d-flex flex-column justify-content-center">
-                          <span class="text-secondary text-xs font-weight-bold">Rp. {{ @number_format($h->transaksi->total,2,",",".") }}</span>
+                          <span class="text-secondary text-xs font-weight-bold">Rp. {{ @number_format($h->total,2,",",".") }}</span>
                         </div>
                       </div>
                     </td>
@@ -124,9 +137,16 @@
                     <td class="align-middle text-center">
                       <span class="text-secondary text-xs font-weight-bold">Rp. {{ @number_format($h->sisa,2,",",".") }}</span>
                     </td>
-                    <td class="align-middle text-center">
+                    {{-- <td>
+                      <div class="d-flex px-2 py-1">
+                        <div class="d-flex flex-column justify-content-center">
+                          <a href="/detailTransaksi/{{ $h->transaksi->kode_transaksi }}"><h4 class="mb-0 text-sm"><i class="bi bi-eye fa-lg"></i></h4></a>
+                        </div>
+                      </div>
+                    </td> --}}
+                    {{-- <td class="align-middle text-center">
                       <span class="text-secondary text-xs font-weight-bold" >{{ $h->sisa === 0 ? 'Lunas' : 'Belum Lunas' }}</span>
-                    </td>
+                    </td> --}}
                     
                     <td class="align-middle text-center text-sm">
                       <span class="badge badge-sm "><a href="/detailHutang/{{ $h->id }}/{{ $h->customer->nama_pelanggan }}/{{ $h->customer_id }}">Rincian </a></span>
@@ -137,6 +157,14 @@
                     
                     <tr>
                       
+                      <td>
+                        <div class="d-flex px-2 py-1">
+                          <div class="d-flex flex-column justify-content-center">
+                            <h4 class="mb-0 text-sm"></h4>
+
+                          </div>
+                        </div>
+                      </td>
                       <td>
                         <div class="d-flex px-2 py-1">
                           <div class="d-flex flex-column justify-content-center">
@@ -167,7 +195,7 @@
                         <span class="text-secondary text-xs font-weight-bold">Rp. {{ @number_format($hutang->sum('sisa'),2,",",".") }}</span>
                       </td>
                       <td class="align-middle text-center">
-                        {{-- <span class="text-secondary text-xs font-weight-bold">{{ $h->sisa === 0 ? 'Lunas' : 'Belum Lunas' }}</span> --}}
+                        {{-- <span class="text-secondary text-xs font-weight-bold"><a class="btn btn-primary" href=""><i class="bi bi-plus fa-lg"></i> Bayar</a></span> --}}
                       </td>
                       
                       <td class="align-middle text-center text-sm">

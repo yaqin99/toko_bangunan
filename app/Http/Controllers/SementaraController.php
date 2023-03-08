@@ -134,6 +134,8 @@ class SementaraController extends Controller
                 $query = DB::table('hutangs')->insertGetId([
                     'customer_id' => request()->input('nama_pelanggan'),
                     'transaksi_id' => $transaksi->id,
+                    'keterangan' => 'Hutang',
+                    'tanggal' => $time,
                     'total' => $transaksi->total ,
                     'bayar' => $transaksi->bayar ,
                     'sisa' =>  $transaksi->total - $transaksi->bayar, 
@@ -152,6 +154,7 @@ class SementaraController extends Controller
                 $query = DB::table('detail_hutangs')->insert([
                     'customer_id' => request()->input('nama_pelanggan'),
                     'hutang_id' => $hutang->id,
+                    'transaksi_id' => $transaksi->id,
                     'total' => $transaksi->total ,
                     'bayar' => $transaksi->bayar , 
                     'sisa' =>  $transaksi->total - $transaksi->bayar, 

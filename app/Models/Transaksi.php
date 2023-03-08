@@ -27,4 +27,9 @@ class Transaksi extends Model
         return $this->belongsTo(Hutang::class);
        
       }
+      public function detailHutang(){
+
+        return $this->belongsTo(DetailHutang::class);
+       
+      }
 }

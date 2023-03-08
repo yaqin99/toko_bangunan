@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\StokController;
 use App\Http\Controllers\SupplyController;
 use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\HutangController;
 use App\Http\Controllers\DetailTransaksiController;
 use App\Http\Controllers\DetailHutangController;
 use App\Http\Controllers\SementaraController;
@@ -39,6 +40,7 @@ Route::get('/addDetailTransaksi/{kode}',[AdminController::class , 'addDetailTran
 Route::get('/addStok',[AdminController::class , 'addStok']);
 Route::get('/addDataHutang',[AdminController::class , 'addDataHutang']);
 Route::get('/addDataHutangLama/{hutang_id}/{nama}/{customer_id}',[AdminController::class , 'addDataHutangLama']);
+Route::get('/bayarHutang/{sisa}/{customer_id}',[AdminController::class , 'bayarHutang']);
 Route::get('/addDataSupply',[AdminController::class , 'addDataSupply']);
 Route::get('/addDataSupplyDetail/{stok_id}',[AdminController::class , 'addDataSupplyDetail']);
 Route::get('/addCustomers',[AdminController::class , 'addCustomers']);
@@ -53,6 +55,7 @@ Route::get('/editCustomer/{id}',[AdminController::class , 'editCustomerLayout'])
 
 // POST METHOD
 Route::post('/addStok',[StokController::class , 'addStok']);
+Route::post('/bayarHutang/{customer_id}',[HutangController::class , 'bayarHutang']);
 Route::post('/addPenjualan/{total}/{sementara}',[SementaraController::class , 'addPenjualan']);
 Route::post('/addSupply',[SupplyController::class , 'addSupply']);
 Route::post('/addTransaksi',[TransaksiController::class , 'addTransaksi']);
