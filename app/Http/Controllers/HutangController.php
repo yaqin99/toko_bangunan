@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Hutang;
 use App\Http\Requests\StoreHutangRequest;
 use App\Http\Requests\UpdateHutangRequest;
+use App\Models\Customers;
 use Illuminate\Support\Facades\DB;
 
 class HutangController extends Controller
@@ -34,6 +35,22 @@ class HutangController extends Controller
             return redirect('/rincianHutang'.'/'.$customer_id);
          }
  
+    }
+
+    public function lunas($customer_id , $sisa){
+
+        if ($sisa < 0) {
+            return back()->with('belum' , 'Hutang Belum Lunas');
+        }
+        
+        if ($sisa == 0) {
+            Customers::find($customer_id)->delete();
+            Hutang::where('customer_id' , $customer_id)->delete();
+            return redirect('/dataCustomers')->with('lunas' , 'Hutang Lunas');
+
+        }   
+       
+
     }
    
 

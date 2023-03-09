@@ -21,6 +21,11 @@ class SementaraController extends Controller
         request()->validate([
             'bayar' => 'required' , 
         ]);
+
+        $sementaraData = Sementara::all();
+        if ($sementara == "[]") {
+            return back()->with('kosong','Silahkan Pilih Barang ');       
+         }
         // $data = [
         //     "nama_pelanggan" => request()->input('nama_pelanggan'),
         //     "bayar" => request()->input('bayar'),
@@ -52,7 +57,6 @@ class SementaraController extends Controller
                 "tanggal" => '' , 
                 "kode_transaksi" => '',
             ] ; 
-            $sementaraData = Sementara::all();
     
              $roses = Transaksi::select('id')->orderBy('id' , 'desc')->latest()->first();
 
@@ -139,7 +143,7 @@ class SementaraController extends Controller
                 $query = DB::table('hutangs')->insertGetId([
                     'customer_id' => request()->input('nama_pelanggan'),
                     'transaksi_id' => $transaksi->id,
-                    'keterangan' => 'Hutang',
+                    'keterangan' => 'Kredit',
                     'tanggal' => $time,
                     'total' => $transaksi->total ,
                     'bayar' => $transaksi->bayar ,

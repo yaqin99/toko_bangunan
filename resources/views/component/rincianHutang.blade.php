@@ -65,12 +65,25 @@
       <div class="col-12">
         <div class="card mb-4">
           @if(Session::get('success'))
-          <div class="col-3">
+          <div class="col-12">
             <div class="alert alert-success">
               <div class="text-light fw-bold">
                 <div class="d-flex justify-content-between">
 
                   {{ Session::get('success') }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        @endif
+          @if(Session::get('belum'))
+          <div class="col-12">
+            <div class="alert alert-danger">
+              <div class="text-light fw-bold">
+                <div class="d-flex justify-content-between">
+
+                  {{ Session::get('belum') }}
                   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
               </div>
@@ -91,8 +104,8 @@
             
             <div class="d-flex flex-column">
 
-              <p><small class="text-xs">Nama Pelanggan : {{ $nama }}</small></p>
-              <p><small class="text-xs">Kode Pelanggan : {{$kode }}</small></p>
+              <p><small class="text-xs">Nama Pelanggan : <strong>{{ $nama }}</strong></small></p>
+              <p><small class="text-xs">Kode Pelanggan : <strong>{{$kode }}</strong></small></p>
             </div>
 
              
@@ -169,7 +182,7 @@
                     </td> --}}
                     
                     <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm "><a id="rincian" href="/detailHutang/{{ $h->id }}/{{ $h->customer->nama_pelanggan }}/{{ $customer}}">{{ $h->keterangan == 'Hutang' ? 'Cek Detail' : '' }}</a></span>
+                      <span class="badge badge-sm "><a id="rincian" href="/detailHutang/{{ $h->id }}/{{ $h->customer->nama_pelanggan }}/{{ $customer}}">{{ $h->keterangan == 'Kredit' ? 'Cek Detail' : '' }}</a></span>
                     </td>
                     
                   </tr>
@@ -197,7 +210,7 @@
                         <div class="d-flex px-2 py-1">
                           
                           <div class="d-flex flex-column justify-content-center">
-                            <span class="text-secondary text-xs font-weight-bold">Rp. {{ @number_format($hutang->sum('total'),2,",",".") }}</span>
+                            <span class="text-dark text-xs font-weight-bold"><strong>Rp. {{ @number_format($hutang->sum('total'),2,",",".") }}</strong></span>
                           </div>
                         </div>
                       </td>
@@ -205,17 +218,17 @@
                         <div class="d-flex px-2 py-1">
                           
                           <div class="d-flex flex-column justify-content-center">
-                            <span class="text-secondary text-xs font-weight-bold">Rp. {{ @number_format($hutang->sum('bayar'),2,",",".") }}</span>
+                            <span class="text-dark text-xs font-weight-bold"><strong>Rp. {{ @number_format($hutang->sum('bayar'),2,",",".") }}</strong></span>
                           </div>
                         </div>
                       </td>
                      
                      
                       <td class="align-middle text-center">
-                        <span class="text-secondary text-xs font-weight-bold"><strong>Rp. {{ @number_format($sisa,2,",",".") }}</strong>  </span>
+                        <span class="text-dark text-xs font-weight-bold"><strong>Rp. {{ @number_format($sisa,2,",",".") }}</strong>  </span>
                       </td>
                       <td class="align-middle text-center">
-                        <span class="text-dark text-xs font-weight-bold"><strong>{{ $hutang->sum('sisa') === 0 ? 'Lunas' : 'Belum Lunas' }}</strong></span>
+                        <span class="text-dark text-xs font-weight-bold"><a href="/lunas/{{ $customer }}/{{ $sisa }}"><strong>{{ $sisa === 0 ? 'Lunas' : 'Belum Lunas' }}</strong></a> </span>
                       </td>
                       
                       {{-- <td class="align-middle text-center text-sm">

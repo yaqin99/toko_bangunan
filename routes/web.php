@@ -70,6 +70,7 @@ Route::post('/addDataHutangLama/{customer_id}/{hutang_id}/{tot}/{bay}/{sis}/{nam
 
 
 // DELETE METHOD
+Route::get('/lunas/{customer_id}/{sisa}' , [HutangController::class , 'lunas']);
 Route::get('/deleteStok/{id}' , [StokController::class , 'deleteStok']);
 Route::get('/deleteSementara/{id}' , [SementaraController::class , 'delete']);
 Route::get('/deleteSupply/{id}' , [SupplyController::class , 'deleteSupply']);

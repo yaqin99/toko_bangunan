@@ -117,6 +117,19 @@
             </div>
           </div>
         @endif
+          @if(Session::get('kosong'))
+          <div class="col-12">
+            <div class="alert alert-danger">
+              <div class="text-light fw-bold">
+                <div class="d-flex justify-content-between">
+
+                  {{ Session::get('kosong') }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        @endif
           @if(Session::get('nikSudah'))
           <div class="col-12">
             <div class="alert alert-danger">
@@ -223,25 +236,29 @@
         <div class="card h-100 mb-4">
           <div class="card-header pb-0 px-3">
             <div class="row">
-              <div class="col-md-12 mb-3">
-                <h6 class="mb-0">Data Struk</h6>
-              </div>
-              <div class="row">
-                <div class="col-md-8">
-                <select class="form-select" required id="nama_pelanggan" name="nama_pelanggan">
-                 
-                  <option>Pilih Pelanggan</option>
-                  @foreach($customers as $k)
-                  <option value="{{ $k->id }}">{{ $k->nama_pelanggan }}</option>
-                  @endforeach
-                </select>
-              </div>
-              <div class="col-md-4">
-              <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                Tambah
-              </button>
-                  </div>
+              <div class="col-md-12 mb-3 d-flex justify-content-between">
+                <h6 class="mb-0 mt-1">Data Struk</h6>
+                <div class="col-3 d-flex justify-content-around " >
+                  <h6 for="cekHutang" class="mt-1">Kredit</h6>
+                <input type="checkbox" name="cekHutang" id="cekHutang" onclick="show()">
                 </div>
+              </div>
+              <div class="row" id="pelanggan" >
+                <div class="col-md-8">
+                    <select class="form-select" required id="nama_pelanggan" name="nama_pelanggan">
+                    
+                      <option>Pilih Pelanggan</option>
+                      @foreach($customers as $k)
+                      <option value="{{ $k->id }}">{{ $k->nama_pelanggan }}</option>
+                      @endforeach
+                    </select>
+                </div>
+                  <div class="col-md-4">
+                      <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Tambah
+                      </button>
+                  </div>
+              </div>
               </div>
               
               <div class="col-md-5">
@@ -290,7 +307,7 @@
                 
                 <div class="d-flex">
 
-                  <input  class="form-control me-2"  type="number" placeholder="Bayar" name="bayar" value="{{ old('bayar') }}">
+                  <input  class="form-control me-2" required  type="number" placeholder="Bayar" name="bayar" value="{{ old('bayar') }}">
                   <button class="btn btn-dark" id="button-addon2" type="submit">Beli</button>
                   
                 </div>
@@ -377,6 +394,20 @@
 
 </div>
 <script>
+  document.getElementById("pelanggan").style.display = 'none';
+
+function show() {
+
+  if (document.getElementById('cekHutang').checked) {
+    
+    document.getElementById("pelanggan").style.display = '';
+
+  } else  {
+    document.getElementById("pelanggan").style.display = 'none'; 
+   }
+
+}
+
   
       function stringlength(inputtxt, length)
   { 

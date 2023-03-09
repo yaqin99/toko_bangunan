@@ -51,6 +51,19 @@
     <div class="row">
       <div class="col-12">
         <div class="card mb-6">
+          @if(Session::get('lunas'))
+          <div class="col-12">
+            <div class="alert alert-success">
+              <div class="text-light fw-bold">
+                <div class="d-flex justify-content-between">
+
+                {{ Session::get('lunas') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        @endif
           @if(Session::get('suksesTambah'))
           <div class="col-12">
             <div class="alert alert-success">
