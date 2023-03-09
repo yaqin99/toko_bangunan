@@ -10,16 +10,15 @@ class Transaksi extends Model
     use HasFactory;
 
     public function scopeSearchTransaksi($query ){
-        if (request('searchTransaksi')) {
-          $query->where('nama_barang','like','%'.request('searchTransaksi')
-          );
-          // ->orWhere('nama_kategori','like','%'.request('search').'%');
-      } 
-      }
+      if (request('searchTransaksi') || request('searchTransaksi2')) {
+        $query->whereBetween('tanggal',[request('searchTransaksi') , request('searchTransaksi2')]);
+        // ->orWhere('nama_kategori','like','%'.request('search').'%');
+    } 
+    }
 
       public function detailTransaksi(){
 
-        return $this->hasMany(DetailTransaksi::class);
+        return $this->belongsTo(DetailTransaksi::class);
        
       }
       public function hutang(){
@@ -29,7 +28,7 @@ class Transaksi extends Model
       }
       public function detailHutang(){
 
-        return $this->belongsTo(DetailHutang::class);
+        return $this->hasOne(DetailHutang::class);
        
       }
 }

@@ -64,35 +64,30 @@ class TransaksiController extends Controller
      }
 
      public function editTransaksi( $id , $kode_transaksi){
-        $validatedData =  request()->validate([
+        request()->validate([
             'bayar' => 'required' ,
             'tanggal' => 'required' , 
         ]);
 
         $bayar =  Transaksi::select('total')->where('id',$id)->first();
         $kembalian = request()->bayar - $bayar->total ; 
+
         $cek = DB::table('transaksis')->where('id' , $id)->update([
             "bayar" => request()->bayar , 
             "tanggal" => request()->tanggal , 
             "kembalian" => $kembalian , 
         ]);
-
-        $hutang = Hutang::with('customer' , 'transaksi')->select('*')->where('transaksi_id',$id)->first();
-
-        if ($hutang != null) {
-           
-            Hutang::where('transaksi_id' , $id)->update([
+  
+        Hutang::where('transaksi_id' , $id)->update([
                 'bayar' => request()->bayar , 
-                'sisa' => $hutang->total - request()->bayar ,
+                'tanggal' => request()->tanggal ,
+                'sisa'=> $kembalian , 
             ]);
-
-            DetailHutang::where('hutang_id' , $hutang->id)->update([
-                'bayar' => request()->bayar , 
-                'sisa' => $hutang->total - request()->bayar ,
-                'uang_masuk' => request()->bayar ,
+        DetailTransaksi::where('transaksi_id' , $id)->update([
+               
+                'tanggal' => request()->tanggal ,
+                
             ]);
-        }
-
         if ($cek) {
             # code...
             return redirect('/dataPenjualan')->with('berhasilEdit' , 'Data Berhasil di Update');

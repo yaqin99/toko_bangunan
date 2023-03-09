@@ -16,8 +16,20 @@
       <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
         <div class="ms-md-auto pe-md-3 d-flex align-items-center">
           
-            <form action="/dataPenjualan" method="GET">
-            <input type="text" class="form-control" name="searchTransaksi"  placeholder="Cari ..." value="{{ request('searchTransaksi') }}">
+          <form id="formCari" action="/dataPenjualan" method="GET">
+             
+            <div class="input-group">
+              <div class="me-3">
+
+                <input type="date" class="form-control" id="tanggalCari" oninput="tanggal()" name="searchTransaksi" value="{{ request('searchTransaksi') }}">
+              </div>
+              <div class="">
+
+                <input type="date" class="form-control" id="tanggalCari2" name="searchTransaksi2" oninput="tanggal()" value="{{ request('searchTransaksi2') }}">
+              </div>
+            </div>
+           
+          {{-- <button type="button" class="btn btn-primary">Cari</button> --}}
         </form>
         </div>
         <ul class="navbar-nav  justify-content-end">
@@ -86,9 +98,8 @@
             <div class="card-header pb-0">
               <h6>Data Penjualan</h6>
               <div class="d-flex justify-content-end">
-
-                <a class="btn btn-success justify-content-end me-2" href="/addTransaksi"><i class="bi bi-plus" ></i>Transaksi</a>
-                <a class="btn btn-success justify-content-end" href="/cetakPenjualan"><i class="bi bi-printer"></i>  Cetak</a>
+                <a class="btn btn-dark justify-content-end me-2" href="/addTransaksi"><i class="bi bi-plus" ></i>Transaksi</a>
+                <a onload="cetak()" onclick="noUrl()" class="btn btn-dark justify-content-end" id="cetakPenjualan" href=""><i class="bi bi-printer fa-lg"></i></a>
 
               </div>
             
@@ -96,18 +107,18 @@
           </div>
          
           
-          <div class="card-body px-0 pt-0 pb-2">
+          <div class="card-body  p-3 pb-2">
             <div class="table-responsive p-0">
               <table class="table align-items-center mb-0">
                 <thead>
                   <tr>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kode</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Tanggal</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Total</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Bayar</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  bg-dark  text-white">Kode</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2 bg-dark  text-white">Tanggal</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder  bg-dark  text-white">Total</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder  bg-dark  text-white">Bayar</th>
                     
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kembalian</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Opsi</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder  bg-dark  text-white">Kembalian</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder  bg-dark  text-white">Opsi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -166,5 +177,40 @@
     @include('component.footer')
   </div>
 </main>
+<script>
 
+  const tanggal = () => {
+    console.log('tanggal');
+    let tanggal = document.getElementById('tanggalCari').value ; 
+    let tanggal2 = document.getElementById('tanggalCari2').value ; 
+   
+    document.getElementById('formCari').submit();
+  
+  }
+
+  const cetak = () => {
+    console.log('cetak');
+    let tanggal = document.getElementById('tanggalCari').value ; 
+    let tanggal2 = document.getElementById('tanggalCari2').value ;
+    document.getElementById('cetakPenjualan').href = 'cetakPenjualan' + '/' + tanggal + '/' + tanggal2 ;
+    let date = document.getElementById('cetakPenjualan').href ; 
+    console.log('niBoss ' + date);
+  }
+  
+  window.onload = (event) => {
+  cetak();
+
+  
+};
+
+const noUrl = () => {
+  console.log('no');
+  let tanggal = document.getElementById('tanggalCari').value ; 
+  let tanggal2 = document.getElementById('tanggalCari2').value ;
+    if (tanggal === '' && tanggal2 === '') {
+      alert('Silahkan tentukan rentang tanggal untuk di cetak');
+      document.getElementById('cetakPenjualan').href = 'dataPenjualan' ;
+    }
+  }
+  </script>
 @endsection

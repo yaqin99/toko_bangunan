@@ -118,7 +118,8 @@
   <script src="/assets/js/plugins/chartjs.min.js"></script>
   
   <script>
-     
+
+  
 
     $(document).ready(function() {
       function stringlength(inputtxt, length)

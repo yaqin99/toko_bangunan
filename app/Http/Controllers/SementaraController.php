@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Sementara;
 use App\Models\Transaksi;
+use App\Models\DetailTransaksi;
 use App\Models\Hutang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -36,14 +37,8 @@ class SementaraController extends Controller
             $kode = $ranStr.$ranNum ;
             $time = Carbon::now();
             $kembalian = request()->input('bayar') - $total ; 
-            $query = DB::table('transaksis')->insert([
-                'kode_transaksi' =>$kode,
-                'tanggal' => $time,
-                'total'  =>$total,
-                'bayar' =>request()->input('bayar'),
-                'kembalian' => $kembalian , 
-            ]);
-    
+
+          
             $readyData = [
                 "nama_barang" => 0 , 
                 "jumlah_barang" => 0 , 
@@ -53,7 +48,7 @@ class SementaraController extends Controller
             ] ; 
             $sementaraData = Sementara::all();
     
-    
+
             foreach ($sementaraData as $a) {
            
                 $readyData['nama_barang'] = $a->stok->id ; 
@@ -74,6 +69,17 @@ class SementaraController extends Controller
                 DB::table('stoks')->where('id' , $a->stok->id)->update(['jumlah_stok' => $newStok ]);
     
              }
+
+             $detail =  DetailTransaksi::select('*')->orderBy('id' , 'desc')->latest()->first();
+
+             $query = DB::table('transaksis')->insert([
+                'detail_transaksi_id' => $detail->id , 
+                'kode_transaksi' =>$kode,
+                'tanggal' => $time,
+                'total'  =>$total,
+                'bayar' =>request()->input('bayar'),
+                'kembalian' => $kembalian , 
+            ]);
             }
         }
        
@@ -91,13 +97,7 @@ class SementaraController extends Controller
             $kode = $ranStr.$ranNum ;
             $time = Carbon::now();
             $kembalian = request()->input('bayar') - $total ; 
-            $query = DB::table('transaksis')->insert([
-                'kode_transaksi' =>$kode,
-                'tanggal' => $time,
-                'total'  =>$total,
-                'bayar' =>request()->input('bayar'),
-                'kembalian' => $kembalian , 
-            ]);
+          
     
             $readyData = [
                 "nama_barang" => 0 , 
@@ -108,7 +108,7 @@ class SementaraController extends Controller
             ] ; 
             $sementaraData = Sementara::all();
     
-    
+
             foreach ($sementaraData as $a) {
            
                 $readyData['nama_barang'] = $a->stok->id ; 
@@ -129,6 +129,16 @@ class SementaraController extends Controller
                 DB::table('stoks')->where('id' , $a->stok->id)->update(['jumlah_stok' => $newStok ]);
     
              }
+             $detail =  DetailTransaksi::select('*')->orderBy('id' , 'desc')->latest()->first();
+
+             $query = DB::table('transaksis')->insert([
+                'detail_transaksi_id' => $detail->id , 
+                'kode_transaksi' =>$kode,
+                'tanggal' => $time,
+                'total'  =>$total,
+                'bayar' =>request()->input('bayar'),
+                'kembalian' => $kembalian , 
+            ]);
              $transaksi =  Transaksi::select('*')->orderBy('id' , 'desc')->latest()->first();
 
                 $query = DB::table('hutangs')->insertGetId([
@@ -151,16 +161,16 @@ class SementaraController extends Controller
                 
              $hutang =  Hutang::select('id')->orderBy('id' , 'desc')->latest()->first();
 
-                $query = DB::table('detail_hutangs')->insert([
-                    'customer_id' => request()->input('nama_pelanggan'),
-                    'hutang_id' => $hutang->id,
-                    'transaksi_id' => $transaksi->id,
-                    'total' => $transaksi->total ,
-                    'bayar' => $transaksi->bayar , 
-                    'sisa' =>  $transaksi->total - $transaksi->bayar, 
-                    'uang_masuk' => $transaksi->bayar , 
-                    'tanggal' => $transaksi->tanggal , 
-                ]);
+                // $query = DB::table('detail_hutangs')->insert([
+                //     'customer_id' => request()->input('nama_pelanggan'),
+                //     'hutang_id' => $hutang->id,
+                //     'transaksi_id' => $transaksi->id,
+                //     'total' => $transaksi->total ,
+                //     'bayar' => $transaksi->bayar , 
+                //     'sisa' =>  $transaksi->total - $transaksi->bayar, 
+                //     'uang_masuk' => $transaksi->bayar , 
+                //     'tanggal' => $transaksi->tanggal , 
+                // ]);
 
 
             }

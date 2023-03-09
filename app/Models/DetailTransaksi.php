@@ -11,9 +11,11 @@ class DetailTransaksi extends Model
 
     protected $guarded = ['id'];
 
+   
+
     public function transaksi(){
 
-        return $this->belongsTo(Transaksi::class);
+        return $this->hasOne(Transaksi::class);
        
       }
     public function stok(){

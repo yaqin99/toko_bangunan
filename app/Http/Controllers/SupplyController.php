@@ -103,6 +103,9 @@ class SupplyController extends Controller
         $data = Supply::find($id);
         $stok = DB::table('stoks')->select('jumlah_stok')->where('id',$data->stok->id)->first();
         $newStok = $stok->jumlah_stok - $data->jumlah_stok ; 
+        if ($newStok < 0) {
+            return back()->with('tidakBoleh' , 'Mengahapus Data akan menyebabkan jumlah stok menjadi minus');
+        }
         DB::table('stoks')->where('id' , $data->stok->id)->update(['jumlah_stok' => $newStok ]);
         $delete =  $data->delete();
        if($delete){

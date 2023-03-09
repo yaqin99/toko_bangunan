@@ -30,8 +30,9 @@ Route::get('/detailCustomer/{id}',[AdminController::class , 'detailCustomer']);
 
 Route::get('/cetakDetail/{kode}',[AdminController::class , 'cetakDetail']);
 Route::get('/cetakStok',[AdminController::class , 'cetakStok']);
+Route::get('/cetakHarian',[AdminController::class , 'cetakHarian']);
 Route::get('/cetakSupply',[AdminController::class , 'cetakSupply']);
-Route::get('/cetakPenjualan',[AdminController::class , 'cetakPenjualan']);
+Route::get('/cetakPenjualan/{tanggal1}/{tanggal2}',[AdminController::class , 'cetakPenjualan']);
 Route::get('/cetakPenjualanHarian',[AdminController::class , 'cetakPenjualanHarian']);
 
 

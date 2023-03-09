@@ -87,26 +87,34 @@
               <h6>Detail Transaksi</h6>
               <div class="d-flex justify-content-end">
 
-                <a class="btn btn-success justify-content-end me-2" href="/addDetailTransaksi/{{ $kode }}"><i class="bi bi-plus" ></i>Transaksi</a>
-                <a class="btn btn-success justify-content-end" href="/cetakPenjualan"><i class="bi bi-printer"></i>  Cetak</a>
+                <a class="btn btn-dark justify-content-end me-2" href="/addDetailTransaksi/{{ $kode }}"><i class="bi bi-plus" ></i>Transaksi</a>
+                <a class="btn btn-dark justify-content-end" href="/cetakPenjualan"><i class="bi bi-printer fa-lg"></i></a>
 
               </div>
-            
+              <div class="d-flex justify-content-start">
+                <div class="row">
+                  <div class="col-md-12">
+                    
+                    <p><small class="text-xs">Kode Transaksi :  <strong>{{$kode }}</strong></small></p>
+                    
+                  </div>
+                </div>
+              </div>
             
           </div>
          
           
-          <div class="card-body px-0 pt-0 pb-2">
+          <div class="card-body p-3 pb-2">
             <div class="table-responsive p-0">
               <table class="table align-items-center mb-0">
                 <thead>
                   <tr>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama Barang</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Jumlah Barang</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Total Biaya</th>
-                    {{-- <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal</th> --}}
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kode</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Edit</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder bg-dark text-white">Nama Barang</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2 bg-dark text-white">Jumlah Barang</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder bg-dark text-white">Total Biaya</th>
+                    {{-- <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder">Tanggal</th> --}}
+                    {{-- <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder">Kode</th> --}}
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder bg-dark text-white">Edit</th>
                     {{-- <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Hapus</th> --}}
                   </tr>
                 </thead>
@@ -117,7 +125,7 @@
                   
                   <tr>
                     <td>
-                      <div class="d-flex px-2 py-1">
+                      <div class="d-flex px-3 py-1">
                         
                         <div class="d-flex flex-column justify-content-center">
                           <h4 class="mb-0 text-sm">{{ $a->stok->nama_barang }}</h4>
@@ -134,9 +142,9 @@
                     {{-- <td class="align-middle text-center">
                       <span class="text-secondary text-xs font-weight-bold">{{ \Carbon\Carbon::parse($a->tanggal)->isoFormat(' dddd, D MMMM Y') }}</span>
                     </td>   --}}
-                    <td class="align-middle text-center">
+                    {{-- <td class="align-middle text-center">
                       <span class="text-secondary text-xs font-weight-bold">{{ $a->kode_transaksi }}</span>
-                    </td>  
+                    </td>   --}}
                     <td class="align-middle text-center text-sm">
                       <span class="badge badge-sm "><a href="/editDetailTransaksi/{{ $a->id }}"><i class="fas fa-edit fa-lg"></i></a></span>
                     </td>

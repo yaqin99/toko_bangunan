@@ -67,19 +67,19 @@
 
             </div>
           </div>
-          <div class="card-body px-0 pt-0 pb-2">
+          <div class="card-body p-3 pb-2">
             <div class="table-responsive p-0">
               <table class="table align-items-center mb-0">
                 <thead>
                   <tr>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama Pelanggan</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kode Pelanggan</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kode Transaksi</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">Total Hutang</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">Total Bayar</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Sisa</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Keterangan</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Rincian</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder bg-dark text-white">Nama Pelanggan</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder bg-dark text-white">Kode Pelanggan</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder bg-dark text-white">Kode Transaksi</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder bg-dark text-white">Total Hutang</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder bg-dark text-white">Total Bayar</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder bg-dark text-white">Sisa</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder bg-dark text-white">Keterangan</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder bg-dark text-white">Rincian</th>
                    
                   </tr>
                 </thead>
@@ -88,21 +88,21 @@
                   
                   <tr>
                     <td>
-                      <div class="d-flex px-2 py-1">
+                      <div class="d-flex px-3 py-1">
                         <div class="d-flex flex-column justify-content-center">
                           <h4 class="mb-0 text-sm">{{ $h->customer->nama_pelanggan }}</h4>
                         </div>
                       </div>
                     </td>
                     <td>
-                      <div class="d-flex px-2 py-1">
+                      <div class="d-flex px-3 py-1">
                         <div class="d-flex flex-column justify-content-center">
                           <h4 class="mb-0 text-sm">{{ $h->customer->kode_customers }}</h4>
                         </div>
                       </div>
                     </td>
                     <td>
-                      <div class="d-flex px-2 py-1">
+                      <div class="d-flex px-3 py-1">
                         <div class="d-flex flex-column justify-content-center">
                           <a href="/detailTransaksi/{{ $h->transaksi->kode_transaksi }}"><h4 class="mb-0 text-sm">{{ $h->transaksi->kode_transaksi }}</h4></a>
                         </div>
@@ -112,7 +112,7 @@
                       <div class="d-flex px-2 py-1">
                         
                         <div class="d-flex flex-column justify-content-center">
-                          <span class="text-secondary text-xs font-weight-bold">Rp. {{ @number_format($h->transaksi->total,2,",",".") }}</span>
+                          <span class="text-secondary text-xs font-weight-bold">Rp. {{ @number_format($h->total,2,",",".") }}</span>
                         </div>
                       </div>
                     </td>
@@ -140,22 +140,22 @@
                   </tr>
                     @endforeach
                     <tr>
-                      <td>
-                        <div class="d-flex px-2 py-1">
+                      <td >
+                        <div class="d-flex px-2 py-1 ">
+                          <div class="d-flex flex-column justify-content-center">
+                           <h4 class="mb-0 text-sm"></h4>
+                          </div>
+                        </div>
+                      </td>
+                      <td >
+                        <div class="d-flex px-2 py-1 ">
                           <div class="d-flex flex-column justify-content-center">
                            <h4 class="mb-0 text-sm"></h4>
                           </div>
                         </div>
                       </td>
                       <td>
-                        <div class="d-flex px-2 py-1">
-                          <div class="d-flex flex-column justify-content-center">
-                           <h4 class="mb-0 text-sm"></h4>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <div class="d-flex px-2 py-1">
+                        <div class="d-flex px-3 py-1 ">
                           <div class="d-flex flex-column justify-content-center">
                            <h4 class="mb-0 text-sm">Total</h4>
                           </div>
@@ -165,7 +165,7 @@
                         <div class="d-flex px-2 py-1">
                           
                           <div class="d-flex flex-column justify-content-center">
-                            <span class="text-secondary text-xs font-weight-bold">Rp. {{ @number_format($h->transaksi->sum('total'),2,",",".") }}</span>
+                            <span class="text-secondary text-xs font-weight-bold">Rp. {{ @number_format($h->sum('total'),2,",",".") }}</span>
                           </div>
                         </div>
                       </td>

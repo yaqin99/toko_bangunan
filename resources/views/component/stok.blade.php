@@ -82,27 +82,27 @@
             <h6>Stok Barang</h6>
             <div class="d-flex justify-content-end">
 
-            <a class="btn btn-success me-2" href="/addStok">
+            <a class="btn btn-dark me-2" href="/addStok">
               
                 <i class="bi bi-plus-circle fa-lg"></i>  
                
               
             </a>
-            <a class="btn btn-success justify-content-end" href="/cetakStok"><i class="bi bi-printer fa-lg"></i></a>
+            <a class="btn btn-dark justify-content-end" href="/cetakStok"><i class="bi bi-printer fa-lg"></i></a>
 
             </div>
             
           </div>
-          <div class="card-body px-0 pt-0 pb-2">
+          <div class="card-body p-3 pb-2">
             <div class="table-responsive p-0">
               <table class="table align-items-center mb-0">
                 <thead>
                   <tr>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama Barang</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Jumlah Stok</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Harga Satuan</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">List Supply</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Edit</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  bg-dark   text-white">Nama Barang</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2 bg-dark   text-white">Jumlah Stok</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2 bg-dark   text-white">Harga Satuan</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder  bg-dark   text-white">List Supply</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder  bg-dark   text-white">Edit</th>
                     {{-- <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Hapus</th> --}}
                   </tr>
                 </thead>

@@ -100,8 +100,8 @@
               <h6>Data Customer</h6>
               <div class="d-flex justify-content-end">
 
-                {{-- <a class="btn btn-success justify-content-end me-2" href="/addCustomers"><i class="bi bi-plus" ></i>Customer</a> --}}
-                <a class="btn btn-success justify-content-end" href="/cetakPenjualan"><i class="bi bi-printer"></i>  Cetak</a>
+                {{-- <a class="btn btn-dark justify-content-end me-2" href="/dataHutang">Data Hutang</a> --}}
+                {{-- <a class="btn btn-dark justify-content-end" href="/cetakPenjualan"><i class="bi bi-printer fa-lg"></i></a> --}}
 
               </div>
             
@@ -109,17 +109,17 @@
           </div>
          
           
-          <div class="card-body px-0 pt-0 pb-2">
+          <div class="card-body p-3 pb-2">
             <div class="table-responsive p-0">
               <table class="table align-items-center mb-0">
                 <thead>
                   <tr>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Kode Customers</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama Pelanggan</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2 bg-dark  text-white">Kode Customers</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder bg-dark  text-white">Nama Pelanggan</th>
                     {{-- <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">NIK</th> --}}
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No. Telpon</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder bg-dark  text-white">No. Telpon</th>
                     {{-- <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Total Hutang</th> --}}
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Rincian Hutang</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder bg-dark  text-white">Rincian Hutang</th>
                     {{-- <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Edit</th> --}}
                   </tr>
                 </thead>
@@ -134,7 +134,7 @@
                       {{-- <p class="text-xs text-secondary mb-0">Organization</p> --}}
                     </td>
                     <td>
-                      <div class="d-flex px-2 py-1">
+                      <div class="d-flex px-3 py-1">
                         
                         <div class="d-flex flex-column justify-content-center">
                          <a href="/detailCustomer/{{ $a->id }}"><h4 class="mb-0 text-sm">{{ $a->nama_pelanggan }}</h4></a> 
@@ -151,17 +151,8 @@
                    
                     {{-- <td class="align-middle text-center">
                       <span class="text-secondary text-xs font-weight-bold">
-                        @php
-                         $namaKode = App\Models\Hutang::with('customer')->select('total')->where('customer_id' , $a->id)->get();
-
-                         $dive = 0 ; 
-                        @endphp
-                        @foreach($namaKode as $hut)
-                        @php
-                            $dive =  $hut->sum('total')
-                        @endphp
-                        {{$dive}}
-                        @endforeach
+                       
+                        {{ $a->hutang->sum('sisa') }}
                       </span>
                     </td> --}}
                     <td class="align-middle text-center text-sm">

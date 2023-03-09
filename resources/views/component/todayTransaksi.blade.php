@@ -102,6 +102,18 @@
             </div>
           </div>
         @endif
+          @if(Session::get('nikSudah'))
+          <div class="col-12">
+            <div class="alert alert-danger">
+              <div class="text-light fw-bold">
+                <div class="d-flex justify-content-between">
+                {{ Session::get('nikSudah') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+              </div>
+            </div>
+          </div>
+        @endif
           @if(Session::get('suksesTambah'))
           <div class="col-12">
             <div class="alert alert-success">
@@ -116,8 +128,8 @@
             <h6 class="mb-0">Transaksi Harian</h6>
             <div class="d-flex justify-content-end">
 
-              <a class="btn btn-success  me-2" href="/addTransaksi"><i class="bi bi-plus" ></i>Transaksi</a>
-              <a class="btn btn-success " href="/cetakPenjualan"><i class="bi bi-printer"></i>  Cetak</a>
+              <a class="btn btn-dark  me-2" href="/addTransaksi"><i class="bi bi-plus" ></i>Transaksi</a>
+              <a class="btn btn-dark " href="/cetakHarian"><i class="bi bi-printer fa-lg"></i></a>
 
             </div>
           </div>
@@ -126,13 +138,13 @@
             <table class="table align-items-center mb-0">
               <thead>
                 <tr>
-                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kode Transaksi</th>
-                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Tanggal</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Total</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Bayar</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder  bg-dark  text-white">Kode Transaksi</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2 bg-dark text-white">Tanggal</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder  bg-dark text-white">Total</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder  bg-dark text-white">Bayar</th>
                   
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kembalian</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Opsi</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder  bg-dark text-white">Kembalian</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder  bg-dark text-white">Opsi</th>
                 </tr>
               </thead>
               <tbody>
@@ -203,7 +215,7 @@
                 </select>
               </div>
               <div class="col-md-4">
-              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Tambah
               </button>
                   </div>
@@ -257,7 +269,7 @@
                 <div class="d-flex">
 
                   <input  class="form-control me-2"  type="number" placeholder="Bayar" name="bayar" value="{{ old('bayar') }}">
-                  <button class="btn btn-primary" id="button-addon2" type="submit">Beli</button>
+                  <button class="btn btn-dark" id="button-addon2" type="submit">Beli</button>
                   
                 </div>
                   
@@ -270,6 +282,11 @@
               </form>
       </div>
     </div>
+    <div class="d-flex justify-content-start">
+
+      {{ $transaksi->links() }}
+    </div>
+    
     @include('component.footer')
 
   </div>
@@ -309,7 +326,7 @@
                 </div>
                 <div class="mb-3">
                   <label  class="form-label">Nomer Telpon</label>
-                  <input autocomplete="off" type="number"  oninput="noTelp(document.modal.noHp,12 , 13 )" id="noHp" class="form-control" required name="no_hp" maxlength="13" value="{{ old('no_hp') }}">
+                  <input autocomplete="off" type="number"  oninput="noTelp(document.modal.noHp,10 , 13 )" id="noHp" class="form-control" required name="no_hp" maxlength="13" value="{{ old('no_hp') }}">
                   <p><small  id="noAlert"></small></p>
 
                 </div>
@@ -373,7 +390,7 @@
     return false;
     }
   
-  if(field.length == 12 || field.length == 13)
+  if(field.length == 10 || field.length == 13)
   { 
     document.getElementById("noAlert").innerHTML = "Nomer Telepon Sesuai";
     document.getElementById("noAlert").style.color = "green";

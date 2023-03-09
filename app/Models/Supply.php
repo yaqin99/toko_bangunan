@@ -11,8 +11,8 @@ class Supply extends Model
     protected $guarded = ['id'];
 
     public function scopeSearchSupply($query ){
-      if (request('searchSupply')) {
-        $query->where('tanggal','like','%'.request('searchSupply'));
+      if (request('searchSupply') || request('searchSupply2')) {
+        $query->whereBetween('tanggal',[request('searchSupply') , request('searchSupply2')]);
         // ->orWhere('nama_kategori','like','%'.request('search').'%');
     } 
     }

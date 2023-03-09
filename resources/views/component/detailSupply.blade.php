@@ -93,13 +93,13 @@
             <h6>Catatan Supply</h6>
             <div class="d-flex justify-content-end">
 
-            <a class="btn btn-success me-2" href="/addDataSupplyDetail/{{ $stok_id }}"><i class="bi bi-plus"></i> Catatan</a>
-            <a class="btn btn-success justify-content-end" href="/cetakSupply"><i class="bi bi-printer"></i>  Cetak</a>
+            <a class="btn btn-dark me-2" href="/addDataSupplyDetail/{{ $stok_id }}"><i class="bi bi-plus"></i> Catatan</a>
+            <a class="btn btn-dark justify-content-end" href="/cetakSupply"><i class="bi bi-printer fa-lg"></i></a>
 
 
             </div>
           </div>
-          <div class="card-body px-0 pt-0 pb-2">
+          <div class="card-body p-3 pb-2">
             <div class="table-responsive p-0">
               <table class="table align-items-center mb-0">
                 <thead>

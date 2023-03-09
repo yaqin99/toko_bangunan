@@ -11,6 +11,9 @@ class DetailHutang extends Model
 
     protected $guarded = ['id'];
 
+
+
+
     public function hutang(){
         return $this->belongsTo(Hutang::class);
     }
@@ -18,6 +21,6 @@ class DetailHutang extends Model
         return $this->belongsTo(Customers::class);
     }
     public function transaksi(){
-        return $this->hasOne(Transaksi::class);
+        return $this->belongsTo(Transaksi::class);
     }
 }

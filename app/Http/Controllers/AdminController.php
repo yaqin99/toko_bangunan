@@ -39,8 +39,7 @@ class AdminController extends Controller
     // $roles = Customers::with('hutang')->select('*')->orderBy('nama_pelanggan' , 'asc')->latest()->SearchCustomer()->paginate(10)->withQueryString();
     // $totalHutang = Hutang::with(['customer' , 'transaksi'])->where('customer_id' , );
     
-    $data = Customers::orderBy('nama_pelanggan' , 'asc')->latest()->SearchCustomer()->paginate(10)->withQueryString();
-    // dd($data);
+    $data = Customers::with('hutang')->latest()->SearchCustomer()->paginate(10)->withQueryString();
     return view(
             'component.dataCustomers' , 
             ["title" => 'Data Customer',
@@ -51,7 +50,7 @@ class AdminController extends Controller
    }
    public function todayTransaksi(){
     $date =  Carbon::today()->toDateString();
-    $data = Transaksi::select('*')->where('tanggal',$date)->orderBy('tanggal' , 'desc')->latest()->SearchTransaksi()->paginate(10)->withQueryString();
+    $data = Transaksi::select('*')->where('tanggal',$date)->orderBy('tanggal' , 'desc')->SearchTransaksi()->paginate(6)->withQueryString();
     $sementara = Sementara::with('stok')->get();
     $total = $sementara->sum('total_biaya');
     return view(
@@ -85,6 +84,11 @@ class AdminController extends Controller
    }
    public function dataHutang(){
     $data = Hutang::with('customer' , 'transaksi')->orderBy('id' , 'desc')->SearchHutang()->paginate(10)->withQueryString() ; 
+    
+    if ($data === [] ) {
+        dd('anjenk');
+    }
+
     Sementara::query()->delete();
         return view(
             'component.dataHutang' , [
@@ -95,13 +99,15 @@ class AdminController extends Controller
    }
    public function detailHutang($id , $nama , $customer_id){
     Sementara::query()->delete();
-    $hutang = DetailHutang::with('customer' , 'transaksi')->orderBy('tanggal' , 'asc')->latest()->select('*')->where('customer_id',$customer_id)->first();
-    // $data = DetailTransaksi::select('*')->where('kode_transaksi' , $hutang->transaksi->kode_transaksi)->paginate(15);
-    dd($hutang);
+    $hutang = DetailHutang::with('customer' , 'transaksi' , 'hutang')->select('*')->orderBy('tanggal' , 'asc')->latest()->where('hutang_id',$id)->first();
+    $data = DetailTransaksi::with('stok')->select('*')->where('kode_transaksi' , $hutang->transaksi->kode_transaksi)->paginate(10);
+    $single = DetailTransaksi::with('stok')->latest()->select('kode_transaksi')->where('kode_transaksi',$hutang->transaksi->kode_transaksi)->first();
+
     return view(
-            'component.detailHutang' , [
+            'component.detailTransaksi' , [
                 'data' => $data,
-                
+                'kode' => $single->kode_transaksi , 
+
                 "title" => 'Detail Hutang'
             ]
         );
@@ -146,9 +152,10 @@ class AdminController extends Controller
         );
    }
    public function rincianHutang($id){
+    
     Sementara::query()->delete();
     
-    $data = Hutang::with('customer' , 'transaksi')->where('customer_id' , $id)->paginate(40); 
+    $data = Hutang::with('customer' , 'transaksi')->where('customer_id' , $id)->SearchHutang()->orderBy('tanggal' , 'asc')->paginate(40); 
     $namaKode = Hutang::with('customer' , 'transaksi')->select('customer_id' , 'transaksi_id')->where('customer_id' , $id)->latest()->first(); 
     
         return view(
@@ -195,12 +202,26 @@ class AdminController extends Controller
             ]
         );
    }
-   public function cetakPenjualan(){
+   public function cetakHarian(){
+    Sementara::query()->delete();
+    $date =  Carbon::today()->toDateString();
+
+    $data = Transaksi::with('detailTransaksi')->select('*')->where('tanggal',$date)->orderBy('tanggal' , 'desc')->get();
+        return view(
+            'component.cetak.cetakHarian' , [
+                'data' => $data,
+                 
+                "title" => 'Cetak Penjualan'
+            ]
+        );
+   }
+   public function cetakPenjualan($tanggal1 , $tanggal2){
+    $data = DetailTransaksi::with('transaksi')->select('*')->whereBetween('tanggal',[$tanggal1 , $tanggal2])->get();
+   
     Sementara::query()->delete();
         return view(
-            'component.cetakPenjualan' , [
-                'data' => Transaksi::all(),
-                 
+            'component.cetak.cetakPenjualan' , [
+                'data' => $data,
                 "title" => 'Cetak Penjualan'
             ]
         );

@@ -22,7 +22,8 @@ class Customers extends Model
   
 
       public function hutang(){
-        return $this->hasMany(Hutang::class);
+        //HARUS SPESIFY IDNYA
+        return $this->hasMany(Hutang::class , 'id');
     }
       public function detailHutang(){
         return $this->hasMany(DetailHutang::class, 'customer_id');

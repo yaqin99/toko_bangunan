@@ -16,8 +16,21 @@
       <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
         <div class="ms-md-auto pe-md-3 d-flex align-items-center">
           
-            {{-- <form action="/dataHutang" method="GET">
-            <input type="text" class="form-control" name="searchHutang"  placeholder="Cari ..." value="{{ request('searchHutang') }}"> --}}
+          <form id="formCari" action="/rincianHutang/{{ $customer }}" method="GET">
+             
+            <div class="input-group">
+              <div class="me-3">
+
+                <input type="date" class="form-control" id="tanggalCari" oninput="tanggal()" name="searchRincian" value="{{ request('searchRincian') }}">
+              </div>
+              <div class="">
+
+                <input type="date" class="form-control" id="tanggalCari2" name="searchRincian2" oninput="tanggal()" value="{{ request('searchRincian2') }}">
+              </div>
+            </div>
+           
+          {{-- <button type="button" class="btn btn-primary">Cari</button> --}}
+        </form>
         </form>
         </div>
         <ul class="navbar-nav  justify-content-end">
@@ -62,37 +75,35 @@
           </div>
         @endif
           <div class="card-header pb-0">
-            <h6>Rincian Hutang</h6>
+            <div class="d-flex justify-content-between">
+              <h6>Rincian Hutang</h6>
+            <a class="btn btn-primary me-2 " href="/bayarHutang/{{$hutang->sum('sisa')}}/{{$customer}}"><i class="bi bi-plus"></i> Bayar</a>
+            </div>
             
-            <div class="d-flex justify-content-end">
-              <a class="btn btn-primary me-2 " href="/bayarHutang/{{$hutang->sum('sisa')}}/{{$customer}}"><i class="bi bi-plus"></i> Bayar</a>
+            <div class="d-flex flex-column">
 
+              <p><small class="text-xs">Nama Pelanggan : {{ $nama }}</small></p>
+              <p><small class="text-xs">Kode Pelanggan : {{$kode }}</small></p>
             </div>
 
-            <div class="d-flex justify-content-start">
-              <div class="row">
-                <div class="col-md-12">
-                  <p><small class="text-xs">Nama Pelanggan : {{ $nama }}</small></p>
-                  
-                  <p><small class="text-xs">Kode Pelanggan : {{$kode }}</small></p>
-                  
-                </div>
-              </div>
-            </div>
+             
+
+
+          
           </div>
-          <div class="card-body px-0 pt-0 pb-2">
+          <div class="card-body p-3 ">
             <div class="table-responsive p-0">
               <table class="table align-items-center mb-0">
                 <thead>
                   <tr>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Keterangan</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">Total Hutang</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">Bayar</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Sisa</th>
-                    {{-- <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kode Transaksi</th> --}}
-                    {{-- <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Keterangan</th> --}}
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Detail Bayar</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder bg-dark text-white">Keterangan</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder bg-dark text-white">Tanggal</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder bg-dark text-white ">Total Hutang</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder bg-dark text-white">Bayar</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder bg-dark text-white">Sisa</th>
+                    {{-- <th class="text-uppercase text-secondary text-xxs font-weight-bolder">Kode Transaksi</th> --}}
+                    {{-- <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder">Keterangan</th> --}}
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder bg-dark text-white">Detail Transaksi</th>
                    
                   </tr>
                 </thead>
@@ -102,14 +113,14 @@
                   <tr>
                     
                     <td>
-                      <div class="d-flex px-2 py-1">
+                      <div class="d-flex px-3 py-1">
                         <div class="d-flex flex-column justify-content-center">
-                          <h4 class="mb-0 text-sm">{{ $h->keterangan }}</h4>
+                          <h4 id="keterangan" class="mb-0 text-sm">{{ $h->keterangan }}</h4>
                         </div>
                       </div>
                     </td>
                     <td>
-                      <div class="d-flex px-2 py-1">
+                      <div class="d-flex px-3 py-1">
                         <div class="d-flex flex-column justify-content-center">
                           <h4 class="mb-0 text-sm">{{ $h->tanggal }}</h4>
                         </div>
@@ -149,7 +160,7 @@
                     </td> --}}
                     
                     <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm "><a href="/detailHutang/{{ $h->id }}/{{ $h->customer->nama_pelanggan }}/{{ $h->customer_id }}">Rincian </a></span>
+                      <span class="badge badge-sm "><a id="rincian" href="/detailHutang/{{ $h->id }}/{{ $h->customer->nama_pelanggan }}/{{ $h->customer_id }}">{{ $h->keterangan == 'Hutang' ? 'Cek Detail' : '' }}</a></span>
                     </td>
                     
                   </tr>
@@ -166,7 +177,7 @@
                         </div>
                       </td>
                       <td>
-                        <div class="d-flex px-2 py-1">
+                        <div class="d-flex px-3 py-1">
                           <div class="d-flex flex-column justify-content-center">
                             <h4 class="mb-0 text-sm">Total</h4>
 
@@ -192,15 +203,17 @@
                      
                      
                       <td class="align-middle text-center">
-                        <span class="text-secondary text-xs font-weight-bold">Rp. {{ @number_format($hutang->sum('sisa'),2,",",".") }}</span>
+                        <span class="text-secondary text-xs font-weight-bold"><strong>Rp. {{ @number_format($hutang->sum('sisa'),2,",",".") }}</strong>  </span>
                       </td>
                       <td class="align-middle text-center">
-                        {{-- <span class="text-secondary text-xs font-weight-bold"><a class="btn btn-primary" href=""><i class="bi bi-plus fa-lg"></i> Bayar</a></span> --}}
+                        <span class="text-dark text-xs font-weight-bold"><strong>{{ $hutang->sum('sisa') === 0 ? 'Lunas' : 'Belum Lunas' }}</strong></span>
                       </td>
                       
-                      <td class="align-middle text-center text-sm">
-                        {{-- <span class="badge badge-sm "><a href="/detailHutang/{{ $h->id }}/{{ $h->customer->nama_pelanggan }}/{{ $h->customer_id }}">Lihat Detail</span> --}}
-                      </td>
+                      {{-- <td class="align-middle text-center text-sm">
+                        <span class="badge badge-sm ">
+                        
+                        </span>
+                      </td> --}}
                       
                     </tr>
  
@@ -222,15 +235,26 @@
 </main>
 <script>
   
-      
+  
+  function rincian () {
+    console.log('called');
+    var keterangan =  document.getElementById("keterangan").innerHTML;
+      console.log(keterangan);
+      if (keterangan === 'Bayar' ) {
+        document.getElementById('rincian').innerHTML = 'none';       
+  }
+  }
     
-  //     var keterangan =  document.getElementById("keterangan").innerHTML;
-  //     if (keterangan === 'Lunas' ) {
-  //       document.getElementById('rincian').style.pointer = 'none';
-  //       document.getElementById('rincian').style.cursor = 'default';
+  const tanggal = () => {
+    let tanggal = document.getElementById('tanggalCari').value ; 
+    let tanggal2 = document.getElementById('tanggalCari2').value ; 
+    document.getElementById('formCari').submit();
+  
+  }
       
-  // }
   
   
 </script>
+
+
 @endsection
