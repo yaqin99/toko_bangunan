@@ -14,7 +14,7 @@ use Carbon\Carbon;
 
 class DetailTransaksiController extends Controller
 {
-   public function editDetailTransaksi ($id){
+   public function editDetailTransaksi ($id , $transaksi_id){
 
     $data = DetailTransaksi::find($id);
 
@@ -42,14 +42,20 @@ class DetailTransaksiController extends Controller
    $sum = DetailTransaksi::select('total_biaya')->where('kode_transaksi' , $data->kode_transaksi)->get();
    $totalBiayaTransaksi = $sum->sum('total_biaya');
    
-  $bayar =  Transaksi::select('bayar')->where('kode_transaksi',$data->kode_transaksi)->first();
+  $bayar =  Transaksi::select('bayar' , 'id')->where('kode_transaksi',$data->kode_transaksi)->first();
    $sisa = $bayar->bayar - $totalBiayaTransaksi ; 
    Transaksi::where('kode_transaksi',$data->kode_transaksi)->update([
     "total" => $totalBiayaTransaksi , 
     "kembalian" => $sisa , 
    ]);
 
-   return redirect('/detailTransaksi'.'/'.$data->kode_transaksi)->with('berhasilEdit' , 'Data Berhasil di Edit');
+   Hutang::where('transaksi_id' ,$bayar->id )->update([
+    'total' => $totalBiayaTransaksi , 
+    'bayar' => $bayar->bayar , 
+    'sisa' => $sisa , 
+   ]);
+
+   return redirect('/detailTransaksi'.'/'.$transaksi_id)->with('berhasilEdit' , 'Data Berhasil di Edit');
 
    }
 

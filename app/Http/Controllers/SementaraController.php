@@ -143,7 +143,7 @@ class SementaraController extends Controller
                     'tanggal' => $time,
                     'total' => $transaksi->total ,
                     'bayar' => $transaksi->bayar ,
-                    'sisa' =>  $transaksi->total - $transaksi->bayar, 
+                    'sisa' =>  $transaksi->bayar - $transaksi->total, 
                 ]);
 
                 // $roses = DB::getPdo()->lastInsertId(); 

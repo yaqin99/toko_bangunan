@@ -96,7 +96,7 @@
               <h6>Detail Transaksi</h6>
               <div class="d-flex justify-content-end">
 
-                <a class="btn btn-dark justify-content-end me-2" href="/addDetailTransaksi/{{ $single->transaksi->id }}/{{ $kode }}"><i class="bi bi-plus" ></i>Transaksi</a>
+                <a class="btn btn-dark justify-content-end me-2" href="/addDetailTransaksi/{{ $single->transaksi->id }}/{{ $single->transaksi->kode_transaksi }}"><i class="bi bi-plus" ></i>Transaksi</a>
                 <a class="btn btn-dark justify-content-end" href="/cetakPenjualan"><i class="bi bi-printer fa-lg"></i></a>
 
               </div>
@@ -104,7 +104,7 @@
                 <div class="row">
                   <div class="col-md-12">
                     
-                    <p><small class="text-xs">Kode Transaksi :  <strong>{{$kode }}</strong></small></p>
+                    <p><small class="text-xs">Kode Transaksi :  <strong>{{$single->transaksi->kode_transaksi }}</strong></small></p>
                     
                   </div>
                 </div>
@@ -155,7 +155,7 @@
                       <span class="text-secondary text-xs font-weight-bold">{{ $a->kode_transaksi }}</span>
                     </td>   --}}
                     <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm "><a href="/editDetailTransaksi/{{ $a->id }}"><i class="fas fa-edit fa-lg"></i></a></span>
+                      <span class="badge badge-sm "><a href="/editDetailTransaksi/{{ $a->id }}/{{ $transaksi_id}}"><i class="fas fa-edit fa-lg"></i></a></span>
                     </td>
                     {{-- <td class="align-middle text-center text-sm">
                       <span class="badge badge-sm "><a onclick="return confirm('Yakin Menghapus Data?')" href="/deleteTransaksi/{{ $a->id }}/{{ $a->nama_barang }}"><i class="fas fa-trash fa-lg"></i></a></span>

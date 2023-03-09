@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 class HutangController extends Controller
 {
     
-    public function bayarHutang($customer_id){
+    public function bayarHutang($customer_id , $sisa){
 
         $keterangan = 'Bayar' ; 
         if (request()->nominal  < 0) {
@@ -24,7 +24,7 @@ class HutangController extends Controller
             'tanggal' => request()->tanggal , 
             'total'  => 0,
             'bayar'  => request()->nominal,
-            'sisa'  => 0 - request()->nominal,
+            'sisa'  => $sisa + request()->nominal,
           
         
       

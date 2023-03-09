@@ -140,7 +140,7 @@
                       <div class="d-flex px-2 py-1">
                         
                         <div class="d-flex flex-column justify-content-center">
-                          <a href="/detailTransaksi/{{ $sari->kode_transaksi }}"><h4 class="mb-0 text-sm">{{ $sari->kode_transaksi }}</h4></a>
+                          <a href="/detailTransaksi/{{ $sari->id }}"><h4 class="mb-0 text-sm">{{ $sari->kode_transaksi }}</h4></a>
                         </div>
                       </div>
                     </td>

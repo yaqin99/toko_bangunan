@@ -20,7 +20,7 @@
           <div class="card-body pb-2">
            <div class="col-12">
             <div class="table-responsive p-0">
-              <form  action="/bayarHutang/{{ $customer_id }}" method="POST" enctype="multipart/form-data">
+              <form  action="/bayarHutang/{{ $customer_id }}/{{ $sisa}}" method="POST" enctype="multipart/form-data">
                   @csrf
                 
                  

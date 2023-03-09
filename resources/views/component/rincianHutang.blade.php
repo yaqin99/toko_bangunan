@@ -82,7 +82,7 @@
               <h6>Rincian Hutang</h6>
               <div class="d-flex justify-content-end">
 
-                <a class="btn btn-dark me-2 " href="/bayarHutang/{{$hutang->sum('sisa')}}/{{$customer}}"><i class="bi bi-plus"></i> Bayar</a>
+                <a class="btn btn-dark me-2 " href="/bayarHutang/{{$sisa}}/{{$customer}}"><i class="bi bi-plus"></i> Bayar</a>
                 <a id="cetakPenjualan" onload="cetak()" onclick="noUrl()" class="btn btn-dark justify-content-end" href=""><i class="bi bi-printer fa-lg"></i></a>
                 
              </div>
@@ -212,7 +212,7 @@
                      
                      
                       <td class="align-middle text-center">
-                        <span class="text-secondary text-xs font-weight-bold"><strong>Rp. {{ @number_format($hutang->sum('sisa'),2,",",".") }}</strong>  </span>
+                        <span class="text-secondary text-xs font-weight-bold"><strong>Rp. {{ @number_format($sisa,2,",",".") }}</strong>  </span>
                       </td>
                       <td class="align-middle text-center">
                         <span class="text-dark text-xs font-weight-bold"><strong>{{ $hutang->sum('sisa') === 0 ? 'Lunas' : 'Belum Lunas' }}</strong></span>

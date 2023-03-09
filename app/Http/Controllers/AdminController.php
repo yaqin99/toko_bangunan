@@ -110,6 +110,7 @@ class AdminController extends Controller
                 'data' => $double,
                 'kode' => $single->kode_transaksi , 
                 'single' => $single , 
+                'transaksi_id' => $single->transaksi->id , 
                 "title" => 'Detail Hutang'
             ]
         );
@@ -118,12 +119,13 @@ class AdminController extends Controller
     Sementara::query()->delete();
     $data = DetailTransaksi::with('stok' , 'transaksi')->orderBy('tanggal' , 'asc')->latest()->select('*')->where('transaksi_id',$id)->paginate(10);
     $single = DetailTransaksi::with('stok' , 'transaksi')->latest()->select('kode_transaksi' , 'transaksi_id')->where('transaksi_id',$id)->first();
-   
+    
         return view(
             'component.detailTransaksi' , [
                 'data' => $data,
-                'kode' => $single->kode_transaksi , 
+                'kode' => $single , 
                 'single' => $single , 
+                'transaksi_id' => $id , 
                 "title" => 'Detail Transaksi'
             ]
         );
@@ -159,15 +161,16 @@ class AdminController extends Controller
     Sementara::query()->delete();
     
     $data = Hutang::with('customer' , 'transaksi')->where('customer_id' , $id)->SearchHutang()->orderBy('tanggal' , 'asc')->paginate(40); 
-    $namaKode = Hutang::with('customer' , 'transaksi')->select('customer_id' , 'transaksi_id')->where('customer_id' , $id)->latest()->first(); 
-
+    $namaKode = Hutang::with('customer' , 'transaksi')->select('customer_id' , 'transaksi_id' , 'sisa')->where('customer_id' , $id)->orderBy('id' , 'desc')->first(); 
+    
         return view(
             'component.rincianHutang' , [
                 'hutang' => $data,
                  'nama' => $namaKode->customer->nama_pelanggan , 
                  'kode' => $namaKode->customer->kode_customers , 
                  'customer' => $id , 
-                 "title" => 'Rincian Hutang'
+                 "title" => 'Rincian Hutang' , 
+                 "sisa" => $namaKode->sisa , 
             ]
         );
    }
@@ -360,13 +363,13 @@ class AdminController extends Controller
        
     ]);
    }
-   public function editDetailTransaksiLayout($id){
+   public function editDetailTransaksiLayout($id , $transaksi_id){
     Sementara::query()->delete();
     // $data = Transaksi::find($id);
     $detail = DetailTransaksi::with('stok')->select('*')->where('id',$id)->first();
     return view('component.editData.editDetailTransaksi' , [
         'detail' =>$detail,
-        // 'stok' =>$stok,
+        'transaksi_id' =>$transaksi_id,
         'title' => "Edit Detail Transaksi"
        
     ]);

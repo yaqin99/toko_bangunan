@@ -52,13 +52,13 @@ Route::get('/addCustomers',[AdminController::class , 'addCustomers']);
 Route::get('/editStok/{id}',[AdminController::class , 'editStokLayout']);
 Route::get('/editSupply/{id}',[AdminController::class , 'editSupplyLayout']);
 Route::get('/editTransaksi/{id}',[AdminController::class , 'editTransaksiLayout']);
-Route::get('/editDetailTransaksi/{id}',[AdminController::class , 'editDetailTransaksiLayout']);
+Route::get('/editDetailTransaksi/{id}/{transaksi_id}',[AdminController::class , 'editDetailTransaksiLayout']);
 Route::get('/editDetailHutang/{id}',[AdminController::class , 'editDetailHutangLayout']);
 Route::get('/editCustomer/{id}',[AdminController::class , 'editCustomerLayout']);
 
 // POST METHOD
 Route::post('/addStok',[StokController::class , 'addStok']);
-Route::post('/bayarHutang/{customer_id}',[HutangController::class , 'bayarHutang']);
+Route::post('/bayarHutang/{customer_id}/{sisa}',[HutangController::class , 'bayarHutang']);
 Route::post('/addPenjualan/{total}/{sementara}',[SementaraController::class , 'addPenjualan']);
 Route::post('/addSupply',[SupplyController::class , 'addSupply']);
 Route::post('/addTransaksi',[TransaksiController::class , 'addTransaksi']);
@@ -81,6 +81,6 @@ Route::get('/deleteDetailHutang/{id}' , [DetailHutangController::class , 'delete
 Route::put('/editStok/{id}', [StokController::class , 'editStok']);
 Route::put('/editSupply/{id}',[SupplyController::class , 'editSupply']);
 Route::put('/editTransaksi/{id}/{kode_transaksi}',[TransaksiController::class , 'editTransaksi']);
-Route::put('/editDetailTransaksi/{id}',[DetailTransaksiController::class , 'editDetailTransaksi']);
+Route::put('/editDetailTransaksi/{id}/{transaksi_id}',[DetailTransaksiController::class , 'editDetailTransaksi']);
 Route::put('/editDetailHutang/{id}/{total}/{bayar}/{sisa}/{hutang_id}',[DetailHutangController::class , 'editDetailHutang']);
 Route::put('/editCustomer/{id}',[CustomersController::class , 'editCustomer']);
