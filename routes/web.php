@@ -22,7 +22,7 @@ Route::get('/dataCustomers',[AdminController::class , 'dataCustomers']);
 
 
 Route::get('/detailHutang/{id}/{nama}/{customer_id}',[AdminController::class , 'detailHutang']);
-Route::get('/detailTransaksi/{kode_transaksi}',[AdminController::class , 'detailTransaksi']);
+Route::get('/detailTransaksi/{id}',[AdminController::class , 'detailTransaksi']);
 Route::get('/detailSupply/{id}',[AdminController::class , 'detailSupply']);
 Route::get('/rincianHutang/{id}',[AdminController::class , 'rincianHutang']);
 Route::get('/detailCustomer/{id}',[AdminController::class , 'detailCustomer']);
@@ -33,11 +33,13 @@ Route::get('/cetakStok',[AdminController::class , 'cetakStok']);
 Route::get('/cetakHarian',[AdminController::class , 'cetakHarian']);
 Route::get('/cetakSupply',[AdminController::class , 'cetakSupply']);
 Route::get('/cetakPenjualan/{tanggal1}/{tanggal2}',[AdminController::class , 'cetakPenjualan']);
+Route::get('/cetakSupply/{tanggal1}/{tanggal2}',[AdminController::class , 'cetakSupply']);
+Route::get('/rincianHutang/cetakHutang/{id}/{tanggal1}/{tanggal2}',[AdminController::class , 'cetakHutang']);
 Route::get('/cetakPenjualanHarian',[AdminController::class , 'cetakPenjualanHarian']);
 
 
 Route::get('/addTransaksi',[AdminController::class , 'addTransaksi']);
-Route::get('/addDetailTransaksi/{kode}',[AdminController::class , 'addDetailTransaksi']);
+Route::get('/addDetailTransaksi/{id}/{kode}',[AdminController::class , 'addDetailTransaksi']);
 Route::get('/addStok',[AdminController::class , 'addStok']);
 Route::get('/addDataHutang',[AdminController::class , 'addDataHutang']);
 Route::get('/addDataHutangLama/{hutang_id}/{nama}/{customer_id}',[AdminController::class , 'addDataHutangLama']);
@@ -60,7 +62,7 @@ Route::post('/bayarHutang/{customer_id}',[HutangController::class , 'bayarHutang
 Route::post('/addPenjualan/{total}/{sementara}',[SementaraController::class , 'addPenjualan']);
 Route::post('/addSupply',[SupplyController::class , 'addSupply']);
 Route::post('/addTransaksi',[TransaksiController::class , 'addTransaksi']);
-Route::post('/addDetailTransaksi/{kode}',[DetailTransaksiController::class , 'addDetailTransaksi']);
+Route::post('/addDetailTransaksi/{id}/{kode}',[DetailTransaksiController::class , 'addDetailTransaksi']);
 Route::post('/addCustomers',[CustomersController::class , 'addCustomers']);
 Route::post('/addCustomersModal',[CustomersController::class , 'addCustomersModal']);
 Route::post('/addDataHutang',[DetailHutangController::class , 'addHutang']);

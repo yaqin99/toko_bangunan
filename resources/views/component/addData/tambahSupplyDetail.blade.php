@@ -52,11 +52,14 @@
       <div class="col-12">
         <div class="card mb-4">
           @if(Session::get('lengkapi'))
-          <div class="col-3">
+          <div class="col-12">
             <div class="alert alert-danger">
               <div class="text-light fw-bold">
+                <div class="d-flex justify-content-between">
+
                 {{ Session::get('lengkapi') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
               </div>
             </div>
           </div>

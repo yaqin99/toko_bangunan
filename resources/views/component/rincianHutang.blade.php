@@ -68,8 +68,11 @@
           <div class="col-3">
             <div class="alert alert-success">
               <div class="text-light fw-bold">
-                {{ Session::get('success') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <div class="d-flex justify-content-between">
+
+                  {{ Session::get('success') }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
               </div>
             </div>
           </div>
@@ -77,7 +80,13 @@
           <div class="card-header pb-0">
             <div class="d-flex justify-content-between">
               <h6>Rincian Hutang</h6>
-            <a class="btn btn-primary me-2 " href="/bayarHutang/{{$hutang->sum('sisa')}}/{{$customer}}"><i class="bi bi-plus"></i> Bayar</a>
+              <div class="d-flex justify-content-end">
+
+                <a class="btn btn-dark me-2 " href="/bayarHutang/{{$hutang->sum('sisa')}}/{{$customer}}"><i class="bi bi-plus"></i> Bayar</a>
+                <a id="cetakPenjualan" onload="cetak()" onclick="noUrl()" class="btn btn-dark justify-content-end" href=""><i class="bi bi-printer fa-lg"></i></a>
+                
+             </div>
+            
             </div>
             
             <div class="d-flex flex-column">
@@ -160,7 +169,7 @@
                     </td> --}}
                     
                     <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm "><a id="rincian" href="/detailHutang/{{ $h->id }}/{{ $h->customer->nama_pelanggan }}/{{ $h->customer_id }}">{{ $h->keterangan == 'Hutang' ? 'Cek Detail' : '' }}</a></span>
+                      <span class="badge badge-sm "><a id="rincian" href="/detailHutang/{{ $h->id }}/{{ $h->customer->nama_pelanggan }}/{{ $customer}}">{{ $h->keterangan == 'Hutang' ? 'Cek Detail' : '' }}</a></span>
                     </td>
                     
                   </tr>
@@ -251,10 +260,37 @@
     document.getElementById('formCari').submit();
   
   }
-      
+  
+  
+
+const cetak = () => {
+  console.log('cetak');
+  let tanggal = document.getElementById('tanggalCari').value ; 
+  let tanggal2 = document.getElementById('tanggalCari2').value ;
+  document.getElementById('cetakPenjualan').href = 'cetakHutang' + '/'+ '<?php echo $customer; ?>'+'/' + tanggal + '/' + tanggal2 ;
+  let date = document.getElementById('cetakPenjualan').href ; 
+  console.log('niBoss ' + date);
+}
+
+window.onload = (event) => {
+cetak();
+
+
+};
+
+const noUrl = () => {
+console.log('no');
+let tanggal = document.getElementById('tanggalCari').value ; 
+let tanggal2 = document.getElementById('tanggalCari2').value ;
+  if (tanggal === '' && tanggal2 === '') {
+    alert('Silahkan tentukan rentang tanggal untuk di cetak');
+    document.getElementById('cetakPenjualan').href = '<?php echo $customer; ?>';
+  }
+}
   
   
 </script>
+
 
 
 @endsection

@@ -9,18 +9,18 @@
 </head>
 <body>
     <div class="form-group mt-20 mb-5">
-        <div align="center"><h1 class="display-6 text-xs font-weight-bold"><strong>Laporan Penjualan</strong> </h1></div>
+        <div align="center"><h1 class="display-6 text-xs font-weight-bold"><strong>Laporan Hutang {{ $nama }}</strong> </h1></div>
     </div>
    
     <table class="table table-bordered" align="center" width="90%">
         <thead>
           <tr>
             <th scope="col">No</th>
-            <th scope="col">Kode Transaksi</th>
+            <th scope="col">Ketergangan</th>
             <th scope="col">Tanggal</th>
-            <th scope="col">Total Biaya</th>
+            <th scope="col">Total Hutang</th>
             <th scope="col">Bayar</th>
-            <th scope="col">Kembalian</th>
+            <th scope="col">Sisa</th>
           </tr>
         </thead>
         <tbody>
@@ -28,11 +28,11 @@
                 
             <tr>
                 <td scope="row">{{ $loop->index + 1 }}</td>
-                <td>{{ $sariCantik->kode_transaksi }}</td>
+                <td>{{ $sariCantik->keterangan }}</td>
                 <td>{{  \Carbon\Carbon::parse($sariCantik->tanggal)->isoFormat(' dddd, D MMMM Y') }}</td>
                 <td>Rp. {{ @number_format($sariCantik->total,2,",",".") }}</td>
                 <td>Rp. {{ @number_format($sariCantik->bayar,2,",",".") }}</td>
-                <td>Rp. {{ @number_format($sariCantik->kembalian,2,",",".") }}</td>
+                <td>Rp. {{ @number_format($sariCantik->sisa,2,",",".") }}</td>
                 
                 
             </tr>

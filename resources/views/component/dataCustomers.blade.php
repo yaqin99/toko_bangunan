@@ -52,31 +52,40 @@
       <div class="col-12">
         <div class="card mb-6">
           @if(Session::get('suksesTambah'))
-          <div class="col-3">
+          <div class="col-12">
             <div class="alert alert-success">
               <div class="text-light fw-bold">
+                <div class="d-flex justify-content-between">
+
                 {{ Session::get('suksesTambah') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
               </div>
             </div>
           </div>
         @endif
         @if(Session::get('edit'))
-          <div class="col-3">
+          <div class="col-12">
             <div class="alert alert-success">
               <div class="text-light fw-bold">
+                <div class="d-flex justify-content-between">
+
                 {{ Session::get('edit') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
               </div>
             </div>
           </div>
         @endif
         @if(Session::get('berhasilHapusSupply'))
-          <div class="col-3">
+          <div class="col-12">
             <div class="alert alert-success">
               <div class="text-light fw-bold">
+                <div class="d-flex justify-content-between">
+
                 {{ Session::get('berhasilHapusSupply') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
               </div>
             </div>
           </div>

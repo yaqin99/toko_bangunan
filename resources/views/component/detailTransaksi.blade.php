@@ -52,31 +52,40 @@
       <div class="col-12">
         <div class="card mb-6">
           @if(Session::get('suksesTambahTransaksi'))
-          <div class="col-3">
+          <div class="col-12">
             <div class="alert alert-success">
               <div class="text-light fw-bold">
+                <div class="d-flex justify-content-between">
+
                 {{ Session::get('suksesTambahTransaksi') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
               </div>
             </div>
           </div>
         @endif
         @if(Session::get('berhasilEditSupply'))
-          <div class="col-3">
+          <div class="col-12">
             <div class="alert alert-success">
               <div class="text-light fw-bold">
+                <div class="d-flex justify-content-between">
+
                 {{ Session::get('berhasilEditSupply') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
               </div>
             </div>
           </div>
         @endif
         @if(Session::get('berhasilHapusSupply'))
-          <div class="col-3">
+          <div class="col-12">
             <div class="alert alert-success">
               <div class="text-light fw-bold">
+                <div class="d-flex justify-content-between">
+
                 {{ Session::get('berhasilHapusSupply') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
               </div>
             </div>
           </div>
@@ -87,7 +96,7 @@
               <h6>Detail Transaksi</h6>
               <div class="d-flex justify-content-end">
 
-                <a class="btn btn-dark justify-content-end me-2" href="/addDetailTransaksi/{{ $kode }}"><i class="bi bi-plus" ></i>Transaksi</a>
+                <a class="btn btn-dark justify-content-end me-2" href="/addDetailTransaksi/{{ $single->transaksi->id }}/{{ $kode }}"><i class="bi bi-plus" ></i>Transaksi</a>
                 <a class="btn btn-dark justify-content-end" href="/cetakPenjualan"><i class="bi bi-printer fa-lg"></i></a>
 
               </div>

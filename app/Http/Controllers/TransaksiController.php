@@ -69,7 +69,7 @@ class TransaksiController extends Controller
             'tanggal' => 'required' , 
         ]);
 
-        $bayar =  Transaksi::select('total')->where('id',$id)->first();
+        $bayar =  Transaksi::select('total' , 'kode_transaksi')->where('id',$id)->first();
         $kembalian = request()->bayar - $bayar->total ; 
 
         $cek = DB::table('transaksis')->where('id' , $id)->update([
@@ -83,7 +83,7 @@ class TransaksiController extends Controller
                 'tanggal' => request()->tanggal ,
                 'sisa'=> $kembalian , 
             ]);
-        DetailTransaksi::where('transaksi_id' , $id)->update([
+        DetailTransaksi::where('kode_transaksi' , $bayar->kode_transaksi)->update([
                
                 'tanggal' => request()->tanggal ,
                 

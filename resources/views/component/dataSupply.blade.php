@@ -63,31 +63,40 @@
         <div class="card mb-4">
         
           @if(Session::get('suksesTambahSupply'))
-            <div class="col-3">
+            <div class="col-12">
               <div class="alert alert-success">
                 <div class="text-light fw-bold">
+                  <div class="d-flex justify-content-between">
+
                   {{ Session::get('suksesTambahSupply') }}
                   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
                 </div>
               </div>
             </div>
           @endif
           @if(Session::get('berhasilEditSupply'))
-            <div class="col-3">
+            <div class="col-12">
               <div class="alert alert-success">
                 <div class="text-light fw-bold">
+                  <div class="d-flex justify-content-between">
+
                   {{ Session::get('berhasilEditSupply') }}
                   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
                 </div>
               </div>
             </div>
           @endif
           @if(Session::get('berhasilHapusSupply'))
-            <div class="col-3">
+            <div class="col-12">
               <div class="alert alert-success">
                 <div class="text-light fw-bold">
+                  <div class="d-flex justify-content-between">
+
                   {{ Session::get('berhasilHapusSupply') }}
                   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -96,8 +105,11 @@
             <div class="col-12">
               <div class="alert alert-danger">
                 <div class="text-light fw-bold">
+                  <div class="d-flex justify-content-between">
+
                   {{ Session::get('tidakBoleh') }}
                   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -109,7 +121,7 @@
             <div class="d-flex justify-content-end">
 
             <a class="btn btn-dark me-2" href="/addDataSupply"><i class="bi bi-plus"></i> Catatan</a>
-            <a class="btn btn-dark justify-content-end" href="/cetakSupply"><i class="bi bi-printer fa-lg"></i></a>
+            <a onload="cetak()" onclick="noUrl()" id="cetakSupply" class="btn btn-dark justify-content-end" href=""><i class="bi bi-printer fa-lg"></i></a>
 
 
             </div>
@@ -185,6 +197,31 @@ const tanggal = () => {
   document.getElementById('formCari').submit();
 
 }
+
+  const cetak = () => {
+    console.log('cetak');
+    let tanggal = document.getElementById('tanggalCari').value ; 
+    let tanggal2 = document.getElementById('tanggalCari2').value ;
+    document.getElementById('cetakSupply').href = 'cetakSupply' + '/' + tanggal + '/' + tanggal2 ;
+    let date = document.getElementById('cetakSupply').href ; 
+    console.log('niBoss ' + date);
+  }
+  
+  window.onload = (event) => {
+  cetak();
+
+  
+};
+
+const noUrl = () => {
+  console.log('no');
+  let tanggal = document.getElementById('tanggalCari').value ; 
+  let tanggal2 = document.getElementById('tanggalCari2').value ;
+    if (tanggal === '' && tanggal2 === '') {
+      alert('Silahkan tentukan rentang tanggal untuk di cetak');
+      document.getElementById('cetakSupply').href = '/dataSupply' ;
+    }
+  }
 
 </script>
 @endsection

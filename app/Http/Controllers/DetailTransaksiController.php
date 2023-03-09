@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\DetailTransaksi;
 use App\Models\Transaksi;
 use App\Models\Stok;
+use App\Models\Hutang;
 use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
@@ -53,7 +54,7 @@ class DetailTransaksiController extends Controller
    }
 
 
-   public function addDetailTransaksi($kode){
+   public function addDetailTransaksi($id , $kode){
 
 
     request()->validate([
@@ -77,6 +78,7 @@ class DetailTransaksiController extends Controller
     $tanggal = Carbon::now();
     $query = DB::table('detail_transaksis')->insert([
          'stok_id' =>request()->input('nama_barang'),
+         'transaksi_id' => $id , 
          'jumlah_barang' =>request()->input('jumlah_barang'),
          'total_biaya'  =>$totalBiaya,
          'tanggal' => $tanggal , 
@@ -96,9 +98,15 @@ class DetailTransaksiController extends Controller
     
     $bayar =  Transaksi::select('bayar')->where('kode_transaksi',$kode)->first();
     $sisa = $bayar->bayar - $totalBiayaTransaksi ; 
+
     Transaksi::where('kode_transaksi',$kode)->update([
         "total" => $totalBiayaTransaksi , 
         "kembalian" => $sisa , 
+    ]);
+
+    Hutang::where('transaksi_id' , $id)->update([
+        'total' => $totalBiayaTransaksi , 
+        'sisa' => $sisa , 
     ]);
 
 

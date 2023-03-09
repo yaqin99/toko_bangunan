@@ -12,10 +12,15 @@ class HutangController extends Controller
     
     public function bayarHutang($customer_id){
 
+        $keterangan = 'Bayar' ; 
+        if (request()->nominal  < 0) {
+           $keterangan = 'Kembalian';
+        }
+
         $query = DB::table('hutangs')->insert([
             'customer_id' => $customer_id,
             
-            'keterangan' => 'Bayar' , 
+            'keterangan' => $keterangan , 
             'tanggal' => request()->tanggal , 
             'total'  => 0,
             'bayar'  => request()->nominal,

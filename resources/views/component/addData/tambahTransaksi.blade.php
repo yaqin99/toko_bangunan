@@ -51,11 +51,14 @@
       <div class="col-12">
         <div class="card mb-4">
           @if(Session::get('tidakCukup'))
-          <div class="col-3">
+          <div class="col-12">
             <div class="alert alert-secondary">
               <div class="text-light fw-bold">
+                <div class="d-flex justify-content-between">
+
                 {{ Session::get('tidakCukup') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
               </div>
             </div>
           </div>

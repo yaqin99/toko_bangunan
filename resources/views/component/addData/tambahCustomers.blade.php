@@ -56,9 +56,9 @@
             <div class="alert alert-danger">
               <div class="text-light fw-bold">
                <div class="row">
-                 <span> {{ Session::get('no') }}</span>
+                <div class="d-flex justify-content-between">
+                  <span> {{ Session::get('no') }}</span>
 
-                <div class="d-flex justify-content-end">
                   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
               </div>
@@ -71,8 +71,8 @@
           <div class="col-12">
             <div class="alert alert-warning">
               <div class="text-light fw-bold">
-                {{ Session::get('nik') }}
-                <div class="d-flex justify-content-end">
+                <div class="d-flex justify-content-between">
+                  {{ Session::get('nik') }}
 
                   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>             
@@ -83,8 +83,8 @@
           <div class="col-12">
             <div class="alert alert-warning">
               <div class="text-light fw-bold">
-                {{ Session::get('nikSudah') }}
-                <div class="d-flex justify-content-end">
+                <div class="d-flex justify-content-between">
+                  {{ Session::get('nikSudah') }}
 
                   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>             

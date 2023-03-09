@@ -57,21 +57,27 @@
         <div class="card mb-4">
         
           @if(Session::get('berhasilHapus'))
-            <div class="col-3">
+            <div class="col-12">
               <div class="alert alert-success">
                 <div class="text-light fw-bold">
+                  <div class="d-flex justify-content-between">
+
                   {{ Session::get('berhasilHapus') }}
                   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
                 </div>
               </div>
             </div>
           @endif
           @if(Session::get('berhasilEdit'))
-            <div class="col-3">
+            <div class="col-12">
               <div class="alert alert-success">
                 <div class="text-light fw-bold">
+                  <div class="d-flex justify-content-between">
+
                   {{ Session::get('berhasilEdit') }}
                   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
                 </div>
               </div>
             </div>

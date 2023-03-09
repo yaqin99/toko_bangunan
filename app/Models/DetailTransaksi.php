@@ -15,7 +15,7 @@ class DetailTransaksi extends Model
 
     public function transaksi(){
 
-        return $this->hasOne(Transaksi::class);
+        return $this->belongsTo(Transaksi::class);
        
       }
     public function stok(){

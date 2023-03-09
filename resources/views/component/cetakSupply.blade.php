@@ -28,7 +28,7 @@
                 
             <tr>
                 <td scope="row">{{ $loop->index + 1 }}</td>
-                <td>{{ $sariCantik->nama_barang }}</td>
+                <td>{{ $sariCantik->stok->nama_barang }}</td>
                 <td>{{ $sariCantik->nama_supplier }}</td>
                 <td> {{ $sariCantik->biaya }}</td>
                 <td> {{ $sariCantik->jumlah_stok }}</td>

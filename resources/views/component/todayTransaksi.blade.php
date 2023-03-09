@@ -56,8 +56,11 @@
           <div class="col-12">
             <div class="alert alert-danger">
               <div class="text-light fw-bold">
-                {{ Session::get('tidakCukup') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <div class="d-flex justify-content-between">
+
+                  {{ Session::get('tidakCukup') }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
               </div>
             </div>
           </div>
@@ -66,8 +69,11 @@
           <div class="col-12">
             <div class="alert alert-danger">
               <div class="text-light fw-bold">
-                {{ Session::get('bayar') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <div class="d-flex justify-content-between">
+
+                  {{ Session::get('bayar') }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
               </div>
             </div>
           </div>
@@ -76,8 +82,11 @@
           <div class="col-12">
             <div class="alert alert-success">
               <div class="text-light fw-bold">
-                {{ Session::get('berhasilEdit') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <div class="d-flex justify-content-between">
+
+                  {{ Session::get('berhasilEdit') }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
               </div>
             </div>
           </div>
@@ -86,8 +95,11 @@
           <div class="col-12">
             <div class="alert alert-warning">
               <div class="text-light fw-bold">
-                {{ Session::get('nik') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <div class="d-flex justify-content-between">
+
+                  {{ Session::get('nik') }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
               </div>
             </div>
           </div>
@@ -96,8 +108,11 @@
           <div class="col-12">
             <div class="alert alert-danger">
               <div class="text-light fw-bold">
-                {{ Session::get('no') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <div class="d-flex justify-content-between">
+
+                  {{ Session::get('no') }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
               </div>
             </div>
           </div>
@@ -107,8 +122,11 @@
             <div class="alert alert-danger">
               <div class="text-light fw-bold">
                 <div class="d-flex justify-content-between">
-                {{ Session::get('nikSudah') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  <div class="d-flex justify-content-between">
+
+                    {{ Session::get('nikSudah') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
               </div>
               </div>
             </div>
@@ -118,8 +136,12 @@
           <div class="col-12">
             <div class="alert alert-success">
               <div class="text-light fw-bold">
-                {{ Session::get('suksesTambah') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                
+                <div class="d-flex justify-content-between">
+
+                  {{ Session::get('suksesTambah') }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
               </div>
             </div>
           </div>
@@ -157,7 +179,7 @@
                     <div class="d-flex px-2 py-1">
                       
                       <div class="d-flex flex-column justify-content-center">
-                        <a href="/detailTransaksi/{{ $sari->kode_transaksi }}"><h4 class="mb-0 text-sm">{{ $sari->kode_transaksi }}</h4></a>
+                        <a href="/detailTransaksi/{{ $sari->id }}"><h4 class="mb-0 text-sm">{{ $sari->kode_transaksi }}</h4></a>
                       </div>
                     </div>
                   </td>

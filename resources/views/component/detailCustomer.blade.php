@@ -52,31 +52,40 @@
       <div class="col-12">
         <div class="card mb-6">
           @if(Session::get('suksesTambah'))
-          <div class="col-3">
+          <div class="col-12">
             <div class="alert alert-success">
               <div class="text-light fw-bold">
+                <div class="d-flex justify-content-between">
+
                 {{ Session::get('suksesTambah') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
               </div>
             </div>
           </div>
         @endif
         @if(Session::get('edit'))
-          <div class="col-3">
+          <div class="col-12">
             <div class="alert alert-success">
               <div class="text-light fw-bold">
+                <div class="d-flex justify-content-between">
+
                 {{ Session::get('edit') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
               </div>
             </div>
           </div>
         @endif
         @if(Session::get('berhasilHapusSupply'))
-          <div class="col-3">
+          <div class="col-12">
             <div class="alert alert-success">
               <div class="text-light fw-bold">
+                <div class="d-flex justify-content-between">
+
                 {{ Session::get('berhasilHapusSupply') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
               </div>
             </div>
           </div>
@@ -85,9 +94,11 @@
           <div class="col-12">
             <div class="alert alert-warning">
               <div class="text-light fw-bold">
+                <div class="d-flex justify-content-between">
+
                 {{ Session::get('nikSudah') }}
                 <div class="d-flex justify-content-end">
-
+                </div>
                   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>             
             </div>
@@ -100,8 +111,8 @@
               <h6>Detail Customer</h6>
               <div class="d-flex justify-content-end">
 
-                <a class="btn btn-success justify-content-end me-2" href="/addCustomers"><i class="bi bi-plus" ></i>Customer</a>
-                <a class="btn btn-success justify-content-end" href="/cetakPenjualan"><i class="bi bi-printer"></i>  Cetak</a>
+                <a class="btn btn-dark justify-content-end me-2" href="/addCustomers"><i class="bi bi-plus" ></i>Customer</a>
+                {{-- <a class="btn btn-dark justify-content-end" href="/cetakPenjualan"><i class="bi bi-printer"></i>  Cetak</a> --}}
 
               </div>
             

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Sementara;
 use App\Models\Transaksi;
-use App\Models\DetailTransaksi;
 use App\Models\Hutang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -38,7 +37,14 @@ class SementaraController extends Controller
             $time = Carbon::now();
             $kembalian = request()->input('bayar') - $total ; 
 
-          
+            $query = DB::table('transaksis')->insert([
+                'kode_transaksi' =>$kode,
+                'tanggal' => $time,
+                'total'  =>$total,
+                'bayar' =>request()->input('bayar'),
+                'kembalian' => $kembalian , 
+            ]);
+    
             $readyData = [
                 "nama_barang" => 0 , 
                 "jumlah_barang" => 0 , 
@@ -48,6 +54,7 @@ class SementaraController extends Controller
             ] ; 
             $sementaraData = Sementara::all();
     
+             $roses = Transaksi::select('id')->orderBy('id' , 'desc')->latest()->first();
 
             foreach ($sementaraData as $a) {
            
@@ -59,6 +66,7 @@ class SementaraController extends Controller
                 
                 $query = DB::table('detail_transaksis')->insert([
                     "stok_id" => $readyData['nama_barang'] , 
+                    "transaksi_id" => $roses->id , 
                     "jumlah_barang" => $readyData['jumlah_barang'] , 
                     "total_biaya" => $readyData['total_biaya'] , 
                     "tanggal" => $readyData['tanggal'] , 
@@ -69,17 +77,6 @@ class SementaraController extends Controller
                 DB::table('stoks')->where('id' , $a->stok->id)->update(['jumlah_stok' => $newStok ]);
     
              }
-
-             $detail =  DetailTransaksi::select('*')->orderBy('id' , 'desc')->latest()->first();
-
-             $query = DB::table('transaksis')->insert([
-                'detail_transaksi_id' => $detail->id , 
-                'kode_transaksi' =>$kode,
-                'tanggal' => $time,
-                'total'  =>$total,
-                'bayar' =>request()->input('bayar'),
-                'kembalian' => $kembalian , 
-            ]);
             }
         }
        
@@ -97,7 +94,13 @@ class SementaraController extends Controller
             $kode = $ranStr.$ranNum ;
             $time = Carbon::now();
             $kembalian = request()->input('bayar') - $total ; 
-          
+            $query = DB::table('transaksis')->insert([
+                'kode_transaksi' =>$kode,
+                'tanggal' => $time,
+                'total'  =>$total,
+                'bayar' =>request()->input('bayar'),
+                'kembalian' => $kembalian , 
+            ]);
     
             $readyData = [
                 "nama_barang" => 0 , 
@@ -108,6 +111,7 @@ class SementaraController extends Controller
             ] ; 
             $sementaraData = Sementara::all();
     
+            $roses = Transaksi::select('id')->orderBy('id' , 'desc')->latest()->first();
 
             foreach ($sementaraData as $a) {
            
@@ -119,6 +123,7 @@ class SementaraController extends Controller
                 
                 $query = DB::table('detail_transaksis')->insert([
                     "stok_id" => $readyData['nama_barang'] , 
+                    "transaksi_id" => $roses->id , 
                     "jumlah_barang" => $readyData['jumlah_barang'] , 
                     "total_biaya" => $readyData['total_biaya'] , 
                     "tanggal" => $readyData['tanggal'] , 
@@ -129,16 +134,6 @@ class SementaraController extends Controller
                 DB::table('stoks')->where('id' , $a->stok->id)->update(['jumlah_stok' => $newStok ]);
     
              }
-             $detail =  DetailTransaksi::select('*')->orderBy('id' , 'desc')->latest()->first();
-
-             $query = DB::table('transaksis')->insert([
-                'detail_transaksi_id' => $detail->id , 
-                'kode_transaksi' =>$kode,
-                'tanggal' => $time,
-                'total'  =>$total,
-                'bayar' =>request()->input('bayar'),
-                'kembalian' => $kembalian , 
-            ]);
              $transaksi =  Transaksi::select('*')->orderBy('id' , 'desc')->latest()->first();
 
                 $query = DB::table('hutangs')->insertGetId([

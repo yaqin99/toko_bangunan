@@ -17,7 +17,6 @@
           <tr>
             <th scope="col">No</th>
             <th scope="col">Nama Barang</th>
-            <th scope="col">Supplier</th>
             <th scope="col">Jumlah Stok</th>
             <th scope="col">Harga Satuan</th>
             <th scope="col">Tanggal</th>
@@ -29,7 +28,6 @@
             <tr>
                 <td scope="row">{{ $loop->index + 1 }}</td>
                 <td>{{ $sariCantik->nama_barang }}</td>
-                <td>{{ $sariCantik->supplier }}</td>
                 <td> {{ $sariCantik->jumlah_stok }}</td>
                 <td> {{ $sariCantik->harga_satuan }}</td>
                 
