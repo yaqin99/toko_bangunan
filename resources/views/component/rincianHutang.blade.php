@@ -144,7 +144,7 @@
                     <td>
                       <div class="d-flex px-3 py-1">
                         <div class="d-flex flex-column justify-content-center">
-                          <h4 class="mb-0 text-sm">{{ $h->tanggal }}</h4>
+                          <h4 class="mb-0 text-sm">{{ \Carbon\Carbon::parse($h->tanggal)->isoFormat(' dddd, D MMMM Y')}}</h4>
                         </div>
                       </div>
                     </td>

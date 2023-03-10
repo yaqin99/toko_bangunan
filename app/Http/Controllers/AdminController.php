@@ -275,7 +275,10 @@ class AdminController extends Controller
         );
    }
    public function cetakHutang($id,$tanggal1 , $tanggal2){
-    $night = Hutang::with('customer' , 'transaksi')->where('customer_id' , $id)->SearchHutangPersonal()->orderBy('tanggal' , 'asc')->get(); 
+    $data = Hutang::with('customer' , 'transaksi')->where('customer_id' , $id)->SearchHutang()->orderBy('tanggal' , 'asc')->paginate(40); 
+
+    $night = Hutang::with('customer' , 'transaksi')->where('customer_id' , $id)->orderBy('tanggal' , 'asc')->get(); 
+    // dd($night);
     $hayley = Hutang::with('customer' , 'transaksi')->where('customer_id' , $id)->SearchHutangPersonal()->orderBy('tanggal' , 'asc')->first(); 
     $nama = $hayley->customer->nama_pelanggan ; 
     Sementara::query()->delete();

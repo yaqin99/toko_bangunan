@@ -42,10 +42,10 @@ class Hutang extends Model
     // // }
     }
 
-    public function scopeSearchHutangPersonal($query ){
+    public function scopeSearchHutangPersonal($query  ){
         if (request('searchRincian') || request('searchRincian2')) {
             $query->where(function($query) {
-                $query->whereBetween('tanggal',[request('searchRincian') , request('searchRincian2')]);
+                $query->whereBetween('tanggal',[$tanggal , $tanggal2]);
                       
               });
             

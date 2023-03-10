@@ -93,16 +93,16 @@
                     <label  class="form-label">Nama Supplier</label>
                     <input autocomplete="off" type="text" class="form-control" required name="nama_supplier"  value="{{ old('nama_supplier') }}">
                   </div>
-                  <div class="mb-3">
+                  <div class="mb-3 col-md-3">
                     <label  class="form-label">Biaya</label>
                     <input autocomplete="off" type="number" class="form-control" required name="biaya"  value="{{ old('biaya') }}">
                   </div>
-                  <div class="mb-3">
+                  <div class="mb-3 col-md-3">
                     <label  class="form-label">Jumlah Stok</label>
                     <input autocomplete="off" type="number" class="form-control" required name="jumlah_stok"  value="{{ old('jumlah_stok') }}">
                   </div>
                  
-                  <div class="mb-3">
+                  <div class="mb-3 col-md-2">
                     <label  class="form-label">Tanggal</label>
                     <input autocomplete="off" type="date" class="form-control" required name="tanggal"  value="{{ old('tanggal') }}">
                   </div>
