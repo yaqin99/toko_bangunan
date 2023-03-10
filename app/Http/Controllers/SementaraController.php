@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Sementara;
 use App\Models\Transaksi;
 use App\Models\Hutang;
+use App\Models\Customers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -15,7 +16,7 @@ use Illuminate\Support\Str;
 class SementaraController extends Controller
 {
 
-    public function addPenjualan($total , $sementara){
+    public function addPenjualan($total){
 
         
         request()->validate([
@@ -23,7 +24,7 @@ class SementaraController extends Controller
         ]);
 
         $sementaraData = Sementara::all();
-        if ($sementara == "[]") {
+        if ($sementaraData == "[]") {
             return back()->with('kosong','Silahkan Pilih Barang ');       
          }
         // $data = [
@@ -81,6 +82,14 @@ class SementaraController extends Controller
                 DB::table('stoks')->where('id' , $a->stok->id)->update(['jumlah_stok' => $newStok ]);
     
              }
+
+             $query = DB::table('rekaps')->insert([
+                 "tanggal" => $time , 
+                "transaksi" => $total  , 
+                "uang_masuk" => request()->input('bayar'), 
+                "uang_keluar" => $kembalian , 
+                "keterangan" => 'Cash',
+            ]);
             }
         }
        
@@ -93,9 +102,10 @@ class SementaraController extends Controller
          if (request()->input('nama_pelanggan') != "Pilih Pelanggan") {
             if (request()->input('bayar') < $total) {
 
-                $ranStr = Str::random(6);
+            $ranStr = Str::random(6);
             $ranNum =  random_int(100, 10000);
-            $kode = $ranStr.$ranNum ;
+            $pelanggan = Customers::select('kode_customers')->where('id' , request()->input('nama_pelanggan'))->first();
+            $kode = $pelanggan->kode_customers.' - '.$ranStr.$ranNum ;
             $time = Carbon::now();
             $kembalian = request()->input('bayar') - $total ; 
             $query = DB::table('transaksis')->insert([
@@ -138,6 +148,14 @@ class SementaraController extends Controller
                 DB::table('stoks')->where('id' , $a->stok->id)->update(['jumlah_stok' => $newStok ]);
     
              }
+
+             $query = DB::table('rekaps')->insert([
+                "tanggal" => $time , 
+               "transaksi" => $total  , 
+               "uang_masuk" => request()->input('bayar'), 
+               "uang_keluar" => $kembalian , 
+               "keterangan" => 'Kredit',
+           ]);
              $transaksi =  Transaksi::select('*')->orderBy('id' , 'desc')->latest()->first();
 
                 $query = DB::table('hutangs')->insertGetId([

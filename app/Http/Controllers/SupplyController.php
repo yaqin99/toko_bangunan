@@ -40,6 +40,16 @@ class SupplyController extends Controller
            
          ]);
 
+         $val = request()->input('biaya') ; 
+         
+         $query = DB::table('rekaps')->insert([
+            "tanggal" => request()->input('tanggal') , 
+            "transaksi" => 0  , 
+            "uang_masuk" => 0, 
+            "uang_keluar" => 0 - $val, 
+            "keterangan" => 'Supply',
+        ]);
+
         $data->jumlah_stok = $data->jumlah_stok + request()->jumlah_stok;
         // $data->supplier = request()->nama_supplier;
         $data->save();

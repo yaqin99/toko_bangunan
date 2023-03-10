@@ -59,19 +59,18 @@
             </div>
           </a>
         </li>
-        {{-- <li class="nav-item">
-          <a class="nav-link {{ ($title === 'Data Hutang' || $title === 'Tambah Hutang' || $title === 'Edit Hutang') ? 'active' : '' }}" href="/dataHutang">
+        <li class="nav-item">
+          <a class="nav-link {{ ($title === 'Data Rekap' || $title === 'Cetak Hutang') ? 'active' : '' }}" href="/dataRekap">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-app text-info text-sm opacity-10"></i>
-              <i class="bi bi-person-vcard-fill text-info text-lg opacity-10"></i>
+              <i class="ni ni-chart-pie-35 text-dark text-sm opacity-10"></i>
             </div>
             <div class="d-flex align-items-center">
               
-              <span class="nav-link-text ms-1">Data Hutang</span>
+              <span class="nav-link-text ms-1">Rekap Data</span>
             </div>
           </a>
         </li>
-        --}}
+       
         
         
       

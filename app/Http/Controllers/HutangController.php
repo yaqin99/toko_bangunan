@@ -13,7 +13,7 @@ class HutangController extends Controller
     
     public function bayarHutang($customer_id , $sisa){
 
-        $keterangan = 'Bayar' ; 
+        $keterangan = 'Bayar Kredit' ; 
         if (request()->nominal  < 0) {
            $keterangan = 'Kembalian';
         }
@@ -25,11 +25,19 @@ class HutangController extends Controller
             'tanggal' => request()->tanggal , 
             'total'  => 0,
             'bayar'  => request()->nominal,
-            'sisa'  => $sisa + request()->nominal,
+            'sisa'  => request()->nominal ,
           
-        
+            
       
           
+        ]);
+
+        DB::table('rekaps')->insert([
+            "tanggal" => request()->tanggal , 
+            "transaksi" => 0  , 
+            "uang_masuk" => request()->nominal, 
+            "uang_keluar" => request()->nominal , 
+            "keterangan" => $keterangan,
         ]);
         if ($query) {
             return redirect('/rincianHutang'.'/'.$customer_id);

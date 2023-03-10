@@ -15,6 +15,7 @@ use App\Http\Controllers\CustomersController;
 
 Route::get('/',[AdminController::class , 'todayTransaksi']);
 Route::get('/dataPenjualan',[AdminController::class , 'dataPenjualan']);
+Route::get('/dataRekap',[AdminController::class , 'dataRekap']);
 Route::get('/stokBarang',[AdminController::class , 'stokBarang']);
 Route::get('/dataHutang',[AdminController::class , 'dataHutang']);
 Route::get('/dataSupply',[AdminController::class , 'dataSupply']);
@@ -59,7 +60,7 @@ Route::get('/editCustomer/{id}',[AdminController::class , 'editCustomerLayout'])
 // POST METHOD
 Route::post('/addStok',[StokController::class , 'addStok']);
 Route::post('/bayarHutang/{customer_id}/{sisa}',[HutangController::class , 'bayarHutang']);
-Route::post('/addPenjualan/{total}/{sementara}',[SementaraController::class , 'addPenjualan']);
+Route::post('/addPenjualan/{total}',[SementaraController::class , 'addPenjualan']);
 Route::post('/addSupply',[SupplyController::class , 'addSupply']);
 Route::post('/addTransaksi',[TransaksiController::class , 'addTransaksi']);
 Route::post('/addDetailTransaksi/{id}/{kode}',[DetailTransaksiController::class , 'addDetailTransaksi']);

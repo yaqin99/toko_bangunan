@@ -230,7 +230,7 @@
         </div>
       </div>
       <div class="col-md-4 mt-4">
-        <form  method="POST" action="/addPenjualan/{{ $total }}/{{ $sementara }}">
+        <form  method="POST" action="/addPenjualan/{{ $total }}">
           @csrf
 
         <div class="card h-100 mb-4">

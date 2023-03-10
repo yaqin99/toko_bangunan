@@ -225,10 +225,10 @@
                      
                      
                       <td class="align-middle text-center">
-                        <span class="text-dark text-xs font-weight-bold"><strong>Rp. {{ @number_format($sisa,2,",",".") }}</strong>  </span>
+                        <span class="text-dark text-xs font-weight-bold"><strong>Rp. {{ @number_format($hutang->sum('sisa'),2,",",".") }}</strong>  </span>
                       </td>
                       <td class="align-middle text-center">
-                        <span class="text-dark text-xs font-weight-bold"><a href="/lunas/{{ $customer }}/{{ $sisa }}"><strong>{{ $sisa === 0 ? 'Lunas' : 'Belum Lunas' }}</strong></a> </span>
+                        <span class="text-dark text-xs font-weight-bold"><a href="/lunas/{{ $customer }}/{{ $sisa }}"><strong>{{ $hutang->sum('sisa')=== 0 ? 'Lunas' : 'Belum Lunas' }}</strong></a> </span>
                       </td>
                       
                       {{-- <td class="align-middle text-center text-sm">

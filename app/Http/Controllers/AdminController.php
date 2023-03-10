@@ -11,6 +11,7 @@ use App\Models\DetailHutang;
 use App\Models\DetailTransaksi;
 use App\Models\Hutang;
 use App\Models\Sementara;
+use App\Models\Rekap;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
@@ -34,6 +35,16 @@ class AdminController extends Controller
             ]
         );
    }
+   public function dataRekap(){
+    Sementara::query()->delete();
+        return view(
+            'component.dataRekap' , 
+            ["title" => 'Data Rekap',
+            "rekap" => Rekap::orderBy('tanggal' , 'asc')->SearchRekap()->paginate(50)->withQueryString(),
+
+            ]
+        );
+   }
    public function dataCustomers(){
     Sementara::query()->delete();
     // $roles = Customers::with('hutang')->select('*')->orderBy('nama_pelanggan' , 'asc')->latest()->SearchCustomer()->paginate(10)->withQueryString();
@@ -50,7 +61,7 @@ class AdminController extends Controller
    }
    public function todayTransaksi(){
     $date =  Carbon::today()->toDateString();
-    $data = Transaksi::select('*')->where('tanggal',$date)->orderBy('tanggal' , 'desc')->SearchTransaksi()->paginate(6)->withQueryString();
+    $data = Transaksi::select('*')->where('tanggal',$date)->orderBy('id' , 'desc')->SearchTransaksi()->paginate(6)->withQueryString();
     $sementara = Sementara::with('stok')->get();
     $total = $sementara->sum('total_biaya');
     return view(
@@ -170,7 +181,7 @@ class AdminController extends Controller
                  'kode' => $namaKode->customer->kode_customers , 
                  'customer' => $id , 
                  "title" => 'Rincian Hutang' , 
-                 "sisa" => $namaKode->sisa , 
+                 "sisa" => $data->sum('sisa') , 
             ]
         );
    }
