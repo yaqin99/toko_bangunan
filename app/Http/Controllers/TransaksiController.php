@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateTransaksiRequest;
 use App\Models\DetailHutang;
 use App\Models\DetailTransaksi;
 use App\Models\Hutang;
+use App\Models\Rekap;
 use App\Models\Stok;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -69,7 +70,7 @@ class TransaksiController extends Controller
             'tanggal' => 'required' , 
         ]);
 
-        $bayar =  Transaksi::select('total' , 'kode_transaksi')->where('id',$id)->first();
+        $bayar =  Transaksi::select('total' , 'kode_transaksi' , 'id')->where('id',$id)->first();
         $kembalian = request()->bayar - $bayar->total ; 
 
         $cek = DB::table('transaksis')->where('id' , $id)->update([
@@ -87,6 +88,14 @@ class TransaksiController extends Controller
                
                 'tanggal' => request()->tanggal ,
                 
+            ]);
+        
+        Rekap::where('transaksi_id' , $id)->update([
+           
+                "transaksi" => $bayar->total , 
+                "uang_masuk" => request()->bayar , 
+                "uang_keluar" => request()->bayar - $bayar->total , 
+                'tanggal' => request()->tanggal ,
             ]);
         if ($cek) {
             # code...

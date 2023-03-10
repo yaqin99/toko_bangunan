@@ -8,19 +8,19 @@
     <title>{{ $title }}</title>
 </head>
 <body>
-    <div class="form-group mt-20 mb-5">
-        <div align="center"><h1 class="display-6 text-xs font-weight-bold"><strong>Laporan Penjualan Harian</strong> </h1></div>
+    <div class="form-group mt-20">
+        <div align="center"><p><strong>Laporan Rekap</strong> </p></div>
     </div>
    
     <table class="table table-bordered" align="center" width="90%">
         <thead>
           <tr>
             <th scope="col">No</th>
-            <th scope="col">Kode Transaksi</th>
             <th scope="col">Tanggal</th>
-            <th scope="col">Total Biaya</th>
-            <th scope="col">Bayar</th>
-            <th scope="col">Kembalian</th>
+            <th scope="col">Total Transaksi</th>
+            <th scope="col">Uang Masuk</th>
+            <th scope="col">Sisa</th>
+            <th scope="col">Keterangan</th>
           </tr>
         </thead>
         <tbody>
@@ -28,30 +28,22 @@
                 
             <tr>
                 <td scope="row">{{ $loop->index + 1 }}</td>
-                <td>{{ $sariCantik->kode_transaksi }}</td>
-                <td>{{  \Carbon\Carbon::parse($sariCantik->tanggal)->isoFormat(' dddd, D MMMM Y') }}</td>
-                <td>Rp. {{ @number_format($sariCantik->total,2,",",".") }}</td>
-                <td>Rp. {{ @number_format($sariCantik->bayar,2,",",".") }}</td>
-                <td>Rp. {{ @number_format($sariCantik->kembalian,2,",",".") }}</td>
-                
-                
-            </tr>
-           
+                <td>{{ $sariCantik->tanggal }}</td>
+                <td>{{ $sariCantik->transaksi }}</td>
+                <td> {{ $sariCantik->uang_masuk }}</td>
+                <td> {{ $sariCantik->uang_keluar }}</td>
+                <td> {{ $sariCantik->keterangan }}</td>
+             </tr>
             
             @endforeach
             <tr>
-              <td scope="row"></td>
-              <td></td>
-              <td><strong>Total</strong></td>
-              <td>Rp. {{ @number_format($data->sum('total'),2,",",".") }}</td>
-              <td>Rp. {{ @number_format($data->sum('bayar'),2,",",".") }}</td>
-              <td>Rp. {{ @number_format($data->sum('kembalian'),2,",",".") }}</td>
-              
-              
-          </tr>
-         
-          
-           
+                <td scope="row"></td>
+                <td>Total</td>
+                <td>{{ $data->sum('transaksi') }}</td>
+                <td> {{$data->sum('uang_masuk') }}</td>
+                <td> {{$data->sum('uang_keluar') }}</td>
+                <td> </td>
+             </tr>
         </tbody>
       </table>
       <script type="text/javascript">

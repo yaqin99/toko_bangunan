@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\DetailTransaksi;
 use App\Models\Transaksi;
 use App\Models\Stok;
+use App\Models\Rekap;
 use App\Models\Hutang;
 use Illuminate\Support\Facades\DB;
 
@@ -55,6 +56,14 @@ class DetailTransaksiController extends Controller
     'sisa' => $sisa , 
    ]);
 
+   Rekap::where('transaksi_id' , $bayar->id)->update([
+           
+    "transaksi" => $totalBiayaTransaksi , 
+    "uang_masuk" => $bayar->bayar , 
+    "uang_keluar" => $bayar->bayar - $totalBiayaTransaksi , 
+]);
+
+
    return redirect('/detailTransaksi'.'/'.$transaksi_id)->with('berhasilEdit' , 'Data Berhasil di Edit');
 
    }
@@ -102,7 +111,7 @@ class DetailTransaksiController extends Controller
     $sum = DetailTransaksi::select('total_biaya')->where('kode_transaksi' , $kode)->get();
     $totalBiayaTransaksi = $sum->sum('total_biaya');
     
-    $bayar =  Transaksi::select('bayar')->where('kode_transaksi',$kode)->first();
+    $bayar =  Transaksi::select('bayar' , 'id')->where('kode_transaksi',$kode)->first();
     $sisa = $bayar->bayar - $totalBiayaTransaksi ; 
 
     Transaksi::where('kode_transaksi',$kode)->update([
@@ -115,7 +124,12 @@ class DetailTransaksiController extends Controller
         'sisa' => $sisa , 
     ]);
 
-
+    Rekap::where('transaksi_id' , $bayar->id)->update([
+           
+        "transaksi" => $totalBiayaTransaksi , 
+        "uang_masuk" => $bayar->bayar , 
+        "uang_keluar" => $bayar->bayar - $totalBiayaTransaksi , 
+    ]);
 
      if($query){
          return redirect('/')->with('suksesTambahTransaksi' , 'Data Transaksi Berhasil di Tambahkan');

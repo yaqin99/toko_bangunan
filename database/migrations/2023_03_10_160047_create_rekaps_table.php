@@ -15,6 +15,9 @@ class CreateRekapsTable extends Migration
     {
         Schema::create('rekaps', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('transaksi_id')->nullable();
+            $table->foreignId('supplie_id')->nullable();
+            $table->foreignId('hutang_id')->nullable();
             $table->date('tanggal');
             $table->integer('transaksi');
             $table->integer('uang_masuk');

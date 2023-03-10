@@ -16,7 +16,7 @@
       <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
         <div class="ms-md-auto pe-md-3 d-flex align-items-center">
           
-          <form id="formCari" action="/dataPenjualan" method="GET">
+          <form id="formCari" action="/dataRekap" method="GET">
              
             <div class="input-group">
               <div class="me-3">
@@ -108,7 +108,7 @@
               <h6>Data Rekap</h6>
               <div class="d-flex justify-content-end">
                 {{-- <a class="btn btn-dark justify-content-end me-2" href="/addTransaksi"><i class="bi bi-plus" ></i>Transaksi</a> --}}
-                <a onload="cetak()" onclick="noUrl()" class="btn btn-dark justify-content-end" id="cetakPenjualan" href=""><i class="bi bi-printer fa-lg"></i></a>
+                <a onload="cetak()" onclick="noUrl()" class="btn btn-dark justify-content-end" id="cetakRekap" href=""><i class="bi bi-printer fa-lg"></i></a>
 
               </div>
             
@@ -214,7 +214,7 @@
     console.log('cetak');
     let tanggal = document.getElementById('tanggalCari').value ; 
     let tanggal2 = document.getElementById('tanggalCari2').value ;
-    document.getElementById('cetakPenjualan').href = 'cetakPenjualan' + '/' + tanggal + '/' + tanggal2 ;
+    document.getElementById('cetakRekap').href = 'cetakRekap' + '/' + tanggal + '/' + tanggal2 ;
     let date = document.getElementById('cetakPenjualan').href ; 
     console.log('niBoss ' + date);
   }
@@ -231,7 +231,7 @@ const noUrl = () => {
   let tanggal2 = document.getElementById('tanggalCari2').value ;
     if (tanggal === '' && tanggal2 === '') {
       alert('Silahkan tentukan rentang tanggal untuk di cetak');
-      document.getElementById('cetakPenjualan').href = 'dataPenjualan' ;
+      document.getElementById('cetakPenjualan').href = 'dataRekap' ;
     }
   }
   </script>

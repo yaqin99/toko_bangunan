@@ -35,6 +35,7 @@ Route::get('/cetakHarian',[AdminController::class , 'cetakHarian']);
 Route::get('/cetakSupply',[AdminController::class , 'cetakSupply']);
 Route::get('/cetakPenjualan/{tanggal1}/{tanggal2}',[AdminController::class , 'cetakPenjualan']);
 Route::get('/cetakSupply/{tanggal1}/{tanggal2}',[AdminController::class , 'cetakSupply']);
+Route::get('/cetakRekap/{tanggal1}/{tanggal2}',[AdminController::class , 'cetakRekap']);
 Route::get('/rincianHutang/cetakHutang/{id}/{tanggal1}/{tanggal2}',[AdminController::class , 'cetakHutang']);
 Route::get('/cetakPenjualanHarian',[AdminController::class , 'cetakPenjualanHarian']);
 

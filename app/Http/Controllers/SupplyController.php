@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Supply;
 use App\Http\Requests\StoreSupplyRequest;
 use App\Http\Requests\UpdateSupplyRequest;
+use App\Models\Rekap;
 use App\Models\Stok;
 use Illuminate\Support\Facades\DB;
 
@@ -39,10 +40,11 @@ class SupplyController extends Controller
              'tanggal' => request()->input('tanggal'),
            
          ]);
-
+        $sup = Supply::select('id')->orderBy('id' , 'desc')->latest()->first();
          $val = request()->input('biaya') ; 
          
          $query = DB::table('rekaps')->insert([
+            "supplie_id" => $sup->id ,
             "tanggal" => request()->input('tanggal') , 
             "transaksi" => 0  , 
             "uang_masuk" => 0, 
@@ -95,6 +97,12 @@ class SupplyController extends Controller
         
 
         $cek = DB::table('supplies')->where('id' , $id)->update($dataUpdate);
+        Rekap::where('supplie_id' , $id)->update([
+           
+            "tanggal" => request()->input('tanggal') , 
+           
+            "uang_keluar" => 0 - request()->input('biaya') , 
+        ]);
         if ($cek) {
             # code...
             return redirect('/dataSupply')->with('berhasilEditSupply' , 'Data Berhasil di Update');
@@ -117,6 +125,7 @@ class SupplyController extends Controller
             return back()->with('tidakBoleh' , 'Mengahapus Data akan menyebabkan jumlah stok menjadi minus');
         }
         DB::table('stoks')->where('id' , $data->stok->id)->update(['jumlah_stok' => $newStok ]);
+        Rekap::where('supplie_id' , $id)->delete();
         $delete =  $data->delete();
        if($delete){
         return back()->with('berhasilHapusSupply' , 'Data Berhasil di Hapus');

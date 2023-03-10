@@ -26,21 +26,35 @@ class AdminController extends Controller
         );
    }
    public function dataPenjualan(){
+    $awal = Carbon::now()->startOfMonth();
+    $akhir = Carbon::now()->endOfMonth();
+    if (request('searchTransaksi') || request('searchTransaksi2')) {
+      $awal = request('searchTransaksi') ;
+      $akhir = request('searchTransaksi2') ;
+    } 
     Sementara::query()->delete();
         return view(
             'component.dataPenjualan' , 
             ["title" => 'Data Penjualan',
-            "transaksi" => Transaksi::orderBy('tanggal' , 'desc')->latest()->SearchTransaksi()->paginate(10)->withQueryString(),
+            "transaksi" => Transaksi::orderBy('tanggal' , 'desc')->latest()->whereBetween('tanggal',[$awal , $akhir])->paginate(50)->withQueryString(),
 
             ]
         );
    }
    public function dataRekap(){
     Sementara::query()->delete();
+    $awal = Carbon::now()->startOfMonth();
+    $akhir = Carbon::now()->endOfMonth();
+    if (request('searchRekap') || request('searchRekap2')) {
+        $awal = request('searchRekap') ; 
+        $akhir = request('searchRekap2') ; 
+    }
+   
+    
         return view(
             'component.dataRekap' , 
             ["title" => 'Data Rekap',
-            "rekap" => Rekap::orderBy('tanggal' , 'asc')->SearchRekap()->paginate(50)->withQueryString(),
+            "rekap" => Rekap::orderBy('tanggal' , 'asc')->whereBetween('tanggal' , [$awal , $akhir] )->paginate(50)->withQueryString(),
 
             ]
         );
@@ -80,15 +94,21 @@ class AdminController extends Controller
             'component.stok'
          , 
         [
-            "stoks" => Stok::orderBy('id' , 'desc')->latest()->SearchStok()->paginate(10)->withQueryString(),
+            "stoks" => Stok::orderBy('id' , 'desc')->latest()->SearchStok()->paginate(40)->withQueryString(),
             "title" => 'Stok Barang' , 
         ]);
    }
    public function dataSupply(){
+    $awal = Carbon::now()->startOfMonth();
+    $akhir = Carbon::now()->endOfMonth();
+    if (request('searchSupply') || request('searchSupply2')) {
+        $awal = request('searchSupply');
+        $akhir = request('searchSupply2');
+    } 
     Sementara::query()->delete();
         return view(
             'component.dataSupply' , 
-            [   "supplys" => Supply::with('stok')->orderBy('id' , 'desc')->latest()->SearchSupply()->paginate(10)->withQueryString(),
+            [   "supplys" => Supply::with('stok')->orderBy('id' , 'desc')->latest()->whereBetween('tanggal' , [$awal , $akhir])->paginate(50)->withQueryString(),
                 "title" => 'Data Supply'
             ]
         );
@@ -128,7 +148,7 @@ class AdminController extends Controller
    }
    public function detailTransaksi($id){
     Sementara::query()->delete();
-    $data = DetailTransaksi::with('stok' , 'transaksi')->orderBy('tanggal' , 'asc')->latest()->select('*')->where('transaksi_id',$id)->paginate(10);
+    $data = DetailTransaksi::with('stok' , 'transaksi')->orderBy('tanggal' , 'asc')->latest()->select('*')->where('transaksi_id',$id)->paginate(20);
     $single = DetailTransaksi::with('stok' , 'transaksi')->latest()->select('kode_transaksi' , 'transaksi_id')->where('transaksi_id',$id)->first();
     
         return view(
@@ -144,7 +164,7 @@ class AdminController extends Controller
    public function detailSupply($id){
     Sementara::query()->delete();
     
-    $data  = Supply::with('stok')->select('*')->where('stok_id',$id)->orderBy('tanggal','desc')->paginate(40);
+    $data  = Supply::with('stok')->select('*')->where('stok_id',$id)->orderBy('tanggal','desc')->paginate(50);
    
         return view(
             'component.detailSupply' , [
@@ -212,10 +232,21 @@ class AdminController extends Controller
     Sementara::query()->delete();
     $data= Supply::with('stok')->select('*')->whereBetween('tanggal' , [$tanggal1 , $tanggal2])->get();
         return view(
-            'component.cetakSupply' , [
+            'component.cetak.cetakSupply' , [
                 'data' => $data,
                  
                 "title" => 'Cetak Supply'
+            ]
+        );
+   }
+   public function cetakRekap($tanggal1 , $tanggal2){
+    Sementara::query()->delete();
+    $data= Rekap::select('*')->whereBetween('tanggal' , [$tanggal1 , $tanggal2])->get();
+        return view(
+            'component.cetak.cetakRekap' , [
+                'data' => $data,
+                 
+                "title" => 'Cetak Rekap'
             ]
         );
    }

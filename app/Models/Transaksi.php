@@ -10,6 +10,7 @@ class Transaksi extends Model
     use HasFactory;
 
     public function scopeSearchTransaksi($query ){
+      
       if (request('searchTransaksi') || request('searchTransaksi2')) {
         $query->whereBetween('tanggal',[request('searchTransaksi') , request('searchTransaksi2')]);
         // ->orWhere('nama_kategori','like','%'.request('search').'%');

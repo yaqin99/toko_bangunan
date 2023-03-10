@@ -84,10 +84,11 @@ class SementaraController extends Controller
              }
 
              $query = DB::table('rekaps')->insert([
-                 "tanggal" => $time , 
+                "transaksi_id" => $roses->id , 
+                "tanggal" => $time , 
                 "transaksi" => $total  , 
                 "uang_masuk" => request()->input('bayar'), 
-                "uang_keluar" => $kembalian , 
+                "uang_keluar" => 0- $kembalian , 
                 "keterangan" => 'Cash',
             ]);
             }
@@ -150,7 +151,8 @@ class SementaraController extends Controller
              }
 
              $query = DB::table('rekaps')->insert([
-                "tanggal" => $time , 
+               "transaksi_id" => $roses->id , 
+               "tanggal" => $time , 
                "transaksi" => $total  , 
                "uang_masuk" => request()->input('bayar'), 
                "uang_keluar" => $kembalian , 
@@ -176,7 +178,7 @@ class SementaraController extends Controller
                     
                 // ]);
                 
-             $hutang =  Hutang::select('id')->orderBy('id' , 'desc')->latest()->first();
+            //  $hutang =  Hutang::select('id')->orderBy('id' , 'desc')->latest()->first();
 
                 // $query = DB::table('detail_hutangs')->insert([
                 //     'customer_id' => request()->input('nama_pelanggan'),
