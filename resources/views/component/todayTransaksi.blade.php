@@ -225,7 +225,7 @@
                  
                   <td class="align-middle text-center text-sm">
                     <span class="badge badge-sm "><a href="/editTransaksi/{{ $sari->id }}"><i class="fas fa-edit fa-lg"></i></a></span>
-                    {{-- <span class="badge badge-sm "><a onclick="return confirm('Yakin Menghapus Data?')" href="/deleteTransaksi/{{ $sari->id }}/{{ $sari->kode_transaksi }}"><i class="fas fa-trash fa-lg"></i></a></span> --}}
+                    <span class="badge badge-sm "><a href="/cetakNota/{{ $sari->id }}"><i class="fas fa-print fa-lg"></i></a></span>
 
                   </td>
                

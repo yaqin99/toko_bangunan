@@ -97,7 +97,7 @@
               <div class="d-flex justify-content-end">
 
                 <a class="btn btn-dark justify-content-end me-2" href="/addDetailTransaksi/{{ $single->transaksi->id }}/{{ $single->transaksi->kode_transaksi }}"><i class="bi bi-plus" ></i>Transaksi</a>
-                <a class="btn btn-dark justify-content-end" href="/cetakPenjualan"><i class="bi bi-printer fa-lg"></i></a>
+                {{-- <a class="btn btn-dark justify-content-end" href="/cetakPenjualan"><i class="bi bi-printer fa-lg"></i></a> --}}
 
               </div>
               <div class="d-flex justify-content-start">

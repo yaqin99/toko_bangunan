@@ -34,6 +34,7 @@ Route::get('/rincianHutang/{id}',[AdminController::class , 'rincianHutang']);
 Route::get('/detailCustomer/{id}',[AdminController::class , 'detailCustomer']);
 
 
+Route::get('/cetakNota/{id}',[AdminController::class , 'cetakNota']);
 Route::get('/cetakDetail/{kode}',[AdminController::class , 'cetakDetail']);
 Route::get('/cetakStok',[AdminController::class , 'cetakStok']);
 Route::get('/cetakHarian',[AdminController::class , 'cetakHarian']);

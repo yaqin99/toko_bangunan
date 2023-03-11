@@ -232,6 +232,18 @@ class AdminController extends Controller
             ]
         );
    }
+   public function cetakNota($id){
+    $data = DetailTransaksi::with(['stok' , 'transaksi'])->select('*')->where('transaksi_id' , $id)->get();
+    $single = DetailTransaksi::with(['stok' , 'transaksi'])->select('*')->where('transaksi_id' , $id)->first();
+    Sementara::query()->delete();
+        return view(
+            'component.cetak.cetakNota' , [
+                'data' => $data,
+                 'single' => $single ,
+                "title" => 'Cetak Nota'
+            ]
+        );
+   }
    public function cetakStok(){
     Sementara::query()->delete();
         return view(
