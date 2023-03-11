@@ -4,6 +4,8 @@
 
 <main class="main-content position-relative border-radius-lg ">
   <!-- Navbar -->
+ 
+  <!-- End Navbar -->
   <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
     <div class="container-fluid py-1 px-3">
       {{-- <nav aria-label="breadcrumb">
@@ -16,17 +18,30 @@
       <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
         <div class="ms-md-auto pe-md-3 d-flex align-items-center">
           
-            {{-- <form action="/dataSupply" method="GET">
-            <input type="text" class="form-control" name="searchSupply"  placeholder="Cari .." value="{{ request('searchSupply') }}">
+            {{-- <form action="/dataCustomers" method="GET">
+            <input type="text" class="form-control" name="search"  placeholder="Cari ..." value="{{ request('search') }}">
         </form> --}}
         </div>
         <ul class="navbar-nav  justify-content-end">
-          <li class="nav-item d-flex align-items-center">
-            <a href="javascript:;" class="nav-link text-white font-weight-bold px-0">
+          
+          @auth
+          <li class="nav-item d-flex align-items-center dropdown">
+            <a href="javascript:;" class="nav-link text-white font-weight-bold px-0" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               <i class="fa fa-user me-sm-1"></i>
-              <span class="d-sm-inline d-none">Sign In</span>
+              <span class="d-sm-inline d-none">Welcome, {{ Auth::user()->name }}</span>
             </a>
+            <ul class="dropdown-menu">
+              <li>
+                <form action="/logOut" method="POST"> 
+                  @csrf
+                 <button class="dropdown-item" type="submit">Keluar</button>
+                </form>
+              </li>
+             
+            </ul>
           </li>
+          
+          @endauth
           <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
             <a href="javascript:;" class="nav-link text-white p-0" id="iconNavbarSidenav">
               <div class="sidenav-toggler-inner">
@@ -46,7 +61,6 @@
       </div>
     </div>
   </nav>
-  <!-- End Navbar -->
   <div class="container-fluid py-4">
     
     <div class="row">
@@ -164,7 +178,7 @@
             <div class="d-flex justify-content-end">
 
               <a class="btn btn-dark  me-2" href="/addTransaksi"><i class="bi bi-plus" ></i>Transaksi</a>
-              <a class="btn btn-dark " href="/cetakHarian"><i class="bi bi-printer fa-lg"></i></a>
+              <a class="btn btn-dark " target="blank" href="/cetakHarian"><i class="bi bi-printer fa-lg"></i></a>
 
             </div>
           </div>
@@ -197,7 +211,7 @@
                     </div>
                   </td>
                   <td>
-                    <h5 class="text-xs font-weight-bold mb-0">{{ $sari->tanggal }}</h5>
+                    <h5 class="text-xs font-weight-bold mb-0">{{ date('d-m-Y', strtotime($sari->tanggal)) }}</h5>
                     {{-- <p class="text-xs text-secondary mb-0">Organization</p> --}}
                   </td>
                   <td class="align-middle text-center">

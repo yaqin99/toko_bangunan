@@ -34,12 +34,6 @@
         </form>
         </div>
         <ul class="navbar-nav  justify-content-end">
-          <li class="nav-item d-flex align-items-center">
-            <a href="javascript:;" class="nav-link text-white font-weight-bold px-0">
-              <i class="fa fa-user me-sm-1"></i>
-              <span class="d-sm-inline d-none" id="sign">Sign In</span>
-            </a>
-          </li>
           <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
             <a href="javascript:;" class="nav-link text-white p-0" id="iconNavbarSidenav">
               <div class="sidenav-toggler-inner">
@@ -49,6 +43,7 @@
               </div>
             </a>
           </li>
+          
           {{-- <li class="nav-item px-3 d-flex align-items-center">
             <a href="javascript:;" class="nav-link text-white p-0">
               <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
@@ -228,7 +223,7 @@
                         <span class="text-dark text-xs font-weight-bold"><strong>Rp. {{ @number_format($hutang->sum('sisa'),2,",",".") }}</strong>  </span>
                       </td>
                       <td class="align-middle text-center">
-                        <span class="text-dark text-xs font-weight-bold"><a href="/lunas/{{ $customer }}/{{ $sisa }}"><strong>{{ $hutang->sum('sisa')=== 0 ? 'Lunas' : 'Belum Lunas' }}</strong></a> </span>
+                        <span class="text-dark text-xs font-weight-bold"><a onclick="return confirm('Fungsi ini akan menghapus seluruh data hutang dan pelanggan! Konfirmasi?')" href="/lunas/{{ $customer }}/{{ $sisa }}"><strong>{{ $hutang->sum('sisa')=== 0 ? 'Lunas' : 'Belum Lunas' }}</strong></a> </span>
                       </td>
                       
                       {{-- <td class="align-middle text-center text-sm">

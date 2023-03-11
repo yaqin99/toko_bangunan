@@ -28,7 +28,7 @@
                 
             <tr>
                 <td scope="row">{{ $loop->index + 1 }}</td>
-                <td>{{ $sariCantik->tanggal }}</td>
+                <td>{{ \Carbon\Carbon::parse($sariCantik->tanggal)->isoFormat(' dddd, D MMMM Y') }}</td>
                 <td>{{ $sariCantik->transaksi }}</td>
                 <td> {{ $sariCantik->uang_masuk }}</td>
                 <td> {{ $sariCantik->uang_keluar }}</td>

@@ -10,16 +10,21 @@ use App\Http\Controllers\DetailTransaksiController;
 use App\Http\Controllers\DetailHutangController;
 use App\Http\Controllers\SementaraController;
 use App\Http\Controllers\CustomersController;
+use App\Http\Controllers\UserController;
 
 // GET METHOD
 
-Route::get('/',[AdminController::class , 'todayTransaksi']);
+Route::get('/',[AdminController::class , 'todayTransaksi'])->middleware('auth');
 Route::get('/dataPenjualan',[AdminController::class , 'dataPenjualan']);
 Route::get('/dataRekap',[AdminController::class , 'dataRekap']);
 Route::get('/stokBarang',[AdminController::class , 'stokBarang']);
 Route::get('/dataHutang',[AdminController::class , 'dataHutang']);
 Route::get('/dataSupply',[AdminController::class , 'dataSupply']);
 Route::get('/dataCustomers',[AdminController::class , 'dataCustomers']);
+
+
+Route::get('/signIn',[AdminController::class , 'signIn'])->name('login')->middleware('guest');
+Route::get('/badayDaftarAdmin',[AdminController::class , 'signUp'])->middleware('guest');
 
 
 Route::get('/detailHutang/{id}/{nama}/{customer_id}',[AdminController::class , 'detailHutang']);
@@ -71,6 +76,16 @@ Route::post('/addDataHutang',[DetailHutangController::class , 'addHutang']);
 Route::post('/addDataHutangLama/{customer_id}/{hutang_id}/{tot}/{bay}/{sis}/{nama}',[DetailHutangController::class , 'addHutangLama']);
 
 
+
+//AUTHENTICATION
+Route::post('/signIn',[UserController::class , 'signIn']);
+Route::post('/signUp',[UserController::class , 'signUp']);
+Route::post('/logOut',[UserController::class , 'logOut']);
+
+
+
+
+
 // DELETE METHOD
 Route::get('/lunas/{customer_id}/{sisa}' , [HutangController::class , 'lunas']);
 Route::get('/deleteStok/{id}' , [StokController::class , 'deleteStok']);
@@ -87,3 +102,6 @@ Route::put('/editTransaksi/{id}/{kode_transaksi}',[TransaksiController::class , 
 Route::put('/editDetailTransaksi/{id}/{transaksi_id}',[DetailTransaksiController::class , 'editDetailTransaksi']);
 Route::put('/editDetailHutang/{id}/{total}/{bayar}/{sisa}/{hutang_id}',[DetailHutangController::class , 'editDetailHutang']);
 Route::put('/editCustomer/{id}',[CustomersController::class , 'editCustomer']);
+
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

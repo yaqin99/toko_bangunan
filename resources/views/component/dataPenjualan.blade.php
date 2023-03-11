@@ -33,12 +33,12 @@
         </form>
         </div>
         <ul class="navbar-nav  justify-content-end">
-          <li class="nav-item d-flex align-items-center">
+          {{-- <li class="nav-item d-flex align-items-center">
             <a href="javascript:;" class="nav-link text-white font-weight-bold px-0">
               <i class="fa fa-user me-sm-1"></i>
               <span class="d-sm-inline d-none">Sign In</span>
             </a>
-          </li>
+          </li> --}}
           <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
             <a href="javascript:;" class="nav-link text-white p-0" id="iconNavbarSidenav">
               <div class="sidenav-toggler-inner">
@@ -108,7 +108,7 @@
               <h6>Data Penjualan</h6>
               <div class="d-flex justify-content-end">
                 <a class="btn btn-dark justify-content-end me-2" href="/addTransaksi"><i class="bi bi-plus" ></i>Transaksi</a>
-                <a onload="cetak()" onclick="noUrl()" class="btn btn-dark justify-content-end" id="cetakPenjualan" href=""><i class="bi bi-printer fa-lg"></i></a>
+                <a onload="cetak()" target="blank" onclick="noUrl()" class="btn btn-dark justify-content-end" id="cetakPenjualan" href=""><i class="bi bi-printer fa-lg"></i></a>
 
               </div>
             

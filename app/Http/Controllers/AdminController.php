@@ -25,6 +25,20 @@ class AdminController extends Controller
             ]
         );
    }
+   public function signIn(){
+        return view(
+            'authentication.signIn' , [
+                'title' => 'Login'
+            ]
+        );
+   }
+   public function signUp(){
+        return view(
+            'authentication.signUp' , [
+                'title' => 'Daftar'
+            ]
+        );
+   }
    public function dataPenjualan(){
     $awal = Carbon::now()->startOfMonth();
     $akhir = Carbon::now()->endOfMonth();
