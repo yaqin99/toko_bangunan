@@ -125,7 +125,7 @@
         <hr>
         <div class="header" style="margin-top: 20px;">
             <h3>Terimakasih</h3>
-            <p>Silahkan berkunjung kembali</p>
+            <p>Barang yang sudah dibeli tidak bisa ditukar atau dikembalikan</p>
         </div>
     </div>
     <script type="text/javascript">

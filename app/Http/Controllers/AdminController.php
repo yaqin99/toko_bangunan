@@ -17,6 +17,27 @@ use Carbon\Carbon;
 
 class AdminController extends Controller
 {
+   public function addKonsumsi(){
+    Sementara::query()->delete();
+
+    $query = DB::table('rekaps')->insert([
+        'tanggal' => Carbon::now(), 
+        'transaksi'  => 0,
+        'uang_masuk' => 0,
+        'uang_keluar' => 0 -  request()->input('konsumsi'),
+        'keterangan' =>  request()->input('keterangan'),
+      
+    ]);
+
+    if ($query) {
+        return back()->with('konsumsi' , 'Tambah Konsumsi Berhasil');
+    } else {
+        return back()->with('gagalKonsumsi' , 'Tambah Konsumsi Gagal');
+
+    }
+
+
+   }
    public function index(){
     Sementara::query()->delete();
         return view(

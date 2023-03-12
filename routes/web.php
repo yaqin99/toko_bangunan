@@ -66,6 +66,7 @@ Route::get('/editCustomer/{id}',[AdminController::class , 'editCustomerLayout'])
 
 // POST METHOD
 Route::post('/addStok',[StokController::class , 'addStok']);
+Route::post('/addKonsumsi',[AdminController::class , 'addKonsumsi']);
 Route::post('/bayarHutang/{customer_id}/{sisa}',[HutangController::class , 'bayarHutang']);
 Route::post('/addPenjualan/{total}',[SementaraController::class , 'addPenjualan']);
 Route::post('/addSupply',[SupplyController::class , 'addSupply']);

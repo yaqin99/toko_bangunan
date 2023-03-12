@@ -63,26 +63,26 @@
     <div class="row">
       <div class="col-12">
         <div class="card mb-6">
-          @if(Session::get('suksesTambahTransaksi'))
+          @if(Session::get('konsumsi'))
           <div class="col-12">
             <div class="alert alert-success">
               <div class="text-light fw-bold">
                 <div class="d-flex justify-content-between">
 
-                  {{ Session::get('suksesTambahTransaksi') }}
+                  {{ Session::get('konsumsi') }}
                   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
               </div>
             </div>
           </div>
         @endif
-        @if(Session::get('berhasilEditSupply'))
+        @if(Session::get('gagalKonsumsi'))
           <div class="col-12">
-            <div class="alert alert-success">
+            <div class="alert alert-danger">
               <div class="text-light fw-bold">
                 <div class="d-flex justify-content-between">
 
-                {{ Session::get('berhasilEditSupply') }}
+                {{ Session::get('gagalKonsumsi') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
               </div>
@@ -107,12 +107,64 @@
             <div class="card-header pb-0">
               <h6>Data Rekap</h6>
               <div class="d-flex justify-content-end">
-                {{-- <a class="btn btn-dark justify-content-end me-2" href="/addTransaksi"><i class="bi bi-plus" ></i>Transaksi</a> --}}
+                <a class="btn btn-dark justify-content-end me-2" data-bs-toggle="modal" data-bs-target="#modalKonsumsi"><i class="bi bi-plus" ></i>Konsumsi</a>
                 <a onload="cetak()" target="blank" onclick="noUrl()" class="btn btn-dark justify-content-end" id="cetakRekap" href=""><i class="bi bi-printer fa-lg"></i></a>
 
               </div>
-            
-            
+           </div>
+           <div class="modal fade" id="modalKonsumsi" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Konsumsi</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" onclick="dismiss()" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <div class="card mb-4">
+          
+          
+                    <div class="card-header pb-0">
+                      
+          
+                  </div>
+                 
+                  
+                  <div class="card-body pb-2">
+                   <div class="col-12">
+                    <div class="table-responsive p-0">
+                      <form  action="/addKonsumsi" name="modal" method="POST" enctype="multipart/form-data">
+                          @csrf
+                         
+                          <div class="mb-3">
+                            <label  class="form-label">Keterangan</label>
+                            <input autocomplete="off" type="text" class="form-control" required name="keterangan"  value="{{ old('keterangan') }}">
+                          </div>
+                          
+                          <div class="mb-3">
+                            <label  class="form-label">Total Konsumsi</label>
+                            <input autocomplete="off" type="number" class="form-control" required name="konsumsi"  value="{{ old('konsumsi') }}">
+                          </div>
+                                           
+                          
+                                           
+                         
+                          <div class="d-flex justify-content-end mb-3">
+                            <button type="button" class="btn btn-secondary me-2" onclick="dismiss()" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" onclick="stringlength(document.modal.nik,16)">Tambah</button>
+                          </div>
+                        </form>
+                      
+                      
+                    </div>
+                   </div>
+                  </div>
+                </div>
+                     
+                  
+              </div>
+            </div>
+          </div>
+          
           </div>
          
           
