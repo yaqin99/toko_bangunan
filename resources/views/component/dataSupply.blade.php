@@ -120,8 +120,8 @@
             <h6>Catatan Supply</h6>
             <div class="d-flex justify-content-end">
 
-            <a class="btn btn-dark me-2" href="/addDataSupply"><i class="bi bi-plus"></i> Catatan</a>
-            <a onload="cetak()" target="blank" onclick="noUrl()" id="cetakSupply" class="btn btn-dark justify-content-end" href=""><i class="bi bi-printer fa-lg"></i></a>
+            <a class="btn btn-dark me-2" href="/addDataSupply">+ Catatan</a>
+            <a onload="cetak()" target="blank" onclick="noUrl()" id="cetakSupply" class="btn btn-dark justify-content-end" href="">Cetak</a>
 
 
             </div>
@@ -166,10 +166,10 @@
                       <span class="text-secondary text-xs font-weight-bold">{{\Carbon\Carbon::parse($sup->tanggal)->isoFormat(' dddd, D MMMM Y')}}</span>
                     </td>
                     <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm "><a href="/editSupply/{{ $sup->id }}"><i class="fas fa-edit fa-lg"></i></a></span>
+                      <span class="badge badge-sm "><a href="/editSupply/{{ $sup->id }}">Edit</a></span>
                     </td>
                     <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm "><a  onclick="return confirm('Yakin Menghapus Data?')" href="/deleteSupply/{{ $sup->id }}"><i class="fas fa-trash fa-lg"></i></a></span>
+                      <span class="badge badge-sm "><a  onclick="return confirm('Yakin Menghapus Data?')" href="/deleteSupply/{{ $sup->id }}">Hapus</a></span>
                     </td>
                   </tr>
                   @endforeach

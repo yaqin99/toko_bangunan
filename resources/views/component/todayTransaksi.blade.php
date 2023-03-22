@@ -177,8 +177,8 @@
             <h6 class="mb-0">Transaksi Harian</h6>
             <div class="d-flex justify-content-end">
 
-              <a class="btn btn-dark  me-2" href="/addTransaksi"><i class="bi bi-plus" ></i>Transaksi</a>
-              <a class="btn btn-dark " target="blank" href="/cetakHarian"><i class="bi bi-printer fa-lg"></i></a>
+              <a class="btn btn-dark  me-2" href="/addTransaksi">+ Transaksi</a>
+              <a class="btn btn-dark " target="blank" href="/cetakHarian">Cetak</a>
 
             </div>
           </div>
@@ -224,8 +224,8 @@
                     <span class="text-secondary text-xs font-weight-bold">Rp.{{ @number_format($sari->kembalian,2,",",".")}}</span>
                  
                   <td class="align-middle text-center text-sm">
-                    <span class="badge badge-sm "><a href="/editTransaksi/{{ $sari->id }}"><i class="fas fa-edit fa-lg"></i></a></span>
-                    <span class="badge badge-sm "><a href="/cetakNota/{{ $sari->id }}"><i class="fas fa-print fa-lg"></i></a></span>
+                    <span class="badge badge-sm "><a href="/editTransaksi/{{ $sari->id }}">Edit</a></span>
+                    <span class="badge badge-sm "><a href="/cetakNota/{{ $sari->id }}">Nota</a></span>
 
                   </td>
                
@@ -423,7 +423,7 @@ function show() {
 }
 
   
-      function stringlength(inputtxt, length)
+  function stringlength(inputtxt, length)
   { 
   var field = document.getElementById("nik").value; 
   var panjang = length;

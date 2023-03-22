@@ -16,7 +16,7 @@
           <a class="nav-link {{ ($title === 'Data Penjualan Harian') ? 'active' : '' }}" href="/">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               {{-- <i class="ni ni-tv-2 "></i> --}}
-              <i class="bi bi-house-door-fill text-dark text-lg opacity-10"></i>
+              <i class="ni ni-shop text-dark text-sm opacity-10"></i>
             </div>
             <span class="nav-link-text ms-1">Beranda</span>
           </a>
@@ -24,7 +24,7 @@
         <li class="nav-item">
           <a class="nav-link {{ ($title === 'Data Penjualan' || $title === 'Tambah Transaksi' || $title === 'Edit Detail Transaksi' || $title === 'Edit Penjualan') || $title === 'Tambah Detail Transaksi' ? 'active' : '' }} " href="/dataPenjualan">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="bi bi-currency-dollar text-dark text-lg opacity-10"></i>
+              <i class="ni ni-laptop text-dark text-sm opacity-10"></i>
             </div>
             <span class="nav-link-text ms-1">Data Penjualan</span>
           </a>
@@ -33,7 +33,7 @@
           <a class="nav-link {{ ($title === 'Stok Barang' || $title === 'Detail Supply' || $title === 'Tambah Stok' || $title === 'Edit Stok') ? 'active' : '' }} " href="/stokBarang">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               {{-- <i class="ni ni-credit-card text-success text-sm opacity-10"></i> --}}
-              <i class="bi bi-card-checklist text-dark text-lg opacity-10"></i>
+              <i class="ni ni-box-2 text-dark text-sm opacity-10"></i>
             </div>
             <span class="nav-link-text ms-1">Stok Barang</span>
           </a>
@@ -41,7 +41,7 @@
         <li class="nav-item">
           <a class="nav-link {{ ($title === 'Data Supply' || $title === 'Tambah Catatan' || $title === 'Edit Supply') ? 'active' : '' }} " href="/dataSupply">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="bi bi-box text-dark text-lg opacity-10"></i>
+              <i class="ni ni-app text-dark text-sm opacity-10"></i>
             </div>
             <span class="nav-link-text ms-1">Data Supply</span>
           </a>
@@ -51,7 +51,7 @@
           <a class="nav-link {{ ($title === 'Rincian Hutang' || $title === 'Data Customer' || $title === 'Tambah Customer' || $title === 'Edit Customer' || $title === 'Detail Customer') ? 'active' : '' }}" href="/dataCustomers">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               {{-- <i class="ni ni-app text-info text-sm opacity-10"></i> --}}
-              <i class="bi bi-person-fill text-dark text-lg opacity-10"></i>
+              <i class="ni ni-circle-08 text-dark text-sm opacity-10"></i>
             </div>
             <div class="d-flex align-items-center">
               

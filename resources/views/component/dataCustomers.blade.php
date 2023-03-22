@@ -178,7 +178,7 @@
                       </span>
                     </td> --}}
                     <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm "><a href="/rincianHutang/{{ $a->id }}"><i class="bi bi-info-circle-fill fa-2x"></i></a></span>
+                      <span class="badge badge-sm "><a href="/rincianHutang/{{ $a->id }}">Detail</a></span>
                       {{-- <span class="badge badge-sm "><a onclick="return confirm('Yakin Menghapus Data?')" href="/deleteTransaksi/{{ $a->id }}/{{ $a->nama_barang }}"><i class="fas fa-trash fa-lg"></i></a></span> --}}
                     </td>
                     {{-- <td class="align-middle text-center text-sm">

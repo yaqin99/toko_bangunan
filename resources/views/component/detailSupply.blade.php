@@ -79,8 +79,8 @@
             <h6>Catatan Supply</h6>
             <div class="d-flex justify-content-end">
 
-            <a class="btn btn-dark me-2" href="/addDataSupplyDetail/{{ $stok_id }}"><i class="bi bi-plus"></i> Catatan</a>
-            <a class="btn btn-dark justify-content-end" href="/cetakSupply"><i class="bi bi-printer fa-lg"></i></a>
+            <a class="btn btn-dark me-2" href="/addDataSupplyDetail/{{ $stok_id }}">+ Catatan</a>
+            <a class="btn btn-dark justify-content-end" href="/cetakSupply">Cetak </a>
 
 
             </div>

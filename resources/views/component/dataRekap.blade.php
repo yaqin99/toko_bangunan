@@ -107,8 +107,8 @@
             <div class="card-header pb-0">
               <h6>Data Rekap</h6>
               <div class="d-flex justify-content-end">
-                <a class="btn btn-dark justify-content-end me-2" data-bs-toggle="modal" data-bs-target="#modalKonsumsi"><i class="bi bi-plus" ></i>Konsumsi</a>
-                <a onload="cetak()" target="blank" onclick="noUrl()" class="btn btn-dark justify-content-end" id="cetakRekap" href=""><i class="bi bi-printer fa-lg"></i></a>
+                <a class="btn btn-dark justify-content-end me-2" data-bs-toggle="modal" data-bs-target="#modalKonsumsi">+ </i>Konsumsi</a>
+                <a onload="cetak()" target="blank" onclick="noUrl()" class="btn btn-dark justify-content-end" id="cetakRekap" href="">Cetak</a>
 
               </div>
            </div>

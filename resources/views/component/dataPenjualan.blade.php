@@ -107,8 +107,8 @@
             <div class="card-header pb-0">
               <h6>Data Penjualan</h6>
               <div class="d-flex justify-content-end">
-                <a class="btn btn-dark justify-content-end me-2" href="/addTransaksi"><i class="bi bi-plus" ></i>Transaksi</a>
-                <a onload="cetak()" target="blank" onclick="noUrl()" class="btn btn-dark justify-content-end" id="cetakPenjualan" href=""><i class="bi bi-printer fa-lg"></i></a>
+                <a class="btn btn-dark justify-content-end me-2" href="/addTransaksi">+ Transaksi</a>
+                <a onload="cetak()" target="blank" onclick="noUrl()" class="btn btn-dark justify-content-end" id="cetakPenjualan" href="">Cetak</a>
 
               </div>
             
@@ -158,8 +158,8 @@
                       <span class="text-secondary text-xs font-weight-bold">Rp.{{ @number_format($sari->kembalian,2,",",".")}}</span>
                    
                     <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm "><a href="/editTransaksi/{{ $sari->id }}"><i class="fas fa-edit fa-lg"></i></a></span>
-                      <span class="badge badge-sm "><a href="/cetakNota/{{ $sari->id }}"><i class="fas fa-print fa-lg"></i></a></span>
+                      <span class="badge badge-sm "><a href="/editTransaksi/{{ $sari->id }}">Edit</a></span>
+                      <span class="badge badge-sm "><a href="/cetakNota/{{ $sari->id }}">Nota</a></span>
 
                       {{-- <span class="badge badge-sm "><a onclick="return confirm('Yakin Menghapus Data?')" href="/deleteTransaksi/{{ $sari->id }}/{{ $sari->kode_transaksi }}"><i class="fas fa-trash fa-lg"></i></a></span> --}}
   

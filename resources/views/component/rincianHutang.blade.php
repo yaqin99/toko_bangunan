@@ -90,8 +90,8 @@
               <h6>Rincian Hutang</h6>
               <div class="d-flex justify-content-end">
 
-                <a class="btn btn-dark me-2 " href="/bayarHutang/{{$sisa}}/{{$customer}}"><i class="bi bi-plus"></i> Bayar</a>
-                <a id="cetakPenjualan" onload="cetak()" onclick="noUrl()" class="btn btn-dark justify-content-end" href=""><i class="bi bi-printer fa-lg"></i></a>
+                <a class="btn btn-dark me-2 " href="/bayarHutang/{{$sisa}}/{{$customer}}">+ Bayar</a>
+                <a id="cetakPenjualan" onload="cetak()" onclick="noUrl()" class="btn btn-dark justify-content-end" href="">Cetak</a>
                 
              </div>
             

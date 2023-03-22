@@ -89,12 +89,10 @@
             <div class="d-flex justify-content-end">
 
             <a class="btn btn-dark me-2" href="/addStok">
-              
-                <i class="bi bi-plus-circle fa-lg"></i>  
-               
+              Tambah Stok
               
             </a>
-            <a class="btn btn-dark justify-content-end" target="blank" href="/cetakStok"><i class="bi bi-printer fa-lg"></i></a>
+            <a class="btn btn-dark justify-content-end" target="blank" href="/cetakStok">Cetak</a>
 
             </div>
             
@@ -139,7 +137,7 @@
                       <span class="badge badge-sm "><a href="/detailSupply/{{ $stok->id }}">Rincian</a></span>
                     </td>
                     <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm "><a href="/editStok/{{ $stok->id }}"><i class="fas fa-edit fa-lg"></i></a></span>
+                      <span class="badge badge-sm "><a href="/editStok/{{ $stok->id }}">Edit</a></span>
                     </td>
                     {{-- <td class="align-middle text-center text-sm">
                       <span class="badge badge-sm "><a  onclick="return confirm('Menghapus data bisa mempengaruhi fungsi data lainnya! Yakin Hapus Data?')" href="/deleteStok/{{ $stok->id }}"><i class="fas fa-trash fa-lg"></i></a></span>
