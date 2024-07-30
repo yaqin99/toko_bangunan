@@ -26,6 +26,7 @@ class CreateBayarsTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('bayars');
+
     }
 }
