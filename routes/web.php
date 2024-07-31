@@ -10,6 +10,8 @@ use App\Http\Controllers\DetailTransaksiController;
 use App\Http\Controllers\DetailHutangController;
 use App\Http\Controllers\SementaraController;
 use App\Http\Controllers\CustomersController;
+use App\Http\Controllers\PajakController;
+use App\Http\Controllers\ZakatController;
 use App\Http\Controllers\UserController;
 
 // GET METHOD
@@ -17,6 +19,8 @@ use App\Http\Controllers\UserController;
 Route::get('/',[AdminController::class , 'todayTransaksi'])->middleware('auth');
 Route::get('/dataPenjualan',[AdminController::class , 'dataPenjualan']);
 Route::get('/dataRekap',[AdminController::class , 'dataRekap']);
+Route::get('/dataPajak',[PajakController::class , 'index']);
+Route::get('/dataZakat',[ZakatController::class , 'index']);
 Route::get('/stokBarang',[AdminController::class , 'stokBarang']);
 Route::get('/dataHutang',[AdminController::class , 'dataHutang']);
 Route::get('/dataSupply',[AdminController::class , 'dataSupply']);
@@ -106,4 +110,4 @@ Route::put('/editDetailHutang/{id}/{total}/{bayar}/{sisa}/{hutang_id}',[DetailHu
 Route::put('/editCustomer/{id}',[CustomersController::class , 'editCustomer']);
 
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

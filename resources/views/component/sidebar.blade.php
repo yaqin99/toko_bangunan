@@ -70,6 +70,17 @@
             </div>
           </a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link {{ ($title === 'Data Rekap' || $title === 'Cetak Hutang') ? 'active' : '' }}" href="/datazakatPajak">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-chart-pie-35 text-dark text-sm opacity-10"></i>
+            </div>
+            <div class="d-flex align-items-center">
+              
+              <span class="nav-link-text ms-1">Pajak dan Zakat</span>
+            </div>
+          </a>
+        </li>
        
         
         
