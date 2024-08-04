@@ -85,7 +85,14 @@
           
        
           <div class="card-header pb-0">
-            <h6>Stok Barang</h6>
+            <h6 class="text-center">Stok Barang</h6>
+            <div class="d-flex justify-content-between">
+            
+            <div class="d-flex justify-content-start">
+
+            <h6>Total Keseluruhan : Rp. 100.000.000</h6>
+
+            </div>
             <div class="d-flex justify-content-end">
 
             <a class="btn btn-dark me-2" href="/addStok">
@@ -94,6 +101,7 @@
             </a>
             <a class="btn btn-dark justify-content-end" target="blank" href="/cetakStok">Cetak</a>
 
+            </div>
             </div>
             
           </div>
@@ -125,11 +133,12 @@
                       </div>
                     </td>
                     <td>
-                      <h5 class="text-xs font-weight-bold mb-0">{{ $stok->jumlah_stok }}</h5>
+                      <h5 class="text-xs font-weight-bold mb-0" >{{ $stok->jumlah_stok }}</h5>
                       {{-- <p class="text-xs text-secondary mb-0">Organization</p> --}}
                     </td>
                     <td>
                       <h5 class="text-xs font-weight-bold mb-0">Rp. {{ @number_format($stok->harga_satuan,2,",",".") }}</h5>
+                      {{-- <input type="number" id="harga_satuan" value="{{$stok->harga_satuan}}" hidden> --}}
                       {{-- <p class="text-xs text-secondary mb-0">Organization</p> --}}
                     </td>
                    
@@ -160,5 +169,8 @@
     @include('component.footer')
   </div>
 </main>
-
+<script>
+  let harga =  document.getElementById('harga_satuan').value; 
+  let harga =  document.getElementById('harga_satuan').value; 
+</script>
 @endsection

@@ -70,6 +70,7 @@ Route::get('/editCustomer/{id}',[AdminController::class , 'editCustomerLayout'])
 
 // POST METHOD
 Route::post('/addStok',[StokController::class , 'addStok']);
+Route::post('/addZakat',[ZakatController::class , 'addZakat']);
 Route::post('/addKonsumsi',[AdminController::class , 'addKonsumsi']);
 Route::post('/bayarHutang/{customer_id}/{sisa}',[HutangController::class , 'bayarHutang']);
 Route::post('/addPenjualan/{total}',[SementaraController::class , 'addPenjualan']);
@@ -95,6 +96,7 @@ Route::post('/logOut',[UserController::class , 'logOut']);
 // DELETE METHOD
 Route::get('/lunas/{customer_id}/{sisa}' , [HutangController::class , 'lunas']);
 Route::get('/deleteStok/{id}' , [StokController::class , 'deleteStok']);
+Route::get('/deleteZakat/{id}' , [ZakatController::class , 'destroy']);
 Route::get('/deleteSementara/{id}' , [SementaraController::class , 'delete']);
 Route::get('/deleteSupply/{id}' , [SupplyController::class , 'deleteSupply']);
 Route::get('/deleteTransaksi/{id}/{kode_transaksi}' , [TransaksiController::class , 'deleteTransaksi']);
