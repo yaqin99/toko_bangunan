@@ -10,6 +10,7 @@ use App\Models\DetailTransaksi;
 use App\Models\Hutang;
 use App\Models\Rekap;
 use App\Models\Stok;
+use App\Models\pajak;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
@@ -46,10 +47,16 @@ class TransaksiController extends Controller
              'stok_id' =>request()->input('nama_barang'),
              'jumlah_barang' =>request()->input('jumlah_barang'),
              'total_biaya'  =>$totalBiaya,
-           
-
-           
          ]);
+
+        if (pajak::exist() === false) {
+           
+        }
+        $totalPajak = $totalBiaya*0.05 ; 
+        $pajak = pajak::create([
+            'nominal' => $totalPajak , 
+            'tanggal' => '' , 
+        ]);
 
         // $data->jumlah_stok = $data->jumlah_stok - request()->input('jumlah_barang');
         // $data->save();

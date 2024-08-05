@@ -11,10 +11,12 @@ class PajakController extends Controller
    
     public function index()
     {
-        $data = Pajak::all();
+        $data = Pajak::searchPajak()->paginate(15);
+        $title = 'Pajak' ; 
         return view(
             'component.pajak' , [
                 'data' => $data , 
+                'title' => $title , 
             ]
         );
     }
