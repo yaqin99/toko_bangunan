@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Sementara;
 use App\Models\Transaksi;
-use App\Models\Hutang;
+use App\Models\pajak;
 use App\Models\Customers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -83,6 +83,14 @@ class SementaraController extends Controller
     
              }
 
+            //  if (pajak::get() === []) {
+            //     $totalPajak = $totalBiaya*0.05 ; 
+            //     pajak::create([
+            //         'nominal' => $totalPajak , 
+            //         'tanggal' => '' , 
+            //     ]);
+            // }
+
              $query = DB::table('rekaps')->insert([
                 "transaksi_id" => $roses->id , 
                 "tanggal" => $time , 
@@ -116,6 +124,12 @@ class SementaraController extends Controller
                 'bayar' =>request()->input('bayar'),
                 'kembalian' => $kembalian , 
             ]);
+
+            $latest = pajak::orderBy('id','desc')->first();
+            pajak::where('id',$latest['id'])->update([
+                'nominal' => $latest->nominal + $total*0.05 , 
+            ]);
+
     
             $readyData = [
                 "nama_barang" => 0 , 

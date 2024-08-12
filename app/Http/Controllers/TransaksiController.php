@@ -13,7 +13,7 @@ use App\Models\Stok;
 use App\Models\pajak;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-
+use Carbon\Carbon ; 
 
 
 
@@ -49,14 +49,15 @@ class TransaksiController extends Controller
              'total_biaya'  =>$totalBiaya,
          ]);
 
-        if (pajak::exist() === false) {
-           
-        }
-        $totalPajak = $totalBiaya*0.05 ; 
-        $pajak = pajak::create([
-            'nominal' => $totalPajak , 
-            'tanggal' => '' , 
-        ]);
+        
+         
+            $latest = pajak::orderBy('id','desc')->first();
+            pajak::where('id',$latest['id'])->update([
+                'nominal' => $latest->nominal + $totalBiaya*0.05 , 
+            ]);
+
+            
+        
 
         // $data->jumlah_stok = $data->jumlah_stok - request()->input('jumlah_barang');
         // $data->save();

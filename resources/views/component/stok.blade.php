@@ -86,13 +86,8 @@
        
           <div class="card-header pb-0">
             <h6 class="text-center">Stok Barang</h6>
-            <div class="d-flex justify-content-between">
             
-            <div class="d-flex justify-content-start">
-
-            <h6>Total Keseluruhan : Rp. 100.000.000</h6>
-
-            </div>
+           
             <div class="d-flex justify-content-end">
 
             <a class="btn btn-dark me-2" href="/addStok">
@@ -102,7 +97,7 @@
             <a class="btn btn-dark justify-content-end" target="blank" href="/cetakStok">Cetak</a>
 
             </div>
-            </div>
+            
             
           </div>
           <div class="card-body p-3 pb-2">

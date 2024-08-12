@@ -5,7 +5,7 @@
         {{-- <img src="./assets/img/logo-ct-dark.png" class="navbar-brand-img h-100" alt="main_logo"> --}}
         <div class="d-flex justify-content-center">
 
-          <span class="ms-1 font-weight-bold">PT. BSG BADAY SEJAHTERA</span>
+          <span class="ms-1 font-weight-bold">SEDERHANA MOTOR</span>
         </div>
       </a>
     </div>
@@ -47,10 +47,9 @@
           </a>
         </li>
 
-        <li class="nav-item">
+        {{-- <li class="nav-item">
           <a class="nav-link {{ ($title === 'Rincian Hutang' || $title === 'Data Customer' || $title === 'Tambah Customer' || $title === 'Edit Customer' || $title === 'Detail Customer') ? 'active' : '' }}" href="/dataCustomers">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              {{-- <i class="ni ni-app text-info text-sm opacity-10"></i> --}}
               <i class="ni ni-circle-08 text-dark text-sm opacity-10"></i>
             </div>
             <div class="d-flex align-items-center">
@@ -58,7 +57,7 @@
               <span class="nav-link-text ms-1">Data Customer</span>
             </div>
           </a>
-        </li>
+        </li> --}}
         <li class="nav-item">
           <a class="nav-link {{ ($title === 'Data Rekap' || $title === 'Cetak Hutang') ? 'active' : '' }}" href="/dataRekap">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">

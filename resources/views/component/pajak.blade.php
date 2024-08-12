@@ -17,7 +17,7 @@
       <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
         <div class="ms-md-auto pe-md-3 d-flex align-items-center">
           
-          <form id="formCari" action="/dataZakat" method="GET">
+          <form id="formCari" action="/dataPajak" method="GET">
              
             <div class="input-group">
               <div class="me-3">
@@ -98,16 +98,7 @@
           <div class="card-header pb-0">
             <h6 class="text-center">Data Pajak</h6>
             
-            <div class="d-flex justify-content-end">
-
-            <a class="btn btn-dark me-2" data-bs-toggle="modal" onclick="pajak()" data-bs-target="#modalPajak">
-              <i class="bi bi-calculator"></i>
-             Hitung Pajak
-              
-            </a>
-
-          
-            </div>
+            
             
           </div>
           <div class="card-body p-3 pb-2">
@@ -143,11 +134,11 @@
                       {{-- <p class="text-xs text-secondary mb-0">Organization</p> --}}
                     </td>
                     <td>
-                      <h5 class="text-xs font-weight-bold mb-0" >{{$k->tanggal}}</h5>
+                      <h5 class="text-xs font-weight-bold mb-0" >{{\Carbon\Carbon::parse($k->tanggal)->isoFormat(' dddd, D MMMM Y')}}</h5>
                       {{-- <p class="text-xs text-secondary mb-0">Organization</p> --}}
                     </td>
                     <td class="align-middle text-center text-sm">
-                        <span class="badge badge-sm "><a href="/deletePajak/{{ $k->id }}" onclick="return confirm('Apakah Anda Yaqin Menghapus Data Pajak Ini ?')" ><i class="bi bi-trash-fill"></i>
+                        <span class="badge badge-sm "><a data-bs-toggle="modal" onclick="pajak({{$k}})" href="" data-bs-target="#modalPajak" ><i class="bi bi-pencil-square"></i>
                         </a></span>
                      
                     </td>
@@ -175,23 +166,14 @@
   </div>
 </main>
 <script>
-   function pajak(){
-    let harga = document.getElementById('sigma').value  
-    let saldo =  document.getElementById('saldo_akhir').value
-    let sup =  document.getElementById('hutang_supplier').value
-    let modal =   document.getElementById('hutang_modal').value
-    harga =  Number(harga)
-    saldo =  Number(saldo)
-    sup =  Number(sup)
-    modal =  Number(modal)
-    let a = harga  + saldo
-    let b = sup + modal ; 
-    let total =  a - b  ; 
-    document.getElementById('totalZakat').value = total*0.025;
-    document.getElementById('totalZakat2').value = total*0.025;
+   function pajak(data){
+    let tanggal = document.getElementById('tanggalPajak').value = data.tanggal ; 
+    let nominal =  document.getElementById('nominalEdit').value = data.nominal ; 
+    let action =  document.getElementById('formEditPajak').action = '/editPajak/'+data.id ; 
+    
+    
   }
 
-  
   const tanggal = () => {
     console.log('tanggal');
     let tanggal = document.getElementById('tanggalCari').value ; 
@@ -200,30 +182,7 @@
     document.getElementById('formCari').submit();
   
   }
-
-//   const cetak = () => {
-//     console.log('cetak');
-//     let tanggal = document.getElementById('tanggalCari').value ; 
-//     let tanggal2 = document.getElementById('tanggalCari2').value ;
-//     document.getElementById('cetakPenjualan').href = '/cetakPenjualan' + '/' + tanggal + '/' + tanggal2 ;
-//     let date = document.getElementById('cetakPenjualan').href ; 
-//     console.log('niBoss ' + date);
-//   }
   
-//   window.onload = (event) => {
-//   cetak();
-
   
-// };
-
-const noUrl = () => {
-  console.log('no');
-  let tanggal = document.getElementById('tanggalCari').value ; 
-  let tanggal2 = document.getElementById('tanggalCari2').value ;
-    if (tanggal === '' && tanggal2 === '') {
-      alert('Silahkan tentukan rentang tanggal untuk di cetak');
-      document.getElementById('cetakPenjualan').href = 'dataPenjualan' ;
-    }
-  }
 </script>
 @endsection

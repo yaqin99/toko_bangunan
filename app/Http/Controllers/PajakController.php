@@ -25,9 +25,16 @@ class PajakController extends Controller
      * Show the form for creating a new resource.
      *
      */
-    public function create()
+    public function editPajak($id)
     {
-        //
+       $update = pajak::where('id',$id)->update([
+            'tanggal' => request('tanggal') , 
+            'nominal' => request('nominal') , 
+        ]);
+
+        if ($update) {
+           return redirect('/dataPajak');
+        }
     }
 
     

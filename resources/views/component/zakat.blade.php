@@ -143,18 +143,19 @@
                       {{-- <p class="text-xs text-secondary mb-0">Organization</p> --}}
                     </td>
                     <td>
-                      <h5 class="text-xs font-weight-bold mb-0" >{{$k->tanggal}}</h5>
+                      <h5 class="text-xs font-weight-bold mb-0" >{{\Carbon\Carbon::parse($k->tanggal)->isoFormat(' dddd, D MMMM Y')}}</h5>
                       {{-- <p class="text-xs text-secondary mb-0">Organization</p> --}}
                     </td>
                     <td class="align-middle text-center text-sm">
-                        <span class="badge badge-sm "><a href="/deleteZakat/{{ $k->id }}" onclick="return confirm('Apakah Anda Yaqin Menghapus Data Zakat Ini ?')" ><i class="bi bi-trash-fill"></i>
+                      <span class="badge badge-sm "><a  href=""  data-bs-toggle="modal" onclick="zakat({{$k}})" href="" data-bs-target="#modalEditZakat"><i class="bi bi-pencil-square"></i></a></span>
+                    </td>
+                    <td class="align-middle text-center text-sm">
+                        <span class="badge badge-sm "><a href="/deleteZakat/{{ $k->id }}" onclick="return confirm('Apakah Anda Yakin Menghapus Data Zakat Ini ?')" ><i class="bi bi-trash-fill"></i>
                         </a></span>
                      
                     </td>
                     
-                    {{-- <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm "><a  onclick="return confirm('Menghapus data bisa mempengaruhi fungsi data lainnya! Yakin Hapus Data?')" href="/deleteStok/{{ $stok->id }}"><i class="fas fa-trash fa-lg"></i></a></span>
-                    </td> --}}
+                    
                   </tr>
                   @endforeach
                 </tbody>
@@ -175,6 +176,14 @@
   </div>
 </main>
 <script>
+
+function zakat(data){
+    let tanggal = document.getElementById('tanggalZakat').value = data.tanggal ; 
+  let nominal =  document.getElementById('nominalZakatEdit').value = data.nominal ; 
+    let action =  document.getElementById('formEditZakat').action = '/editZakat/'+data.id ; 
+    
+    
+  }
    function hitung(){
     let harga = document.getElementById('sigma').value  
     let saldo =  document.getElementById('saldo_akhir').value

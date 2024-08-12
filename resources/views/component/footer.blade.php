@@ -6,7 +6,7 @@
             © <script>
               document.write(new Date().getFullYear())
             </script>,
-            BSG PT. BADAY SEJAHTERA GROUP
+            SEDERHANA MOTOR
           </div>
         </div>
         
