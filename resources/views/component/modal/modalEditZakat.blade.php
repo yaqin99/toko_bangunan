@@ -12,7 +12,7 @@
                 <div class="form-group mb-2">
                     <label for="judul" class="text-dark">Tanggal</label>
                     <div class="input-group">
-                      <input type="date" class="form-control" id="tanggalZakat" required name="tanggal" >
+                      <input type="date" class="form-control" id="tanggalZakatEdit" required name="tanggal" >
                     </div>
                 </div>
                 <div class="form-group mb-2">

@@ -60,9 +60,18 @@ class ZakatController extends Controller
     }
 
   
-    public function edit(zakat $zakat)
+    public function editZakat($id)
     {
-        //
+        $updating = zakat::where('id',$id)->update(
+            [
+                'tanggal' => request('tanggal'),
+                'nominal' => request('nominal'),
+            ]
+        );
+
+        if ($updating) {
+            return redirect('/dataZakat');
+        }
     }
 
   

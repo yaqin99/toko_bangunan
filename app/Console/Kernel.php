@@ -23,7 +23,7 @@ class Kernel extends ConsoleKernel
                 'nominal' => '0' , 
                 'tanggal' => Carbon::now() , 
             ]);
-        })->everyTenMinutes();	
+        })->monthly();	
           
      
     }

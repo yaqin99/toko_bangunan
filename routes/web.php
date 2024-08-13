@@ -104,7 +104,7 @@ Route::get('/deleteDetailHutang/{id}' , [DetailHutangController::class , 'delete
 
 
 // PUT METHOD 
-Route::put('/editPajak/{id}', [PajakController::class , 'editPajak']);
+Route::put('/editZakat/{id}', [ZakatController::class , 'editZakat']);
 Route::put('/editPajak/{id}', [PajakController::class , 'editPajak']);
 Route::put('/editStok/{id}', [StokController::class , 'editStok']);
 Route::put('/editSupply/{id}',[SupplyController::class , 'editSupply']);

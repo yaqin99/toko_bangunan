@@ -118,8 +118,8 @@
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder  bg-dark   text-white">No</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2 bg-dark   text-white">Nominal</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2 bg-dark   text-white">Tanggal</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder  bg-dark   text-white">Aksi</th>
-                    {{-- <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Hapus</th> --}}
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder  bg-dark   text-white">Edit</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder bg-dark text-white">Hapus</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -147,7 +147,7 @@
                       {{-- <p class="text-xs text-secondary mb-0">Organization</p> --}}
                     </td>
                     <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm "><a  href=""  data-bs-toggle="modal" onclick="zakat({{$k}})" href="" data-bs-target="#modalEditZakat"><i class="bi bi-pencil-square"></i></a></span>
+                      <span class="badge badge-sm "><a  href=""  data-bs-toggle="modal" onclick="zakatEdit({{$k}})"  data-bs-target="#modalEditZakat"><i class="bi bi-pencil-square"></i></a></span>
                     </td>
                     <td class="align-middle text-center text-sm">
                         <span class="badge badge-sm "><a href="/deleteZakat/{{ $k->id }}" onclick="return confirm('Apakah Anda Yakin Menghapus Data Zakat Ini ?')" ><i class="bi bi-trash-fill"></i>
@@ -171,16 +171,18 @@
       {{ $data->links() }}
     </div>
     @include('component.modal.modalZakat')
+    @include('component.modal.modalEditZakat')
 
     @include('component.footer')
   </div>
 </main>
 <script>
 
-function zakat(data){
-    let tanggal = document.getElementById('tanggalZakat').value = data.tanggal ; 
-  let nominal =  document.getElementById('nominalZakatEdit').value = data.nominal ; 
-    let action =  document.getElementById('formEditZakat').action = '/editZakat/'+data.id ; 
+function zakatEdit(data){
+  console.log(data)
+  document.getElementById('nominalZakatEdit').value = data.nominal ; 
+  document.getElementById('tanggalZakatEdit').value = data.tanggal ; 
+    document.getElementById('formEditZakat').action = '/editZakat/'+data.id ; 
     
     
   }
