@@ -51,10 +51,10 @@ class TransaksiController extends Controller
 
         
          
-            $latest = pajak::orderBy('id','desc')->first();
-            pajak::where('id',$latest['id'])->update([
-                'nominal' => $latest->nominal + $totalBiaya*0.05 , 
-            ]);
+         $latest = pajak::orderBy('id','desc')->first();
+         pajak::where('id',$latest['id'])->update([
+             'nominal' => $latest->nominal + $totalBiaya*0.05 , 
+         ]);
 
             
         

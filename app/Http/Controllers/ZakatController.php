@@ -23,7 +23,7 @@ class ZakatController extends Controller
     public function index()
     {
         $total = [];
-        $data = Zakat::searchZakat()->paginate(1);
+        $data = Zakat::searchZakat()->paginate(15);
         $stok = Stok::all();
         foreach ($stok as $key) {
           $x = $key['jumlah_stok']*$key['harga_satuan'];
