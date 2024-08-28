@@ -62,8 +62,8 @@
 <body>
     <div class="containery">
         <div class="header" style="margin-bottom: 20px;">
-            <h2>PT. BSG BADAY SEJAHTERA</h2>
-            <small>BATU PUTIH DAYA Kec. Batu Putih, Kabupaten Sumenep, Jawa Timur 69491
+            <h2>Sederhana Motor</h2>
+            <small>Jl. Sersan Mesrul, Kabupaten Pemekasan, Jawa Timur 69315
             </small>
             {{-- <small>BATU PUTIH DAYA D2-D3 NO. 20, Jl. Kyai Haji Zainul Arifin, RT.8/RW.7, Krukut, Kec. Taman Sari, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11140
             </small> --}}
