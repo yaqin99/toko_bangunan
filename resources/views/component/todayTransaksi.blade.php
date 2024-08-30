@@ -250,12 +250,12 @@
         <div class="card h-100 mb-4">
           <div class="card-header pb-0 px-3">
             <div class="row">
-              <div class="col-md-12 mb-3 d-flex justify-content-between">
+              <div class="col-md-12 mb-3 d-flex justify-content-start">
                 <h6 class="mb-0 mt-1">Data Struk</h6>
-                <div class="col-3 d-flex justify-content-around " >
+                {{-- <div class="col-3 d-flex justify-content-around " >
                   <h6 for="cekHutang" class="mt-1">Kredit</h6>
                 <input type="checkbox" name="cekHutang" id="cekHutang" onclick="show()">
-                </div>
+                </div> --}}
               </div>
               <div class="row" id="pelanggan" >
                 <div class="col-md-8">

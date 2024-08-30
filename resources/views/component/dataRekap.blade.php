@@ -177,7 +177,7 @@
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder  bg-dark  text-white">Transaksi</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder  bg-dark  text-white">Uang Masuk</th>
                     
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder  bg-dark  text-white">Sisa</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder  bg-dark  text-white">Uang Keluar</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder  bg-dark  text-white">Keterangan</th>
                   </tr>
                 </thead>
